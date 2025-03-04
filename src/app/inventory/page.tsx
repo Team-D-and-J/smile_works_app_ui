@@ -126,6 +126,9 @@ const InventoryTable = () => {
 				<button className="mt-4 ml-4 px-4 py-2 bg-blue-500 text-white rounded">
 					Place Order
 				</button>
+				<button className="mt-4 ml-4 px-4 py-2 bg-yellow-400 text-black rounded">
+					Receive Order
+				</button>
 			</div>
 		</div>
 	);
