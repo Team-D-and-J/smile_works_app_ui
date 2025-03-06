@@ -5,7 +5,7 @@ import "./globals.css";
 import TopHeader from "../components/TopHeader";
 import LeftNavigation from "../components/LeftNavigation";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { usePathname, useRouter } from "next/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,37 +24,41 @@ export default function RootLayout({
 }>) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const verifyToken = async () => {
       const token = localStorage.getItem("token");
       if (!token) {
-        router.push("/login");
+        setLoading(false);
+        if (pathname !== "/login") {
+          router.replace("/login");
+        }
         return;
       }
       try {
-        const res = await fetch("/api/login/verify", {
+        const res = await fetch("/api/auth/verify", {
           headers: { Authorization: `JWT ${token}` },
         });
         if (res.ok) {
-          const data = await res.json();
-          if (data.authenticated) {
-            setLoading(false);
-          }
+          setLoading(false);
         } else {
           localStorage.removeItem("token");
-          router.push("/login");
+          if (pathname !== "/login") {
+            router.replace("/login");
+          }
         }
       } catch (err) {
         console.error("Verification error:", err);
         localStorage.removeItem("token");
-        router.push("/login");
-      } finally {
-        setLoading(false);
+        if (pathname !== "/login") {
+          router.replace("/login");
+        }
       }
     };
+
     verifyToken();
-  }, []);
+  }, [pathname, router]);
 
   return (
     <html lang="en">
