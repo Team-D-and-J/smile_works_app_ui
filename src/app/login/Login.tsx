@@ -21,6 +21,8 @@ const Login = () => {
         body: JSON.stringify({ username, password }),
       });
       if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("token", data.token);
         router.push("/dashboard");
       }
     } catch (error) {
