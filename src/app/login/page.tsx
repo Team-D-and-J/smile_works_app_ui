@@ -13,7 +13,7 @@ const page = () => {
     e.preventDefault();
     setError(null);
     try {
-      const response = await fetch(`${process.env.baseURL}/api/auth/login`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,27 +34,38 @@ const page = () => {
   }
 
   return (
-    <div className="flex min-h-screen justify-center items-center">
-      <div className="flex flex-col m-5 ">
-        <form action="#" onSubmit={handleLogin} className="flex flex-col gap-5">
-          <label htmlFor="username">Username</label>
+    <div className="flex min-h-screen justify-center items-center bg-gray-100">
+      <div className="flex flex-col w-full max-w-sm p-6 bg-white rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+        <form onSubmit={handleLogin} className="flex flex-col gap-4">
+          <label htmlFor="username" className="text-sm font-medium">Username</label>
           <input
-            type="username"
+            type="text"
             id="username"
             required
+            value={username}
             onChange={(e) => setUsername(e.target.value)}
+            className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter your username"
           />
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password" className="text-sm font-medium">Password</label>
           <input
             type="password"
             id="password"
             required
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter your password"
           />
-          <button type="submit">Login</button>
+          <button
+            type="submit"
+            className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            Login
+          </button>
         </form>
-        {error && <p className="text-red-500">{error}</p>}
-        <a href="">Forgot Password?</a>
+        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+        <a href="#" className="text-blue-500 text-sm mt-4 text-center">Forgot Password?</a>
       </div>
     </div>
   );
