@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
-const Login = () => {
+const page = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     setError(null);
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch(`${process.env.baseURL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -21,7 +21,11 @@ const Login = () => {
         body: JSON.stringify({ username, password }),
       });
       if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("token", data.token);
         router.push("/dashboard");
+      } else {
+        setError("Invalid credentials");
       }
     } catch (error) {
       if (error instanceof Error)
@@ -56,4 +60,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default page;
