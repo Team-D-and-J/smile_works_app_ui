@@ -11,7 +11,7 @@ export default function InsuranceVerification() {
     const [verificationResult, setVerificationResult] = useState<VerificationResponse | null>(null);
     const [loading, setLoading] = useState(false);
     const [details, setDetails] = useState({
-        "insuranceCo": "",
+        "insuranceCompany": "",
         "memberId": "",
         "groupNumber": "",
         "isPrimary": true
@@ -50,12 +50,12 @@ export default function InsuranceVerification() {
                 <label className="block text-left font-medium text-lg">Insurance Company:</label>
                 <input
                     type="text"
-                    name="insuranceCo"
-                    value={details.insuranceCo}
+                    name="insuranceCompany"
+                    value={details.insuranceCompany}
                     onChange={handleChange}
                     className="w-full border p-2 rounded mb-4"
                     required
-                    placeholder="Enter InsuranceCo"
+                    placeholder="Enter insuranceCompany"
                 />
 
                 <label className="block text-left font-medium text-lg">Member ID:</label>
