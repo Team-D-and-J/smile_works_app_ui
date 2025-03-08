@@ -19,3 +19,8 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.AgGrid {
+  width: calc(100vw - 350px);
+  height: calc(100vh - 100px);
+}
