@@ -30,8 +30,6 @@ const TopNavigation = () => {
 				{isOpen && (
 					<div className="absolute top-16 right-0 bg-white shadow-lg rounded-md w-40 border">
 						<ul className="text-black text-sm">
-							<li className="p-3 hover:bg-gray-200 cursor-pointer">Your Profile</li>
-							<li className="p-3 hover:bg-gray-200 cursor-pointer">Settings</li>
 							<li className="p-3 hover:bg-gray-200 cursor-pointer border-t" onClick={handleLogout}>Log out</li>
 						</ul>
 					</div>
