@@ -8,6 +8,7 @@ import { MdOutlineInventory } from "react-icons/md";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { FaClipboardList } from "react-icons/fa";
 import { GrUserAdmin } from "react-icons/gr";
+import { AiOutlineFileProtect } from "react-icons/ai";
 import Link from "next/link";
 
 const LeftNavigation = () => {
@@ -51,16 +52,16 @@ const LeftNavigation = () => {
               Inventory Management
             </div>
           </Link>
+          <Link href="/insurance">
+            <div className="p-2 cursor-pointer flex items-center gap-2">
+              <AiOutlineFileProtect />
+              Insurance
+            </div>
+          </Link>
           <Link href="/admin">
             <div className="p-2 cursor-pointer flex items-center gap-2">
               <GrUserAdmin />
               Admin
-            </div>
-          </Link>
-          <Link href="/patient education">
-            <div className="p-2 cursor-pointer flex items-center gap-2">
-              <MdOutlineInventory />
-              Patient Education
             </div>
           </Link>
         </div>
