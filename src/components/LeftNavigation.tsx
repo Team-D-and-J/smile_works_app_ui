@@ -64,6 +64,12 @@ const LeftNavigation = () => {
               Admin
             </div>
           </Link>
+          <Link href="/patienteducation">
+            <div className="p-2 cursor-pointer flex items-center gap-2">
+              <GrUserAdmin />
+              Patient Education
+            </div>
+          </Link>
         </div>
       </div>
     </div>
