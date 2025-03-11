@@ -5,10 +5,27 @@ import { useRouter } from "next/navigation";
 const TopNavigation = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const router = useRouter();
+	const token = localStorage.getItem("token")
 
-	const handleLogout = () => {
-		localStorage.removeItem("token");
-		router.replace("/login");
+	const handleLogout = async () => {
+		try {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/logout`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+			})
+			if (response.ok) {
+				localStorage.removeItem("token");
+				router.replace("/login");
+			} else {
+				const errorData = await response.json();
+				console.error("Logout failed:", errorData.message || "Unknown error");
+				alert(`Logout failed: ${errorData.message || "Please try again later."}`);
+			}
+		} catch (error) {
+			console.error("Network error:", error);
+			alert("Network error. Please check your internet connection and try again.");
+		}
+
 	}
 
 	return (
