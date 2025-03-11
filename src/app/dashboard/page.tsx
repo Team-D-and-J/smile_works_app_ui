@@ -23,7 +23,7 @@ interface StatCardProps {
   // Reusable StatCard component
 const StatCard: React.FC<StatCardProps> = ({ icon: Icon, text, number, textColor }) => {
 return (
-	<div className={`flex flex-col w-1/3 h-24 items-center ${textColor} bg-[#96C9F4] p-4 shadow-[0px_4px_10px_rgba(0,0,0,0.8)]`}>
+	<div className={`flex flex-col w-1/3 h-24 items-center ${textColor} p-4 shadow-[0px_4px_10px_rgba(0,0,0,0.8)]`}>
 		<div className="flex flex-row gap-2 items-center">
 		  <Icon className="text-xl" /> {/* Icon is properly used */}
 		  <span className={`${textColor}`}>{text}</span>
@@ -54,18 +54,18 @@ const Page: React.FC = () => {
 	<>
 		<div className=" flex flex-col w-full h-full">
 		{/* First section */}
-			<div className="flex w-full my-2 justify-center">
-				<div className="flex flex-col text-left w-2/3 h-auto px-8 py-5 justify-center bg-[#001F3F] border border-gray-200 rounded-md">
-				<p className="mb-3 text-4xl text-[#96C9F4]">Welcome {username ? username : "Guest"}!</p>
-				<p className="mb-3 text-xl text-left text-[#D1E9F6]">{currentDate}</p>
+			<div className="flex w-full my-2 ">
+				<div className="flex flex-col text-left w-2/3 h-auto px-8 py-5 justify-center  ">
+				<p className="mb-3 text-4xl text-[#001F3F]">Welcome {username ? username : "Guest"}!</p>
+				<p className="mb-3 text-xl text-left text-[#001F3F]">{currentDate}</p>
 				</div>
 			</div>
 
 			{/* Second section */}
 			<div className="flex flex-row w-full gap-2 mx-2 my-4 h-[180px] items-start h-16">
-				<StatCard icon={FiCalendar} text="Total Appointments" textColor="text-[#255F38]" number={9} />
-				<StatCard icon={FiX} text="Cancelled Appointments" textColor="text-[#D71313]" number={3} />
-				<StatCard icon={FiSlash} text="Missed Appointments" textColor="text-[#2A004E]" number={2} />
+				<StatCard icon={FiCalendar} text="Total Appointments" textColor="text-[#001F3F]" number={9} />
+				<StatCard icon={FiX} text="Cancelled Appointments" textColor="text-[#001F3F]" number={3} />
+				<StatCard icon={FiSlash} text="Missed Appointments" textColor="text-[#001F3F]" number={2} />
 			</div>
 
 				{/*Pie Chart Section - Inserted before the third section */}
