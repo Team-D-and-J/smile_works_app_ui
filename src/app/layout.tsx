@@ -25,6 +25,7 @@ export default function RootLayout({
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
+  const isLoginPage = pathname === "/login";
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -37,7 +38,7 @@ export default function RootLayout({
         return;
       }
       try {
-        const res = await fetch("/api/auth/verify", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/verify`, {
           headers: { Authorization: `JWT ${token}` },
         });
         if (res.ok) {
@@ -65,12 +66,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {loading ? (
-          <p>loading spinner</p>
+      {loading ? (
+          <p>Loading Spinner</p>
+        ) : isLoginPage ? (
+          children
         ) : (
           <>
             <TopHeader />
-            <div className="flex">
+            <div className="flex bg-white">
               <LeftNavigation />
               {children}
             </div>

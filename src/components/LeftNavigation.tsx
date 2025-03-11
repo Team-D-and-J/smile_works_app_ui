@@ -13,7 +13,7 @@ import Link from "next/link";
 const LeftNavigation = () => {
 	return (
 		<div>
-			<div className="flex flex-col w-[350px] h-screen p-2 bg-gray-300 items-center">
+			<div className="flex flex-col w-[350px] h-screen p-2 bg-[#96C9F4] items-center">
 				<div className="flex mt-20 flex-col text-2xl p-2 gap-8 justify-between">
 					<Link href="/dashboard">
 						<div className="flex cursor-pointer items-center gap-2 p-2">
