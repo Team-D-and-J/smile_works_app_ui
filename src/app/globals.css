@@ -24,3 +24,18 @@ body {
   width: calc(100vw - 350px);
   height: calc(100vh - 100px);
 }
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #0056b3;
+}
+
+

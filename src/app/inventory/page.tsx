@@ -1,7 +1,7 @@
 import GridExample from "@/components/inventory/InventoryView";
 import { StrictMode } from "react";
 
-const page = () => {
+const InventoryPage = () => {
 	return (
 		<div className=" w-full">
 			<StrictMode>
@@ -11,4 +11,4 @@ const page = () => {
 	);
 };
 
-export default page;
+export default InventoryPage;
