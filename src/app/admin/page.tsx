@@ -1,7 +1,17 @@
 import React from "react";
+import Link from "next/link";
 
 const page = () => {
-	return <div>page</div>;
+	return (
+		<div className="flex flex-col ">
+			<h1 className="text-3xl p-4">Admin Page</h1>
+			<Link href="/admin/inventorysetup">
+				<p className="p-4 m-4 text-xl bg-blue-500 rounded-xl text-white">
+					Inventory Setup
+				</p>
+			</Link>
+		</div>
+	);
 };
 
 export default page;
