@@ -10,8 +10,8 @@ const style = {
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	width: "80%",
-	height: "80%",
+	width: "50%",
+	height: "40%",
 	bgcolor: "background.paper",
 	border: "2px solid #000",
 	boxShadow: 24,
@@ -185,16 +185,13 @@ export default function BasicModal() {
 									className="border p-2 rounded w-full"
 								/>
 							</div>
-							<button
-								type="submit"
-								className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded transition"
-							>
-								Add Product
-							</button>
 						</form>
 					</div>
 					<div className="flex justify-around mt-4 gap-4">
-						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+						<button
+							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+							onClick={handleSubmit}
+						>
 							Save Item
 						</button>
 						<button
