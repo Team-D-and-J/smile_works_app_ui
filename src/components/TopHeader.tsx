@@ -29,10 +29,10 @@ const TopNavigation = () => {
 	}
 
 	return (
-		<div className="flex w-full h-[100px] bg-gray-300 justify-between items-center px-6 shadow-md">
+		<div className="flex w-full h-[100px] bg-[#D9EAFD] justify-between items-center px-6 shadow-md">
 			{/* Left: Logo */}
 			<div className="flex items-center">
-				<Image src="/logo.png" alt="Smile Works logo" width={150} height={75} className="m-4" />
+				<Image src="/logo.png" alt="Smile Works logo" width={150} height={75} className="m-4 rounded-md" />
 			</div>
 
 			<div className="relative flex items-center gap-4 cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
@@ -43,7 +43,7 @@ const TopNavigation = () => {
 					width={60}
 					height={60}
 				/>
-				<div className="text-xl">Dr. Userman</div>
+				<div className="text-xl text-[#001F3F]">Dr. Userman</div>
 				{isOpen && (
 					<div className="absolute top-16 right-0 bg-white shadow-lg rounded-md w-40 border">
 						<ul className="text-black text-sm">
