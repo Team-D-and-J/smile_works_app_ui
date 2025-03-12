@@ -112,6 +112,7 @@ const Page = () => {
                     name="selectedProcedure"
                     value={selectedData.selectedProcedure}
                     onChange={changeHandler}
+                    required
                     className="w-full p-2 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
                 >
                     <option value="" disabled>
@@ -132,8 +133,12 @@ const Page = () => {
                             name="selectedSpecification"
                             value={selectedData.selectedSpecification}
                             onChange={changeHandler}
+                            required
                             className="w-full p-2 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
                         >
+                            <option value="" disabled>
+                                Select Specification
+                            </option>
                             {current.specification?.map((spec, id) => (
                                 <option key={id}>{spec.name}</option>
                             ))}
@@ -149,8 +154,12 @@ const Page = () => {
                     name="selectedInsurance"
                     value={selectedData.selectedInsurance}
                     onChange={changeHandler}
+                    required
                     className="w-full p-2 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6"
                 >
+                    <option value="" disabled>
+                        Select Insurance
+                    </option>
                     {insurance.map((insurance) => (
                         <option key={insurance.id}>{insurance.name}</option>
                     ))}
