@@ -23,6 +23,7 @@ const page = () => {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("token", data.token);
+        localStorage.setItem("username", username); // Store the username
         router.push("/dashboard");
       } else {
         setError("Invalid credentials");
