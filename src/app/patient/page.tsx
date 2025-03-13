@@ -70,22 +70,12 @@ const Page = () => {
         onSubmit={handleSubmit}
       >
         <div className="flex flex-col">
-          <label htmlFor="firstName" className="text-sm font-medium">
-            First name
+          <label htmlFor="name" className="text-sm font-medium">
+            Name
           </label>
           <input
             type="text"
-            id="firstName"
-            className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="lastName" className="text-sm font-medium">
-            Last name
-          </label>
-          <input
-            type="text"
-            id="lastName"
+            id="name"
             className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
