@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const InventoryButtons = ({patient}) => {
@@ -7,11 +8,11 @@ const InventoryButtons = ({patient}) => {
 
 				{/* Links Section */}
 				<div className="space-x-2">
-					<button className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-900">Patient Education</button>
-					<button className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-900">Cost Estimation</button>
-					<button className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-900">Edit Patient Info</button>
-					<button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-800">Create New Patient</button>
-				</div>
+                    <Link href="/patienteducation" className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-900">Patient Education</Link>
+					<Link href="/costestimator" className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-900">Cost Estimation</Link>
+					<Link href="/editpatient" className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-900">Edit Patient Info</Link>
+					<Link href="/createpatient" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-800">Create New Patient</Link>
+                </div>
 			</div>
     );
 };
