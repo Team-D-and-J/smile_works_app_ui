@@ -1,15 +1,16 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import AdminAddItemModal from "@/components/admin/AdminAddItemModal";
+import { FaEllipsisH } from "react-icons/fa";
 
-// Define the Inventory interface.
-// Note: I've set unitPrice as number here. Adjust as needed.
 interface Inventory {
 	_id: string;
-	productId: string;
+
 	name: string;
 	unitOfMeasure: string;
 	unitPrice: number;
+	brand: string;
+	category: string;
 }
 
 const InventoryTable = () => {
@@ -19,10 +20,11 @@ const InventoryTable = () => {
 
 	// State for filtering: one field per column (except Actions)
 	const [filters, setFilters] = useState({
-		productId: "",
 		name: "",
 		unitOfMeasure: "",
 		unitPrice: "",
+		brand: "",
+		category: "",
 	});
 
 	// Sort configuration state
@@ -97,18 +99,12 @@ const InventoryTable = () => {
 	// First, filter the inventory.
 	const filteredInventory = inventory.filter(
 		(item) =>
-			item.productId
-				.toLowerCase()
-				.includes(filters.productId.toLowerCase()) &&
 			item.name.toLowerCase().includes(filters.name.toLowerCase()) &&
 			item.unitOfMeasure
 				.toLowerCase()
 				.includes(filters.unitOfMeasure.toLowerCase()) &&
-			// Convert unitPrice to string for filtering
-			item.unitPrice
-				.toString()
-				.toLowerCase()
-				.includes(filters.unitPrice.toLowerCase())
+			item.brand.toLowerCase().includes(filters.brand.toLowerCase()) &&
+			item.category.toLowerCase().includes(filters.category.toLowerCase())
 	);
 
 	// Then, sort the filtered inventory.
@@ -147,14 +143,7 @@ const InventoryTable = () => {
 				<thead>
 					<tr className="bg-gray-200">
 						{/* Clickable column headers that trigger sorting */}
-						<th
-							className="border px-4 py-2 cursor-pointer"
-							onClick={() => handleSort("productId")}
-						>
-							Product ID{" "}
-							{sortConfig.key === "productId" &&
-								(sortConfig.direction === "asc" ? "↑" : "↓")}
-						</th>
+
 						<th
 							className="border px-4 py-2 cursor-pointer"
 							onClick={() => handleSort("name")}
@@ -173,25 +162,25 @@ const InventoryTable = () => {
 						</th>
 						<th
 							className="border px-4 py-2 cursor-pointer"
-							onClick={() => handleSort("unitPrice")}
+							onClick={() => handleSort("brand")}
 						>
-							Unit Price{" "}
-							{sortConfig.key === "unitPrice" &&
+							Brand{" "}
+							{sortConfig.key === "brand" &&
 								(sortConfig.direction === "asc" ? "↑" : "↓")}
 						</th>
+						<th
+							className="border px-4 py-2 cursor-pointer"
+							onClick={() => handleSort("category")}
+						>
+							Category{" "}
+							{sortConfig.key === "category" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
+						</th>
+
 						<th className="border px-4 py-2">Actions</th>
 					</tr>
 					{/* Filtering row */}
 					<tr>
-						<th className="border px-4 py-2">
-							<input
-								type="text"
-								value={filters.productId}
-								onChange={(e) => handleFilterChange(e, "productId")}
-								placeholder="Filter Product ID"
-								className="w-full p-1 border rounded"
-							/>
-						</th>
 						<th className="border px-4 py-2">
 							<input
 								type="text"
@@ -213,28 +202,39 @@ const InventoryTable = () => {
 						<th className="border px-4 py-2">
 							<input
 								type="text"
-								value={filters.unitPrice}
-								onChange={(e) => handleFilterChange(e, "unitPrice")}
-								placeholder="Filter Price"
+								value={filters.brand}
+								onChange={(e) => handleFilterChange(e, "brand")}
+								placeholder="Filter Brand"
 								className="w-full p-1 border rounded"
 							/>
 						</th>
+						<th className="border px-4 py-2">
+							<input
+								type="text"
+								value={filters.category}
+								onChange={(e) => handleFilterChange(e, "category")}
+								placeholder="Filter category"
+								className="w-full p-1 border rounded"
+							/>
+						</th>
+
 						<th className="border px-4 py-2"></th>
 					</tr>
 				</thead>
 				<tbody>
 					{sortedInventory.map((item) => (
 						<tr key={item._id}>
-							<td className="border px-4 py-2">{item.productId}</td>
 							<td className="border px-4 py-2">{item.name}</td>
 							<td className="border px-4 py-2">{item.unitOfMeasure}</td>
-							<td className="border px-4 py-2">{item.unitPrice}</td>
+							<td className="border px-4 py-2">{item.brand}</td>
+							<td className="border px-4 py-2">{item.category}</td>
+
 							<td className="border px-4 py-2">
 								<button
-									onClick={() => handleDelete(item._id)}
-									className="bg-red-500 text-white px-2 py-1 rounded mr-2"
+									onClick={() => alert("Delete")}
+									className="px-2 py-1 rounded mr-2"
 								>
-									Delete
+									<FaEllipsisH />
 								</button>
 							</td>
 						</tr>
