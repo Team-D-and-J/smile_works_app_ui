@@ -13,7 +13,8 @@ interface Inventory {
 	name: string;
 	unitOfMeasure: string;
 	unitPrice: number;
-	vendorName: string;
+	brand: string;
+	category: string;
 }
 
 const InventoryTable = () => {
@@ -28,7 +29,8 @@ const InventoryTable = () => {
 			unitPrice: 0,
 			stock: 0,
 			stockThreshold: 0,
-			vendorName: "",
+			brand: "",
+			category: "",
 		},
 	]);
 	const [loading, setLoading] = useState(true);
@@ -42,6 +44,8 @@ const InventoryTable = () => {
 		unitPrice: "",
 		stock: "",
 		stockThreshold: "",
+		brand: "",
+		category: "",
 	});
 
 	// Sort configuration state
@@ -77,25 +81,6 @@ const InventoryTable = () => {
 		fetchInventory();
 	}, []);
 
-	// Delete handler: remove an item from the state.
-	const handleDelete = async (_id: string) => {
-		console.log("Delete inventory with id:", _id);
-		const response = await fetch(
-			`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/inventory/${_id}`,
-			{
-				method: "DELETE",
-				headers: {
-					Authorization: `JWT ${localStorage.getItem("token")}`,
-				},
-			}
-		);
-		if (!response.ok) {
-			throw new Error("Failed to delete inventory");
-		}
-		const updatedInventory = inventory.filter((item) => item._id !== _id);
-		setInventory(updatedInventory);
-	};
-
 	// Handle change in filter input fields.
 	const handleFilterChange = (
 		e: React.ChangeEvent<HTMLInputElement>,
@@ -116,26 +101,23 @@ const InventoryTable = () => {
 	// First, filter the inventory.
 	const filteredInventory = inventory.filter(
 		(item) =>
-			item.productId
+			(item.productId || "")
 				.toLowerCase()
 				.includes(filters.productId.toLowerCase()) &&
-			item.clinicId.toLowerCase().includes(filters.clinicId.toLowerCase()) &&
-			item.name.toLowerCase().includes(filters.name.toLowerCase()) &&
-			// Fix applied here: use (item.unitOfMeasure || "") instead of item?.unitOfMeasure?
+			(item.clinicId || "")
+				.toLowerCase()
+				.includes(filters.clinicId.toLowerCase()) &&
+			(item.name || "").toLowerCase().includes(filters.name.toLowerCase()) &&
 			(item.unitOfMeasure || "")
 				.toLowerCase()
 				.includes(filters.unitOfMeasure.toLowerCase()) &&
-			// Convert unitPrice to string for filtering
-			item.unitPrice
-				.toString()
+			String(item.unitPrice ?? "")
 				.toLowerCase()
 				.includes(filters.unitPrice.toLowerCase()) &&
-			item.stock
-				.toString()
+			String(item.stock ?? "")
 				.toLowerCase()
 				.includes(filters.stock.toLowerCase()) &&
-			item.stockThreshold
-				.toString()
+			String(item.stockThreshold ?? "")
 				.toLowerCase()
 				.includes(filters.stockThreshold.toLowerCase())
 	);
@@ -224,6 +206,22 @@ const InventoryTable = () => {
 							{sortConfig.key === "stockThreshold" &&
 								(sortConfig.direction === "asc" ? "↑" : "↓")}
 						</th>
+						<th
+							className="border px-4 py-2 cursor-pointer"
+							onClick={() => handleSort("brand")}
+						>
+							Brand{" "}
+							{sortConfig.key === "brand" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
+						</th>
+						<th
+							className="border px-4 py-2 cursor-pointer"
+							onClick={() => handleSort("category")}
+						>
+							Category{" "}
+							{sortConfig.key === "category" &&
+								(sortConfig.direction === "asc" ? "↑" : "↓")}
+						</th>
 						<th className="border px-4 py-2">Actions</th>
 					</tr>
 					{/* Filtering row */}
@@ -284,6 +282,24 @@ const InventoryTable = () => {
 								className="w-full p-1 border rounded"
 							/>
 						</th>
+						<th className="border px-4 py-2">
+							<input
+								type="text"
+								value={filters.brand}
+								onChange={(e) => handleFilterChange(e, "brand")}
+								placeholder="Brand"
+								className="w-full p-1 border rounded"
+							/>
+						</th>
+						<th className="border px-4 py-2">
+							<input
+								type="text"
+								value={filters.category}
+								onChange={(e) => handleFilterChange(e, "category")}
+								placeholder="Category"
+								className="w-full p-1 border rounded"
+							/>
+						</th>
 						<th className="border px-4 py-2"></th>
 					</tr>
 				</thead>
@@ -296,6 +312,8 @@ const InventoryTable = () => {
 							<td className="border px-4 py-2">{item.unitPrice}</td>
 							<td className="border px-4 py-2">{item.stock}</td>
 							<td className="border px-4 py-2">{item.stockThreshold}</td>
+							<td className="border px-4 py-2">{item.brand}</td>
+							<td className="border px-4 py-2">{item.category}</td>
 							<td className="border px-4 py-2">
 								<div>
 									<EllipsesMenu item={item} />

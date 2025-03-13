@@ -85,7 +85,8 @@ export default function ProductTable() {
 					body: JSON.stringify({
 						productId: item._id,
 						clinicId: 1,
-						name: item.name,
+						name: formData[item._id]?.name || item.name,
+
 						unitOfMeasure: item.unitOfMeasure,
 						unitPrice: formData[item._id]?.unitPrice || item.unitPrice,
 						stock: formData[item._id]?.stock || item.stock,
