@@ -101,6 +101,7 @@ export default function ProductTable() {
 				throw new Error("Failed to add product to inventory");
 			}
 			alert("Product added successfully!");
+			location.reload();
 		} catch (error) {
 			console.error("Error adding product:", error);
 		}

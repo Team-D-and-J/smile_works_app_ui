@@ -158,14 +158,7 @@ const InventoryTable = () => {
 				<thead>
 					<tr className="bg-gray-200">
 						{/* Clickable column headers that trigger sorting */}
-						<th
-							className="border px-4 py-2 cursor-pointer"
-							onClick={() => handleSort("productId")}
-						>
-							Product ID{" "}
-							{sortConfig.key === "productId" &&
-								(sortConfig.direction === "asc" ? "↑" : "↓")}
-						</th>
+
 						<th
 							className="border px-4 py-2 cursor-pointer"
 							onClick={() => handleSort("name")}
@@ -226,15 +219,6 @@ const InventoryTable = () => {
 					</tr>
 					{/* Filtering row */}
 					<tr>
-						<th className="border px-4 py-2">
-							<input
-								type="text"
-								value={filters.productId}
-								onChange={(e) => handleFilterChange(e, "productId")}
-								placeholder="Filter Product ID"
-								className="w-full p-1 border rounded"
-							/>
-						</th>
 						<th className="border px-4 py-2">
 							<input
 								type="text"
@@ -306,7 +290,6 @@ const InventoryTable = () => {
 				<tbody>
 					{sortedInventory.map((item) => (
 						<tr key={item._id}>
-							<td className="border px-4 py-2">{item.productId}</td>
 							<td className="border px-4 py-2">{item.name}</td>
 							<td className="border px-4 py-2">{item.unitOfMeasure}</td>
 							<td className="border px-4 py-2">{item.unitPrice}</td>

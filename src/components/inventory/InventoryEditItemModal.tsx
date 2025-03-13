@@ -95,7 +95,8 @@ export default function BasicModal({ item }) {
 					brand: formData.brand,
 					category: formData.category,
 				}),
-			}
+			},
+			location.reload()
 		);
 		if (!response.ok) {
 			throw new Error("Failed to Edit inventory");
