@@ -53,6 +53,13 @@ function InventoryReorder({ inventory }) {
 	const [error, setError] = useState(null);
 	const [purchaseOrders, setPurchaseOrders] = useState([]);
 
+	// New state for filtering and sorting open orders
+	const [orderSearch, setOrderSearch] = useState("");
+	const [orderSortConfig, setOrderSortConfig] = useState({
+		key: "",
+		direction: "asc",
+	});
+
 	// Fetch purchase orders and compute items to reorder on component mount
 	useEffect(() => {
 		const fetchPurchaseOrders = async () => {
@@ -97,7 +104,7 @@ function InventoryReorder({ inventory }) {
 							filteredOrders
 						);
 
-						// Sum up the outstanding quantities (requested - received) from the matching orders.
+						// Sum up outstanding quantities (requested - received) from the matching orders.
 						const onOrder = filteredOrders.reduce((sum, order) => {
 							const requested = Number(
 								order.requestedQuantity ?? order.quantity ?? 0
@@ -139,6 +146,43 @@ function InventoryReorder({ inventory }) {
 		const received = Number(order.receivedQuantity ?? 0);
 		return order.isReceived === false && requested - received > 0;
 	});
+
+	// Filter open orders by search query (search in name and clinicId)
+	const filteredOpenOrders = openOrders.filter((order) => {
+		const searchTerm = orderSearch.toLowerCase();
+		return (
+			order.name.toLowerCase().includes(searchTerm) ||
+			order.clinicId.toLowerCase().includes(searchTerm)
+		);
+	});
+
+	// Sort the filtered open orders based on orderSortConfig
+	const sortedOpenOrders = [...filteredOpenOrders].sort((a, b) => {
+		if (!orderSortConfig.key) return 0;
+		let aValue = a[orderSortConfig.key];
+		let bValue = b[orderSortConfig.key];
+		if (typeof aValue === "number" && typeof bValue === "number") {
+			return orderSortConfig.direction === "asc"
+				? aValue - bValue
+				: bValue - aValue;
+		} else {
+			aValue = aValue.toString().toLowerCase();
+			bValue = bValue.toString().toLowerCase();
+			if (aValue < bValue)
+				return orderSortConfig.direction === "asc" ? -1 : 1;
+			if (aValue > bValue)
+				return orderSortConfig.direction === "asc" ? 1 : -1;
+			return 0;
+		}
+	});
+
+	const handleOrderSort = (key) => {
+		let direction = "asc";
+		if (orderSortConfig.key === key && orderSortConfig.direction === "asc") {
+			direction = "desc";
+		}
+		setOrderSortConfig({ key, direction });
+	};
 
 	// Toggle selection of an item in the reorder list
 	const toggleItemSelection = (productId) => {
@@ -298,7 +342,7 @@ function InventoryReorder({ inventory }) {
 	};
 
 	return (
-		<div className=" w-full mx-auto p-4 bg-white rounded shadow">
+		<div className="w-full mx-auto p-4 bg-white rounded shadow">
 			<h2 className="text-xl font-semibold mb-4">🛒 Inventory Reorder</h2>
 
 			{/* Error Message */}
@@ -387,25 +431,66 @@ function InventoryReorder({ inventory }) {
 			)}
 
 			{/* Open Purchase Orders Table - Always Show */}
-			<div className="overflow-x-auto min-h-[200px] mb-6">
+			<div className="overflow-x-auto min-h-[800px] mb-6">
 				<h3 className="text-lg font-semibold mb-2">Open Purchase Orders</h3>
+
 				<table className="min-w-full border border-gray-300">
 					<thead className="bg-gray-100">
 						<tr>
-							<th className="px-4 py-2 text-left border-b border-gray-300">
-								Name
+							<th
+								className="px-4 py-2 text-left border-b border-gray-300 cursor-pointer"
+								onClick={() => handleOrderSort("name")}
+							>
+								Name{" "}
+								{orderSortConfig.key === "name"
+									? orderSortConfig.direction === "asc"
+										? "↑"
+										: "↓"
+									: ""}
 							</th>
-							<th className="px-4 py-2 text-left border-b border-gray-300">
-								Clinic ID
+							<th
+								className="px-4 py-2 text-left border-b border-gray-300 cursor-pointer"
+								onClick={() => handleOrderSort("clinicId")}
+							>
+								Clinic ID{" "}
+								{orderSortConfig.key === "clinicId"
+									? orderSortConfig.direction === "asc"
+										? "↑"
+										: "↓"
+									: ""}
 							</th>
-							<th className="px-4 py-2 text-left border-b border-gray-300">
-								Requested
+							<th
+								className="px-4 py-2 text-left border-b border-gray-300 cursor-pointer"
+								onClick={() => handleOrderSort("requestedQuantity")}
+							>
+								Requested{" "}
+								{orderSortConfig.key === "requestedQuantity"
+									? orderSortConfig.direction === "asc"
+										? "↑"
+										: "↓"
+									: ""}
 							</th>
-							<th className="px-4 py-2 text-left border-b border-gray-300">
-								Received
+							<th
+								className="px-4 py-2 text-left border-b border-gray-300 cursor-pointer"
+								onClick={() => handleOrderSort("receivedQuantity")}
+							>
+								Received{" "}
+								{orderSortConfig.key === "receivedQuantity"
+									? orderSortConfig.direction === "asc"
+										? "↑"
+										: "↓"
+									: ""}
 							</th>
-							<th className="px-4 py-2 text-left border-b border-gray-300">
-								Outstanding
+							<th
+								className="px-4 py-2 text-left border-b border-gray-300 cursor-pointer"
+								onClick={() => handleOrderSort("outstanding")}
+							>
+								Outstanding{" "}
+								{orderSortConfig.key === "outstanding"
+									? orderSortConfig.direction === "asc"
+										? "↑"
+										: "↓"
+									: ""}
 							</th>
 							<th className="px-4 py-2 text-center border-b border-gray-300">
 								Action
@@ -413,14 +498,14 @@ function InventoryReorder({ inventory }) {
 						</tr>
 					</thead>
 					<tbody>
-						{openOrders.length === 0 ? (
+						{sortedOpenOrders.length === 0 ? (
 							<tr>
 								<td colSpan="6" className="px-4 py-2 text-center">
 									No open purchase orders.
 								</td>
 							</tr>
 						) : (
-							openOrders.map((order, index) => {
+							sortedOpenOrders.map((order, index) => {
 								const requested = Number(
 									order.requestedQuantity ?? order.quantity ?? 0
 								);
@@ -450,7 +535,6 @@ function InventoryReorder({ inventory }) {
 											>
 												Receive
 											</button>
-											{/* Use EllipsisMenu for Delete option */}
 											<EllipsisMenu
 												onDelete={() =>
 													handleDeletePurchaseOrder(order)

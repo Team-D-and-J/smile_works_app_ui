@@ -46,13 +46,11 @@ const LeftNavigation = () => {
 							)}
 						</div>
 					</Link>
-					<Link href="/costestimator">
+					<Link href="/payments">
 						<div className="flex items-center gap-2 p-2 cursor-pointer">
 							<MdAttachMoney className="text-4xl" />
 							{expanded && (
-								<span className="whitespace-nowrap">
-									Cost Estimator
-								</span>
+								<span className="whitespace-nowrap">Payments</span>
 							)}
 						</div>
 					</Link>
