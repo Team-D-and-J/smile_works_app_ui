@@ -22,10 +22,10 @@ import { ChangeEvent, FormEvent } from "react";
 
 // Interface for the new product form inputs (note: unitPrice is a string here since it's coming from an input field)
 interface NewProductInput {
-	productId: string;
 	name: string;
 	unitOfMeasure: string;
-	unitPrice: string;
+	category: string;
+	brand: string;
 }
 
 export default function BasicModal() {
@@ -35,10 +35,10 @@ export default function BasicModal() {
 
 	// State for the new product form inputs
 	const [newProduct, setNewProduct] = useState<NewProductInput>({
-		productId: "",
 		name: "",
 		unitOfMeasure: "",
-		unitPrice: "",
+		category: "",
+		brand: "",
 	});
 
 	// Handle changes in the input fields
@@ -56,10 +56,10 @@ export default function BasicModal() {
 
 		// Basic validation to ensure fields are not empty
 		if (
-			newProduct.productId.trim() === "" ||
 			newProduct.name.trim() === "" ||
 			newProduct.unitOfMeasure.trim() === "" ||
-			newProduct.unitPrice === ""
+			newProduct.brand === "" ||
+			newProduct.category === ""
 		) {
 			return;
 		}
@@ -85,10 +85,11 @@ export default function BasicModal() {
 		location.reload();
 		// Clear the form inputs after adding the product
 		setNewProduct({
-			productId: "",
 			name: "",
 			unitOfMeasure: "",
-			unitPrice: "",
+
+			category: "",
+			brand: "",
 		});
 	};
 
@@ -98,7 +99,7 @@ export default function BasicModal() {
 				className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 				onClick={handleOpen}
 			>
-				Add Item
+				Create Product
 			</button>
 			<Modal
 				open={open}
@@ -117,23 +118,21 @@ export default function BasicModal() {
 					</Typography>
 					<div className="flex h-[400px]  flex-col justify-center items-center">
 						<form onSubmit={handleSubmit} className="mb-6 space-y-4">
-							<div>
-								<label
-									className="block text-sm font-medium mb-1"
-									htmlFor="name"
+							<div className="flex justify-end mt-4 gap-4">
+								<button
+									className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+									onClick={handleSubmit}
 								>
-									Product Id:
-								</label>
-								<input
-									id="productid"
-									name="productId"
-									type="text"
-									value={newProduct.productId}
-									onChange={handleInputChange}
-									placeholder="Enter product ID"
-									className="border p-2 rounded w-full"
-								/>
+									Save Item
+								</button>
+								<button
+									className="bg-white-500 hover:bg-blue-700 text-blue-500 border-black border font-bold py-2 px-4 rounded"
+									onClick={handleClose}
+								>
+									Cancel
+								</button>
 							</div>
+
 							<div>
 								<label
 									className="block text-sm font-medium mb-1"
@@ -171,36 +170,38 @@ export default function BasicModal() {
 							<div>
 								<label
 									className="block text-sm font-medium mb-1"
-									htmlFor="unitPrice"
+									htmlFor="brand"
 								>
-									Unit Price:
+									Brand:
 								</label>
 								<input
-									id="unitPrice"
-									name="unitPrice"
-									type="number"
-									step="0.01"
-									value={newProduct.unitPrice}
+									id="brand"
+									name="brand"
+									type="text"
+									value={newProduct.brand}
 									onChange={handleInputChange}
-									placeholder="Enter unit price"
+									placeholder="Enter brand"
+									className="border p-2 rounded w-full"
+								/>
+							</div>
+							<div>
+								<label
+									className="block text-sm font-medium mb-1"
+									htmlFor="category"
+								>
+									Category:
+								</label>
+								<input
+									id="category"
+									name="category"
+									type="text"
+									value={newProduct.category}
+									onChange={handleInputChange}
+									placeholder="Enter category"
 									className="border p-2 rounded w-full"
 								/>
 							</div>
 						</form>
-					</div>
-					<div className="flex justify-around mt-4 gap-4">
-						<button
-							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-							onClick={handleSubmit}
-						>
-							Save Item
-						</button>
-						<button
-							className="bg-white-500 hover:bg-blue-700 text-blue-500 border-black border font-bold py-2 px-4 rounded"
-							onClick={handleClose}
-						>
-							Cancel
-						</button>
 					</div>
 				</Box>
 			</Modal>

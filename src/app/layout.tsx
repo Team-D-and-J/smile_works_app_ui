@@ -76,7 +76,7 @@ export default function RootLayout({
         ) : (
           <>
             <TopHeader />
-            <div className="flex">
+            <div className="flex bg-white">
               <LeftNavigation />
               {children}
             </div>
