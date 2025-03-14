@@ -120,7 +120,13 @@ const InventoryTable = () => {
 				.includes(filters.stock.toLowerCase()) &&
 			String(item.stockThreshold ?? "")
 				.toLowerCase()
-				.includes(filters.stockThreshold.toLowerCase())
+				.includes(filters.stockThreshold.toLowerCase()) &&
+			String(item.brand ?? "")
+				.toLowerCase()
+				.includes(filters.brand.toLowerCase()) &&
+			String(item.category ?? "")
+				.toLowerCase()
+				.includes(filters.category.toLowerCase())
 	);
 
 	// Then, sort the filtered inventory.
