@@ -5,79 +5,66 @@ import { BsFillPersonLinesFill } from "react-icons/bs";
 import { FaRegCalendarAlt, FaClipboardList } from "react-icons/fa";
 import { MdAttachMoney, MdOutlineInventory } from "react-icons/md";
 import { GrUserAdmin } from "react-icons/gr";
+import { AiOutlineFileProtect } from "react-icons/ai";
 import Link from "next/link";
 
 const LeftNavigation = () => {
-	const [expanded, setExpanded] = useState(false);
-
 	return (
-		<div
-			className="h-screen"
-			onMouseEnter={() => setExpanded(true)}
-			onMouseLeave={() => setExpanded(false)}
-		>
-			<div
-				className={`flex flex-col h-full bg-gray-300 p-2 transition-all duration-300 overflow-hidden ${
-					expanded ? "w-70" : "w-20"
-				}`}
-			>
-				<div className="flex flex-col gap-8 mt-20">
+		<div>
+			<div className="flex flex-col w-[350px] h-screen p-2 bg-[#D9EAFD] items-center">
+				<div className="flex mt-20 flex-col text-2xl p-2 gap-8 justify-between">
 					<Link href="/dashboard">
-						<div className="flex items-center gap-2 p-2 cursor-pointer">
-							<TbHeartRateMonitor className="text-4xl" />
-							{expanded && (
-								<span className="whitespace-nowrap">Dashboard</span>
-							)}
+						<div className="flex cursor-pointer items-center gap-2 p-2 text-[#001F3F]">
+							<TbHeartRateMonitor />
+							Dashboard
 						</div>
 					</Link>
 					<Link href="/patient">
-						<div className="flex items-center gap-2 p-2 cursor-pointer">
-							<BsFillPersonLinesFill className="text-4xl" />
-							{expanded && (
-								<span className="whitespace-nowrap">Patient</span>
-							)}
+						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
+							<BsFillPersonLinesFill />
+							Patient
 						</div>
 					</Link>
 					<Link href="/schedule">
-						<div className="flex items-center gap-2 p-2 cursor-pointer">
-							<FaRegCalendarAlt className="text-4xl" />
-							{expanded && (
-								<span className="whitespace-nowrap">Schedule</span>
-							)}
+						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
+							<FaRegCalendarAlt />
+							Schedule
 						</div>
 					</Link>
-					<Link href="/payments">
-						<div className="flex items-center gap-2 p-2 cursor-pointer">
-							<MdAttachMoney className="text-4xl" />
-							{expanded && (
-								<span className="whitespace-nowrap">Payments</span>
-							)}
+					<Link href="/costestimator">
+						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
+							<MdAttachMoney />
+							Cost Estimator
 						</div>
 					</Link>
 					<Link href="/treatment">
-						<div className="flex items-center gap-2 p-2 cursor-pointer">
-							<FaClipboardList className="text-4xl" />
-							{expanded && (
-								<span className="whitespace-nowrap">Treatment</span>
-							)}
+						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
+							<FaClipboardList />
+							Treatment
 						</div>
 					</Link>
 					<Link href="/inventory">
-						<div className="flex items-center gap-2 p-2 cursor-pointer">
-							<MdOutlineInventory className="text-4xl" />
-							{expanded && (
-								<span className="whitespace-nowrap">
-									Inventory Management
-								</span>
-							)}
+						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
+							<MdOutlineInventory />
+							Inventory Management
+						</div>
+					</Link>
+					<Link href="/insurance">
+						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
+							<AiOutlineFileProtect />
+							Insurance
 						</div>
 					</Link>
 					<Link href="/admin">
-						<div className="flex items-center gap-2 p-2 cursor-pointer">
-							<GrUserAdmin className="text-4xl" />
-							{expanded && (
-								<span className="whitespace-nowrap">Admin</span>
-							)}
+						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
+							<GrUserAdmin />
+							Admin
+						</div>
+					</Link>
+					<Link href="/patienteducation">
+						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
+							<GrUserAdmin />
+							Patient Education
 						</div>
 					</Link>
 				</div>

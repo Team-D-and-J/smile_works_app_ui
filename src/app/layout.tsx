@@ -38,9 +38,12 @@ export default function RootLayout({
         return;
       }
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/verify`, {
-          headers: { Authorization: `JWT ${token}` },
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/verify`,
+          {
+            headers: { Authorization: `JWT ${token}` },
+          }
+        );
         if (res.ok) {
           setLoading(false);
         } else {
@@ -66,14 +69,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      {loading ? (
+        {loading ? (
           <p>Loading Spinner</p>
         ) : isLoginPage ? (
           children
         ) : (
           <>
             <TopHeader />
-            <div className="flex">
+            <div className="flex bg-white">
               <LeftNavigation />
               {children}
             </div>
