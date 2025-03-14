@@ -1,5 +1,50 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, {
+	useEffect,
+	useState,
+	useRef,
+	useEffect as useEffect2,
+} from "react";
+import { FaEllipsisH } from "react-icons/fa";
+
+// Simple dropdown menu component
+const EllipsisMenu = ({ onDelete }) => {
+	const [open, setOpen] = useState(false);
+	const menuRef = useRef(null);
+
+	// Close the menu if clicking outside
+	useEffect2(() => {
+		const handleClickOutside = (event) => {
+			if (menuRef.current && !menuRef.current.contains(event.target)) {
+				setOpen(false);
+			}
+		};
+		document.addEventListener("mousedown", handleClickOutside);
+		return () =>
+			document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
+
+	return (
+		<div className="relative inline-block" ref={menuRef}>
+			<button onClick={() => setOpen(!open)}>
+				<FaEllipsisH className="text-xl" />
+			</button>
+			{open && (
+				<div className="absolute right-0 mt-2 w-28 bg-white border border-gray-200 rounded shadow z-10">
+					<button
+						onClick={() => {
+							setOpen(false);
+							onDelete();
+						}}
+						className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100"
+					>
+						Delete
+					</button>
+				</div>
+			)}
+		</div>
+	);
+};
 
 function InventoryReorder({ inventory }) {
 	const [itemsToReorder, setItemsToReorder] = useState([]);
@@ -52,7 +97,7 @@ function InventoryReorder({ inventory }) {
 							filteredOrders
 						);
 
-						// Sum up outstanding quantities (requested - received) from matching orders.
+						// Sum up the outstanding quantities (requested - received) from the matching orders.
 						const onOrder = filteredOrders.reduce((sum, order) => {
 							const requested = Number(
 								order.requestedQuantity ?? order.quantity ?? 0
@@ -88,7 +133,7 @@ function InventoryReorder({ inventory }) {
 		fetchPurchaseOrders();
 	}, [inventory]);
 
-	// Get open purchase orders (only those with isReceived === false and with outstanding quantity > 0)
+	// Get open purchase orders (only those with isReceived === false and outstanding quantity > 0)
 	const openOrders = purchaseOrders.filter((order) => {
 		const requested = Number(order.requestedQuantity ?? order.quantity ?? 0);
 		const received = Number(order.receivedQuantity ?? 0);
@@ -227,6 +272,31 @@ function InventoryReorder({ inventory }) {
 		}
 	};
 
+	// New function to delete a purchase order.
+	const handleDeletePurchaseOrder = async (order) => {
+		try {
+			const response = await fetch(
+				`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/purchaseOrders/${order._id}`,
+				{
+					method: "DELETE",
+					headers: {
+						Authorization: `JWT ${localStorage.getItem("token")}`,
+					},
+				}
+			);
+			if (!response.ok) {
+				throw new Error("Failed to delete purchase order.");
+			}
+			setPurchaseOrders((prevOrders) =>
+				prevOrders.filter((o) => o._id !== order._id)
+			);
+			alert(`Purchase order for ${order.name} deleted successfully!`);
+		} catch (err) {
+			console.error("Error deleting purchase order:", err);
+			setError("Failed to delete purchase order.");
+		}
+	};
+
 	return (
 		<div className="max-w-3xl mx-auto p-4 bg-white rounded shadow">
 			<h2 className="text-xl font-semibold mb-4">🛒 Inventory Reorder</h2>
@@ -317,7 +387,7 @@ function InventoryReorder({ inventory }) {
 			)}
 
 			{/* Open Purchase Orders Table - Always Show */}
-			<div className="overflow-x-auto mb-6">
+			<div className="overflow-x-auto min-h-[200px] mb-6">
 				<h3 className="text-lg font-semibold mb-2">Open Purchase Orders</h3>
 				<table className="min-w-full border border-gray-300">
 					<thead className="bg-gray-100">
@@ -373,13 +443,19 @@ function InventoryReorder({ inventory }) {
 										<td className="px-4 py-2 border-b border-gray-200">
 											{outstanding}
 										</td>
-										<td className="px-4 py-2 border-b border-gray-200 text-center">
+										<td className="px-4 py-2 border-b border-gray-200 text-center space-x-2">
 											<button
 												onClick={() => handleReceiveOrder(order)}
 												className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-1 px-3 rounded"
 											>
 												Receive
 											</button>
+											{/* Use EllipsisMenu for Delete option */}
+											<EllipsisMenu
+												onDelete={() =>
+													handleDeletePurchaseOrder(order)
+												}
+											/>
 										</td>
 									</tr>
 								);
