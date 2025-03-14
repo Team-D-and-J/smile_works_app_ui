@@ -52,7 +52,7 @@ function InventoryReorder({ inventory }) {
 							filteredOrders
 						);
 
-						// Sum up the outstanding quantities (requested - received) from the matching orders.
+						// Sum up outstanding quantities (requested - received) from matching orders.
 						const onOrder = filteredOrders.reduce((sum, order) => {
 							const requested = Number(
 								order.requestedQuantity ?? order.quantity ?? 0
@@ -88,11 +88,11 @@ function InventoryReorder({ inventory }) {
 		fetchPurchaseOrders();
 	}, [inventory]);
 
-	// Get open purchase orders (those with outstanding quantity > 0 and not received)
+	// Get open purchase orders (only those with isReceived === false and with outstanding quantity > 0)
 	const openOrders = purchaseOrders.filter((order) => {
 		const requested = Number(order.requestedQuantity ?? order.quantity ?? 0);
 		const received = Number(order.receivedQuantity ?? 0);
-		return !order.isReceived && requested - received > 0;
+		return order.isReceived === false && requested - received > 0;
 	});
 
 	// Toggle selection of an item in the reorder list
