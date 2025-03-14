@@ -298,7 +298,7 @@ function InventoryReorder({ inventory }) {
 	};
 
 	return (
-		<div className="max-w-3xl mx-auto p-4 bg-white rounded shadow">
+		<div className=" w-full mx-auto p-4 bg-white rounded shadow">
 			<h2 className="text-xl font-semibold mb-4">🛒 Inventory Reorder</h2>
 
 			{/* Error Message */}
