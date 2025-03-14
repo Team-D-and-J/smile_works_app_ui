@@ -55,16 +55,23 @@ const LeftNavigation = () => {
 							Insurance
 						</div>
 					</Link>
-					<Link href="/admin">
-						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
-							<GrUserAdmin />
-							Admin
-						</div>
-					</Link>
+
 					<Link href="/patienteducation">
 						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
 							<GrUserAdmin />
 							Patient Education
+						</div>
+					</Link>
+					<Link href="/payments">
+						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
+							<MdAttachMoney />
+							Payments
+						</div>
+					</Link>
+					<Link href="/admin">
+						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
+							<GrUserAdmin />
+							Admin
 						</div>
 					</Link>
 				</div>
