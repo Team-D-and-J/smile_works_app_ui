@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import InventoryAddItemModal from "@/components/inventory/InventoryAddItemModal";
 import { FaEllipsisH } from "react-icons/fa";
 import EllipsesMenu from "@/components/inventory/EllipsesMenu";
+import Link from "next/link";
 
 interface Inventory {
 	_id: string;
@@ -119,7 +120,13 @@ const InventoryTable = () => {
 				.includes(filters.stock.toLowerCase()) &&
 			String(item.stockThreshold ?? "")
 				.toLowerCase()
-				.includes(filters.stockThreshold.toLowerCase())
+				.includes(filters.stockThreshold.toLowerCase()) &&
+			String(item.brand ?? "")
+				.toLowerCase()
+				.includes(filters.brand.toLowerCase()) &&
+			String(item.category ?? "")
+				.toLowerCase()
+				.includes(filters.category.toLowerCase())
 	);
 
 	// Then, sort the filtered inventory.
@@ -153,6 +160,9 @@ const InventoryTable = () => {
 			<h2 className="text-2xl font-bold mb-4">Product Management</h2>
 			<div className="mb-4 flex justify-center">
 				<InventoryAddItemModal />
+				<button className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+					<Link href="/inventory/ordering">Place Order</Link>
+				</button>
 			</div>
 			<table className="min-w-full border-collapse border border-gray-200">
 				<thead>
