@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 const CreatePatient: React.FC = () => {
 
@@ -24,17 +24,92 @@ const CreatePatient: React.FC = () => {
 		phoneNumber: ""
     });
 	const [notificationPreference, setNotificationPreference] = useState({
-		notificationPreference: {
-			allowSMS: "",
-			allowEmail: "",
-			allowPhoneCall: "",
-		},
+			allowSMS: false,
+			allowEmail: false,
+			allowPhoneCall: false,
     });
+	const [jwt, setJwt] = useState<string | null>(null);
 
-	const handleSubmit = (event: React.FormEvent) => {
+	
+
+	// const handleSubmit = (event: React.FormEvent) => {
+	// 	event.preventDefault();
+	// 	console.log({ name, allergies});
+	//   };
+
+
+	useEffect(() => {
+		const token = localStorage.getItem("token");
+		if (token) setJwt(token);
+	  }, []);
+
+	 const handleSubmit = useCallback(async (event: React.FormEvent) => {
 		event.preventDefault();
-		console.log({ name, allergies});
-	  };
+
+
+		if (!jwt) {
+			alert("Authentication error. Please log in.");
+			return;
+		 }
+		const patientData = {
+			name,
+			email,
+			phoneNumber,
+			address,
+			dob,
+			emergencyInfo,
+        	allergies,
+        	medicalHistory,
+			notificationPreference,
+			insuranceInfo,
+			_metadata: {
+				createdAt: new Date().toISOString(),
+				lastUpdatedAt: new Date().toISOString(),
+				updatedBy: "system",
+				isDeleted: false,
+				version: 1,
+			},
+		};
+	
+		try {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/patient`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${jwt}`
+				},
+				body: JSON.stringify(patientData),
+			});
+
+			console.log("Response Status:", response.status);
+			console.log("Response Data:", await response.json());
+	
+			if (!response.ok) {
+				throw new Error("Failed to create patient");
+			}
+			if (response.ok) {
+				setName('');
+				setEmail('');
+				setPhoneNumber('');
+				setAddress({ street: "", city: "", state: "", zip: "" });
+				setDob('');
+				setEmergencyInfo({ name: "", phoneNumber: "" });
+				setAllergies('');
+				setMedicalHistory('');
+				setInsuranceInfo({ insuranceProvider: "", phoneNumber: "" });
+				setNotificationPreference({ allowSMS: false, allowEmail: false, allowPhoneCall: false });
+			}
+	
+			const result = await response.json();
+			console.log("Patient created:", result);
+			alert("Patient successfully created!");
+		} catch (error) {
+			console.error("Error creating patient:", error);
+			alert("Error creating patient. Please try again.");
+		}
+	}, [jwt, name, email, phoneNumber, address, dob, emergencyInfo, allergies, medicalHistory, notificationPreference, insuranceInfo]);
+
+
 	
 	  return (
 	  <>
@@ -55,7 +130,7 @@ const CreatePatient: React.FC = () => {
 				Patient Name
 				</label>
 				<input
-				type="name"
+				type="text"
 				id="name"
 				value={name}
 				onChange={(e) => setName(e.target.value)}
@@ -65,20 +140,71 @@ const CreatePatient: React.FC = () => {
 			</div>
 			<div className="mb-5">
 				<label
-				htmlFor="Address"
+				htmlFor="address"
 				className="block mb-2 text-sm font-medium text-gray-900"
 				>
-				Address
+				Address Street
 				</label>
 				<input
-				type="address"
-				id="address"
-				value={address}
-				onChange={(e) => setAddress(e.target.value)}
+				type="text"
+				id="street"
+				value={address.street} // Bind to a specific field
+				onChange={(e) => setAddress({ ...address, street: e.target.value })} // Update only 'street'
 				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
 				required
 				/>
 			</div>
+			<div className="mb-5">
+				<label
+				htmlFor="address"
+				className="block mb-2 text-sm font-medium text-gray-900"
+				>
+				City
+				</label>
+				<input
+				type="text"
+				id="city"
+				value={address.city} // Bind to a specific field
+				onChange={(e) => setAddress({ ...address, city: e.target.value })} // Update only 'street'
+				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+				required
+				/>
+			</div>
+			<div className="mb-5">
+				<label
+				htmlFor="Address"
+				className="block mb-2 text-sm font-medium text-gray-900"
+				>
+				State
+				</label>
+				<input
+				type="text"
+				id="state"
+				value={address.state} // Bind to a specific field
+				onChange={(e) => setAddress({ ...address, state: e.target.value })} // Update only 'street'
+				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+				required
+				/>
+			</div>
+			<div className="mb-5">
+				<label
+				htmlFor="Address"
+				className="block mb-2 text-sm font-medium text-gray-900"
+				>
+				Zip Code
+				</label>
+				<input
+				type="text"
+				id="zip"
+				value={address.zip} // Bind to a specific field
+				onChange={(e) => setAddress({ ...address, zip: e.target.value })} // Update only 'street'
+				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+				required
+				/>
+			</div>
+
+
+			
 			<div className="mb-5">
 				<label
 				htmlFor="phoneNumber"
@@ -87,10 +213,10 @@ const CreatePatient: React.FC = () => {
 				Phone Number
 				</label>
 				<input
-				type="phoneNumber"
+				type="text"
 				id="phoneNumber"
 				value={phoneNumber}
-				onChange={(e) => setAddress(e.target.value)}
+				onChange={(e) => setPhoneNumber(e.target.value)}
 				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
 				required
 				/>
@@ -100,7 +226,7 @@ const CreatePatient: React.FC = () => {
 				htmlFor="email"
 				className="block mb-2 text-sm font-medium text-gray-900"
 				>
-				Your email
+				Email
 				</label>
 				<input
 				type="email"
@@ -119,10 +245,10 @@ const CreatePatient: React.FC = () => {
 				DOB
 				</label>
 				<input
-				type="dob"
+				type="date"
 				id="dob"
-				value={name}
-				onChange={(e) => setAddress(e.target.value)}
+				value={dob}
+				onChange={(e) => setDob(e.target.value)}
 				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
 				required
 				/>
@@ -135,10 +261,26 @@ const CreatePatient: React.FC = () => {
 				Emergency Contact
 				</label>
 				<input
-				type="emergencyInfo"
+				type="text"
 				id="emergencyInfo"
-				value={emergencyInfo}
-				onChange={(e) => setEmail(e.target.value)}
+				value={emergencyInfo.name}
+				onChange={(e) => setEmergencyInfo({...emergencyInfo, name: e.target.value})}
+				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+				required
+				/>
+			</div>
+			<div className="mb-5">
+				<label
+				htmlFor="emergencyInfo"
+				className="block mb-2 text-sm font-medium text-gray-900"
+				>
+				Emergency Contact Phone Number
+				</label>
+				<input
+				type="text"
+				id="emergencyInfo"
+				value={emergencyInfo.phoneNumber}
+				onChange={(e) => setEmergencyInfo({...emergencyInfo, phoneNumber: e.target.value})}
 				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
 				required
 				/>
@@ -151,10 +293,10 @@ const CreatePatient: React.FC = () => {
 				Allergies
 				</label>
 				<input
-				type="allergies"
+				type="text"
 				id="allergies"
 				value={allergies}
-				onChange={(e) => setEmail(e.target.value)}
+				onChange={(e) => setAllergies(e.target.value)}
 				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
 				required
 				/>
@@ -167,36 +309,62 @@ const CreatePatient: React.FC = () => {
 				Medical History
 				</label>
 				<input
-				type="medicalHistory"
+				type="text"
 				id="medicalHistory"
 				value={medicalHistory}
-				onChange={(e) => setEmail(e.target.value)}
+				onChange={(e) => setMedicalHistory(e.target.value)}
 				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
 				required
 				/>
 			</div>
 			<div className="mb-5">
 				<label
-				htmlFor="insuranceInfo"
+				htmlFor="insuranceProvider"
 				className="block mb-2 text-sm font-medium text-gray-900"
 				>
-				Insurance Info
+				Insurance Provider
 				</label>
 				<input
-				type="insuranceInfo"
-				id="insuranceInfo"
-				value={insuranceInfo}
-				onChange={(e) => setEmail(e.target.value)}
-				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
-				required
+					type="text"
+					id="insuranceProvider"
+					value={insuranceInfo?.insuranceProvider || ""}
+					onChange={(e) =>
+						setInsuranceInfo({ ...insuranceInfo, insuranceProvider: e.target.value })
+					}
+					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+					required
+				/>
+			</div>
+			<div className="mb-5">
+				<label
+				htmlFor="insurancePhoneNumber"
+				className="block mb-2 text-sm font-medium text-gray-900"
+				>
+				Insurance Phone number
+				</label>
+				<input
+					type="text"
+					id="insurancePhoneNumber"
+					value={insuranceInfo?.phoneNumber || ""}
+					onChange={(e) =>
+						setInsuranceInfo({ ...insuranceInfo, phoneNumber: e.target.value })
+					}
+					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+					required
 				/>
 			</div>
 		
-			<div className="flex items-center mb-4">
+		<div className="flex items-center mb-4">
 				<input
-				id="smsNotifications"
+				id="Notifications"
 				type="checkbox"
 				className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2"
+				onChange={(e) =>
+					setNotificationPreference({
+					  ...notificationPreference,
+					  allowSMS: e.target.checked,
+					})
+				  }
 				/>
 				<label
 				htmlFor="smsNotifications"
@@ -210,10 +378,17 @@ const CreatePatient: React.FC = () => {
 				id="emailNotifications"
 				type="checkbox"
 				className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2"
+				onChange={(e) =>
+					setNotificationPreference({
+					  ...notificationPreference,
+					  allowEmail: e.target.checked,
+					})
+				  }
 				/>
 				<label
 				htmlFor="emailNotifications"
 				className="ms-2 text-sm font-medium text-gray-900"
+				
 				>
 				Email Notifications
 				</label>
@@ -223,6 +398,12 @@ const CreatePatient: React.FC = () => {
 				id="phoneCall"
 				type="checkbox"
 				className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2"
+				onChange={(e) =>
+					setNotificationPreference({
+					  ...notificationPreference,
+					  allowPhoneCall: e.target.checked,
+					})
+				  }
 				/>
 				<label
 				htmlFor="phoneCall"
