@@ -9,69 +9,118 @@ import { AiOutlineFileProtect } from "react-icons/ai";
 import Link from "next/link";
 
 const LeftNavigation = () => {
+	const [expanded, setExpanded] = useState(false);
+
 	return (
-		<div>
-			<div className="flex flex-col w-[350px] h-screen p-2 bg-[#D9EAFD] items-center">
-				<div className="flex mt-20 flex-col text-2xl p-2 gap-8 justify-between">
+		<div
+			className="h-screen"
+			onMouseEnter={() => setExpanded(true)}
+			onMouseLeave={() => setExpanded(false)}
+		>
+			<div
+				className={`flex flex-col h-full bg-[#D9EAFD] p-2 transition-all duration-300 overflow-hidden ${
+					expanded ? "w-80" : "w-20"
+				}`}
+			>
+				<div className="flex flex-col gap-8 mt-20">
 					<Link href="/dashboard">
-						<div className="flex cursor-pointer items-center gap-2 p-2 text-[#001F3F]">
-							<TbHeartRateMonitor />
-							Dashboard
+						<div className="flex items-center gap-2 p-2 cursor-pointer">
+							<TbHeartRateMonitor className="text-4xl text-[#001F3F]" />
+							{expanded && (
+								<span className="whitespace-nowrap text-[#001F3F]">
+									Dashboard
+								</span>
+							)}
 						</div>
 					</Link>
 					<Link href="/patient">
-						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
-							<BsFillPersonLinesFill />
-							Patient
+						<div className="flex items-center gap-2 p-2 cursor-pointer">
+							<BsFillPersonLinesFill className="text-4xl text-[#001F3F]" />
+							{expanded && (
+								<span className="whitespace-nowrap text-[#001F3F]">
+									Patient
+								</span>
+							)}
 						</div>
 					</Link>
 					<Link href="/schedule">
-						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
-							<FaRegCalendarAlt />
-							Schedule
+						<div className="flex items-center gap-2 p-2 cursor-pointer">
+							<FaRegCalendarAlt className="text-4xl text-[#001F3F]" />
+							{expanded && (
+								<span className="whitespace-nowrap text-[#001F3F]">
+									Schedule
+								</span>
+							)}
 						</div>
 					</Link>
 					<Link href="/costestimator">
-						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
-							<MdAttachMoney />
-							Cost Estimator
+						<div className="flex items-center gap-2 p-2 cursor-pointer">
+							<MdAttachMoney className="text-4xl text-[#001F3F]" />
+							{expanded && (
+								<span className="whitespace-nowrap text-[#001F3F]">
+									Cost Estimator
+								</span>
+							)}
 						</div>
 					</Link>
 					<Link href="/treatment">
-						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
-							<FaClipboardList />
-							Treatment
+						<div className="flex items-center gap-2 p-2 cursor-pointer">
+							<FaClipboardList className="text-4xl text-[#001F3F]" />
+							{expanded && (
+								<span className="whitespace-nowrap text-[#001F3F]">
+									Treatment
+								</span>
+							)}
 						</div>
 					</Link>
 					<Link href="/inventory">
-						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
-							<MdOutlineInventory />
-							Inventory Management
+						<div className="flex items-center gap-2 p-2 cursor-pointer">
+							<MdOutlineInventory className="text-4xl text-[#001F3F]" />
+							{expanded && (
+								<span className="whitespace-nowrap text-[#001F3F]">
+									Inventory Management
+								</span>
+							)}
 						</div>
 					</Link>
 					<Link href="/insurance">
-						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
-							<AiOutlineFileProtect />
-							Insurance
+						<div className="flex items-center gap-2 p-2 cursor-pointer">
+							<AiOutlineFileProtect className="text-4xl text-[#001F3F]" />
+							{expanded && (
+								<span className="whitespace-nowrap text-[#001F3F]">
+									Insurance
+								</span>
+							)}
 						</div>
 					</Link>
-
 					<Link href="/patienteducation">
-						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
-							<GrUserAdmin />
-							Patient Education
+						<div className="flex items-center gap-2 p-2 cursor-pointer">
+							<GrUserAdmin className="text-4xl text-[#001F3F]" />
+							{expanded && (
+								<span className="whitespace-nowrap text-[#001F3F]">
+									Patient Education
+								</span>
+							)}
 						</div>
 					</Link>
-					<Link href="/payments">
-						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
-							<MdAttachMoney />
-							Payments
+					<Link href="/billing">
+						<div className="flex items-center gap-2 p-2 cursor-pointer">
+							<MdAttachMoney className="text-4xl text-[#001F3F]" />
+							{expanded && (
+								<span className="whitespace-nowrap text-[#001F3F]">
+									Billing
+								</span>
+							)}
 						</div>
 					</Link>
 					<Link href="/admin">
-						<div className="p-2 cursor-pointer flex items-center gap-2 text-[#001F3F]">
-							<GrUserAdmin />
-							Admin
+						<div className="flex items-center gap-2 p-2 cursor-pointer">
+							<GrUserAdmin className="text-4xl text-[#001F3F]" />
+							{expanded && (
+								<span className="whitespace-nowrap text-[#001F3F]">
+									Admin
+								</span>
+							)}
 						</div>
 					</Link>
 				</div>
