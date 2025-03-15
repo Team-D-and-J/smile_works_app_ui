@@ -95,8 +95,8 @@ export default function BasicModal({ item }) {
 					brand: formData.brand,
 					category: formData.category,
 				}),
-			},
-			location.reload()
+			}
+			// location.reload()
 		);
 		if (!response.ok) {
 			throw new Error("Failed to Edit inventory");
@@ -156,7 +156,7 @@ export default function BasicModal({ item }) {
 									<input
 										type="text"
 										disabled
-										value={formData._id}
+										value={formData.productId}
 										onChange={(e) =>
 											handleChange("productId", e.target.value)
 										}
