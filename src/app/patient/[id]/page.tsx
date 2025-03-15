@@ -45,7 +45,7 @@ const PatientPage = () => {
 							}`}
 						onClick={() => setActiveTab("treatment")}
 					>
-						Treatment
+						Treatment History
 					</button>
 					<button
 						className={`px-4 py-2 text-sm font-medium ${activeTab === "billing"
@@ -54,7 +54,7 @@ const PatientPage = () => {
 							}`}
 						onClick={() => setActiveTab("billing")}
 					>
-						Billing
+						Billing History
 					</button>
 				</div>
 
