@@ -76,6 +76,11 @@ const PaymentPage = () => {
 		patient.name.toLowerCase().includes(patientSearch.toLowerCase())
 	);
 
+	// Handler for simulating a payment modal
+	const handleSimulatePayment = (payment) => {
+		setModalPayment(payment);
+	};
+
 	return (
 		<div className="max-w-4xl mx-auto p-4">
 			<h1 className="text-2xl font-bold mb-4">Payment Page</h1>
@@ -94,7 +99,7 @@ const PaymentPage = () => {
 					<ul className="border border-t-0 rounded-b max-h-60 overflow-y-auto">
 						{filteredPatients.map((patient) => (
 							<li
-								key={patient._Id}
+								key={patient._id}
 								className="p-2 hover:bg-gray-200 cursor-pointer"
 								onClick={() => {
 									setSelectedPatient(patient);
@@ -128,7 +133,6 @@ const PaymentPage = () => {
 							<th className="px-4 py-2 border">Type</th>
 							<th className="px-4 py-2 border">Amount</th>
 							<th className="px-4 py-2 border">Status</th>
-
 							<th className="px-4 py-2 border">Action</th>
 						</tr>
 					</thead>
@@ -145,11 +149,15 @@ const PaymentPage = () => {
 								<td className="px-4 py-2 border">{payment.type}</td>
 								<td className="px-4 py-2 border">{payment.amount}</td>
 								<td className="px-4 py-2 border">{payment.status}</td>
-
 								<td className="px-4 py-2 border">
 									<button
-										onClick={() => setModalPayment(payment)}
-										className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-3 rounded"
+										onClick={() => handleSimulatePayment(payment)}
+										disabled={payment.status === "Completed"}
+										className={`py-1 px-3 rounded ${
+											payment.status === "Completed"
+												? "bg-gray-400 cursor-not-allowed"
+												: "bg-blue-500 hover:bg-blue-600 text-white font-semibold"
+										}`}
 									>
 										Make Payment
 									</button>
