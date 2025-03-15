@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { IoArrowBack } from "react-icons/io5";
 import BillingHistory from "@/components/billing/BillingHistory";
 import TreatmentHistory from "@/components/treatment/TreatmentHistory";
+import BackButton from "@/components/BackButton";
 
 const PatientPage = () => {
 	const { id } = useParams();
@@ -16,13 +17,7 @@ const PatientPage = () => {
 
 	return (
 		<div className="flex flex-col w-full">
-			<button
-				onClick={() => router.back()}
-				className="w-fit inline-flex items-center gap-2 text-white bg-blue-600 px-4 py-2 shadow hover:bg-blue-700 transition-all"
-			>
-				<IoArrowBack className="text-xl" />
-				<span className="font-medium">Back</span>
-			</button>
+			<BackButton />
 			{/* Patient Buttons */}
 			<PatientButtons patientId={patientId} />
 
