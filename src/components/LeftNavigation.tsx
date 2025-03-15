@@ -27,7 +27,7 @@ const LeftNavigation = () => {
 						<div className="flex items-center gap-2 p-2 cursor-pointer">
 							<TbHeartRateMonitor className="text-4xl text-[#001F3F]" />
 							{expanded && (
-								<span className="whitespace-nowrap text-[#001F3F]">
+								<span className="whitespace-nowrap text-xl text-[#001F3F]">
 									Dashboard
 								</span>
 							)}
@@ -37,7 +37,7 @@ const LeftNavigation = () => {
 						<div className="flex items-center gap-2 p-2 cursor-pointer">
 							<BsFillPersonLinesFill className="text-4xl text-[#001F3F]" />
 							{expanded && (
-								<span className="whitespace-nowrap text-[#001F3F]">
+								<span className="whitespace-nowrap text-xl text-[#001F3F]">
 									Patient
 								</span>
 							)}
@@ -47,7 +47,7 @@ const LeftNavigation = () => {
 						<div className="flex items-center gap-2 p-2 cursor-pointer">
 							<FaRegCalendarAlt className="text-4xl text-[#001F3F]" />
 							{expanded && (
-								<span className="whitespace-nowrap text-[#001F3F]">
+								<span className="whitespace-nowrap text-xl text-[#001F3F]">
 									Schedule
 								</span>
 							)}
@@ -57,7 +57,7 @@ const LeftNavigation = () => {
 						<div className="flex items-center gap-2 p-2 cursor-pointer">
 							<MdAttachMoney className="text-4xl text-[#001F3F]" />
 							{expanded && (
-								<span className="whitespace-nowrap text-[#001F3F]">
+								<span className="whitespace-nowrap text-xl text-[#001F3F]">
 									Cost Estimator
 								</span>
 							)}
@@ -67,7 +67,7 @@ const LeftNavigation = () => {
 						<div className="flex items-center gap-2 p-2 cursor-pointer">
 							<FaClipboardList className="text-4xl text-[#001F3F]" />
 							{expanded && (
-								<span className="whitespace-nowrap text-[#001F3F]">
+								<span className="whitespace-nowrap text-xl text-[#001F3F]">
 									Treatment
 								</span>
 							)}
@@ -77,7 +77,7 @@ const LeftNavigation = () => {
 						<div className="flex items-center gap-2 p-2 cursor-pointer">
 							<MdOutlineInventory className="text-4xl text-[#001F3F]" />
 							{expanded && (
-								<span className="whitespace-nowrap text-[#001F3F]">
+								<span className="whitespace-nowrap text-xl text-[#001F3F]">
 									Inventory Management
 								</span>
 							)}
@@ -87,7 +87,7 @@ const LeftNavigation = () => {
 						<div className="flex items-center gap-2 p-2 cursor-pointer">
 							<AiOutlineFileProtect className="text-4xl text-[#001F3F]" />
 							{expanded && (
-								<span className="whitespace-nowrap text-[#001F3F]">
+								<span className="whitespace-nowrap text-xl text-[#001F3F]">
 									Insurance
 								</span>
 							)}
@@ -97,7 +97,7 @@ const LeftNavigation = () => {
 						<div className="flex items-center gap-2 p-2 cursor-pointer">
 							<GrUserAdmin className="text-4xl text-[#001F3F]" />
 							{expanded && (
-								<span className="whitespace-nowrap text-[#001F3F]">
+								<span className="whitespace-nowrap text-xl text-[#001F3F]">
 									Patient Education
 								</span>
 							)}
@@ -107,7 +107,7 @@ const LeftNavigation = () => {
 						<div className="flex items-center gap-2 p-2 cursor-pointer">
 							<MdAttachMoney className="text-4xl text-[#001F3F]" />
 							{expanded && (
-								<span className="whitespace-nowrap text-[#001F3F]">
+								<span className="whitespace-nowrap text-xl text-[#001F3F]">
 									Billing
 								</span>
 							)}
@@ -117,7 +117,7 @@ const LeftNavigation = () => {
 						<div className="flex items-center gap-2 p-2 cursor-pointer">
 							<GrUserAdmin className="text-4xl text-[#001F3F]" />
 							{expanded && (
-								<span className="whitespace-nowrap text-[#001F3F]">
+								<span className="whitespace-nowrap text-xl text-[#001F3F]">
 									Admin
 								</span>
 							)}

@@ -138,7 +138,7 @@ const PaymentPage = () => {
 					</thead>
 					<tbody>
 						{payments.map((payment) => (
-							<tr key={payment._id} className="hover:bg-gray-50">
+							<tr key={payment.date} className="hover:bg-gray-50">
 								<td className="px-4 py-2 border">{payment.date}</td>
 								<td className="px-4 py-2 border">
 									{payment.description}
