@@ -61,7 +61,7 @@ const InventoryTable = () => {
 		const fetchInventory = async () => {
 			try {
 				const response = await fetch(
-					`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/inventory`,
+					`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/inventory?limit=100`,
 					{
 						method: "GET",
 						headers: {
