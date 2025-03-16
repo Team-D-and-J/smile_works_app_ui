@@ -4,6 +4,7 @@ import InventoryAddItemModal from "@/components/inventory/InventoryAddItemModal"
 import { FaEllipsisH } from "react-icons/fa";
 import EllipsesMenu from "@/components/inventory/EllipsesMenu";
 import Link from "next/link";
+import BackButton from "@/components/BackButton";
 
 interface Inventory {
 	_id: string;
@@ -157,7 +158,10 @@ const InventoryTable = () => {
 
 	return (
 		<div className="container mx-auto p-4">
-			<h2 className="text-2xl font-bold mb-4">Product Management</h2>
+			<BackButton />
+			<h2 className="text-3xl font-bold text-center mb-4">
+				Product Management
+			</h2>
 			<div className="mb-4 flex justify-center">
 				<InventoryAddItemModal />
 				<button className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import AdminAddItemModal from "@/components/admin/AdminAddItemModal";
 import { FaEllipsisH } from "react-icons/fa";
+import BackButton from "@/components/BackButton";
 
 interface Inventory {
 	_id: string;
@@ -123,7 +124,6 @@ const InventoryTable = () => {
 			alert("Product deleted successfully!");
 		} catch (error) {
 			console.error("Error deleting inventory:", error);
-			// Optionally, you can set an error state here.
 		}
 	};
 
@@ -183,7 +183,10 @@ const InventoryTable = () => {
 
 	return (
 		<div className="container mx-auto p-4">
-			<h2 className="text-2xl font-bold mb-4">Product Management</h2>
+			<BackButton />
+			<h2 className="text-3xl text-center font-bold mb-4">
+				Product Management
+			</h2>
 			<div className="mb-4 flex justify-center">
 				<AdminAddItemModal />
 			</div>

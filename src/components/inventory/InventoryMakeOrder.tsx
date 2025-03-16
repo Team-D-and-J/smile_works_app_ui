@@ -6,6 +6,7 @@ import React, {
 	useEffect as useEffect2,
 } from "react";
 import { FaEllipsisH } from "react-icons/fa";
+import BackButton from "../BackButton";
 
 // Simple dropdown menu component
 const EllipsisMenu = ({ onDelete }) => {
@@ -343,7 +344,10 @@ function InventoryReorder({ inventory }) {
 
 	return (
 		<div className="w-full mx-auto p-4 bg-white rounded shadow">
-			<h2 className="text-xl font-semibold mb-4">🛒 Inventory Reorder</h2>
+			<BackButton />
+			<h2 className="text-3xl text-center font-semibold mb-4">
+				🛒 Inventory Reorder
+			</h2>
 
 			{/* Error Message */}
 			{error && <p className="text-red-500 mb-4">{error}</p>}
@@ -429,10 +433,40 @@ function InventoryReorder({ inventory }) {
 					</table>
 				</div>
 			)}
+			{/* Action Buttons */}
+			{itemsToReorder.length > 0 && (
+				<div className="mt-4 mb-12 flex justify-end space-x-2">
+					{!confirmed ? (
+						<button
+							onClick={handleConfirm}
+							className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
+						>
+							Confirm Selection
+						</button>
+					) : (
+						<>
+							<button
+								onClick={handleSubmitOrder}
+								className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded"
+							>
+								Submit Order
+							</button>
+							<button
+								onClick={() => setConfirmed(false)}
+								className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded"
+							>
+								Edit Selection
+							</button>
+						</>
+					)}
+				</div>
+			)}
 
 			{/* Open Purchase Orders Table - Always Show */}
 			<div className="overflow-x-auto min-h-[800px] mb-6">
-				<h3 className="text-lg font-semibold mb-2">Open Purchase Orders</h3>
+				<h3 className="text-3xl text-center font-semibold mb-2">
+					Open Purchase Orders
+				</h3>
 
 				<table className="min-w-full border border-gray-300">
 					<thead className="bg-gray-100">
@@ -548,35 +582,6 @@ function InventoryReorder({ inventory }) {
 					</tbody>
 				</table>
 			</div>
-
-			{/* Action Buttons */}
-			{itemsToReorder.length > 0 && (
-				<div className="mt-4 flex justify-end space-x-2">
-					{!confirmed ? (
-						<button
-							onClick={handleConfirm}
-							className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-						>
-							Confirm Selection
-						</button>
-					) : (
-						<>
-							<button
-								onClick={handleSubmitOrder}
-								className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded"
-							>
-								Submit Order
-							</button>
-							<button
-								onClick={() => setConfirmed(false)}
-								className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded"
-							>
-								Edit Selection
-							</button>
-						</>
-					)}
-				</div>
-			)}
 		</div>
 	);
 }
