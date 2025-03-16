@@ -43,7 +43,7 @@ const CreatePatient: React.FC = () => {
 		if (token) setJwt(token);
 	  }, []);
 
-	 const handleSubmit = useCallback(async (event: React.FormEvent) => {
+	 const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 
 
@@ -61,18 +61,11 @@ const CreatePatient: React.FC = () => {
         	allergies,
         	medicalHistory,
 			notificationPreference,
-			insuranceInfo,
-			_metadata: {
-				createdAt: new Date().toISOString(),
-				lastUpdatedAt: new Date().toISOString(),
-				updatedBy: "system",
-				isDeleted: false,
-				version: 1,
-			},
+			insuranceInfo
 		};
 	
 		try {
-			const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/patient`, {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/patient`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -82,12 +75,12 @@ const CreatePatient: React.FC = () => {
 			});
 
 			console.log("Response Status:", response.status);
-			console.log("Response Data:", await response.json());
+			//console.log("Response Data:", await response.json());
 	
 			if (!response.ok) {
 				throw new Error("Failed to create patient");
 			}
-			if (response.ok) {
+			//if (response.ok) {
 				setName('');
 				setEmail('');
 				setPhoneNumber('');
@@ -98,16 +91,15 @@ const CreatePatient: React.FC = () => {
 				setMedicalHistory('');
 				setInsuranceInfo({ insuranceProvider: "", phoneNumber: "" });
 				setNotificationPreference({ allowSMS: false, allowEmail: false, allowPhoneCall: false });
-			}
-	
-			const result = await response.json();
-			console.log("Patient created:", result);
-			alert("Patient successfully created!");
+				const result = await response.json();
+				console.log("Patient created:", result);
+				alert("Patient successfully created!");
+			//}
 		} catch (error) {
 			console.error("Error creating patient:", error);
 			alert("Error creating patient. Please try again.");
 		}
-	}, [jwt, name, email, phoneNumber, address, dob, emergencyInfo, allergies, medicalHistory, notificationPreference, insuranceInfo]);
+	};
 
 
 	
@@ -202,9 +194,6 @@ const CreatePatient: React.FC = () => {
 				required
 				/>
 			</div>
-
-
-			
 			<div className="mb-5">
 				<label
 				htmlFor="phoneNumber"
