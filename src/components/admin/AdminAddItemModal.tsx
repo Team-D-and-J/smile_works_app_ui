@@ -82,7 +82,7 @@ export default function BasicModal() {
 		const data = await response.json();
 		console.log(data);
 		// Close the modal & refresh the screen
-		location.reload();
+		// location.reload();
 		// Clear the form inputs after adding the product
 		setNewProduct({
 			name: "",
