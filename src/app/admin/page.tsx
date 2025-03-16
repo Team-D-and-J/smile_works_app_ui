@@ -10,6 +10,11 @@ const page = () => {
 					Inventory Setup
 				</p>
 			</Link>
+			<Link href="/admin/clinic">
+				<p className="p-4 m-4 text-xl bg-blue-500 rounded-xl text-white">
+					Clinic Setup
+				</p>
+			</Link>
 		</div>
 	);
 };
