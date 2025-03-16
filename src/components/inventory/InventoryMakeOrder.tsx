@@ -55,7 +55,7 @@ function InventoryReorder({ inventory }) {
 	const [purchaseOrders, setPurchaseOrders] = useState([]);
 
 	// New state for filtering and sorting open orders
-	const [orderSearch, setOrderSearch] = useState("");
+	const [orderSearch] = useState("");
 	const [orderSortConfig, setOrderSortConfig] = useState({
 		key: "",
 		direction: "asc",

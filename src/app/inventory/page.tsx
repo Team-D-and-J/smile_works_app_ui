@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import InventoryAddItemModal from "@/components/inventory/InventoryAddItemModal";
-import { FaEllipsisH } from "react-icons/fa";
 import EllipsesMenu from "@/components/inventory/EllipsesMenu";
 import Link from "next/link";
 import BackButton from "@/components/BackButton";
@@ -133,8 +132,8 @@ const InventoryTable = () => {
 	// Then, sort the filtered inventory.
 	const sortedInventory = [...filteredInventory].sort((a, b) => {
 		if (sortConfig.key) {
-			let aValue = a[sortConfig.key];
-			let bValue = b[sortConfig.key];
+			const aValue = a[sortConfig.key];
+			const bValue = b[sortConfig.key];
 
 			// If the values are numbers, sort numerically; otherwise, sort as strings.
 			if (typeof aValue === "number" && typeof bValue === "number") {

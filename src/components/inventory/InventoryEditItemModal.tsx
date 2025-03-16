@@ -17,39 +17,11 @@ const style = {
 	p: 4,
 };
 
-import { ChangeEvent, FormEvent } from "react";
-
-interface Inventory {
-	_id: string;
-	productId: string;
-	name: string;
-	unitOfMeasure: string;
-	unitPrice: string;
-	stock: number;
-	stockThreshold: number;
-	brand: string;
-	category: string;
-}
-
 export default function BasicModal({ item }) {
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
-	console.log(item);
-	const [inventory, setInventory] = useState<Inventory[]>([
-		{
-			_id: "",
-			productId: "",
-			name: "",
-			unitOfMeasure: "",
-			unitPrice: "",
-			stock: 0,
-			stockThreshold: 0,
-			brand: "",
-			category: "",
-		},
-	]);
-	const [loading, setLoading] = useState(true);
+
 	const [formData, setFormData] = useState({ ...item });
 
 	const handleChange = (field, value) => {
@@ -62,18 +34,7 @@ export default function BasicModal({ item }) {
 	};
 
 	// Add handler: add an item from the state.
-	const handleEdit = async (
-		_id: string,
-		clinicId: string,
-		productId: string,
-		name: string,
-		unitOfMeasure: string,
-		unitPrice: string,
-		stock: number,
-		stockThreshold: number,
-		brand: string,
-		category: string
-	) => {
+	const handleEdit = async (_id: string) => {
 		const response = await fetch(
 			`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/inventory/${formData._id}`,
 			{
@@ -118,7 +79,7 @@ export default function BasicModal({ item }) {
 				throw new Error("Failed to fetch product data");
 			}
 			const data = await response.json();
-			setInventory(data);
+
 			console.log(data);
 		};
 		getProducts();

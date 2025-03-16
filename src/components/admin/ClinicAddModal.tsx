@@ -7,7 +7,7 @@ interface Clinic {
 	clinicName: string;
 	organizationId: string;
 	contactNumber: string;
-	treatmentMasterIds?: any[];
+	treatmentMasterIds?: string[];
 }
 
 interface ClinicAddModalProps {
@@ -60,7 +60,7 @@ const ClinicAddModal: React.FC<ClinicAddModalProps> = ({
 			}
 			onClose();
 			location.reload();
-		} catch (err: any) {
+		} catch (err) {
 			console.error("Error adding clinic:", err);
 			setError(err.message || "Error adding clinic. Please try again.");
 		}
