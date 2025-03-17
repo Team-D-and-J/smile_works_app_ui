@@ -158,8 +158,8 @@ const InventoryTable = () => {
 	// Sort the filtered inventory.
 	const sortedInventory = [...filteredInventory].sort((a, b) => {
 		if (sortConfig.key) {
-			let aValue = a[sortConfig.key];
-			let bValue = b[sortConfig.key];
+			const aValue = a[sortConfig.key];
+			const bValue = b[sortConfig.key];
 
 			// If the values are numbers, sort numerically; otherwise, sort as strings.
 			if (typeof aValue === "number" && typeof bValue === "number") {

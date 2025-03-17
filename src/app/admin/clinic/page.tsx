@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import Link from "next/link";
 import ClinicEditModal from "@/components/admin/ClinicEditModal";
 import { FaEllipsisH } from "react-icons/fa";
 import BackButton from "@/components/BackButton";
@@ -12,7 +11,7 @@ interface Clinic {
 	clinicName: string;
 	organizationId: string;
 	contactNumber: string;
-	treatmentMasterIds: any[];
+	treatmentMasterIds: string[];
 }
 
 // Dropdown menu component for Edit and Delete actions.
@@ -103,7 +102,7 @@ const ClinicScreen = () => {
 				}
 				const data = await res.json();
 				setClinics(data);
-			} catch (err: any) {
+			} catch (err) {
 				console.error(err);
 				setError(err.message);
 			} finally {
@@ -189,7 +188,7 @@ const ClinicScreen = () => {
 			setClinics((prevClinics) =>
 				prevClinics.filter((clinic) => clinic._id !== clinicId)
 			);
-		} catch (err: any) {
+		} catch (err) {
 			console.error("Error deleting clinic:", err);
 			setError(err.message);
 		}
