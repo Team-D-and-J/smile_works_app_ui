@@ -10,11 +10,6 @@ export default function Menu({ item }) {
 		setIsOpen(!isOpen);
 	};
 
-	const handleAction = (action) => {
-		console.log(`${action} clicked`);
-		setIsOpen(false);
-	};
-
 	return (
 		<div className="relative inline-block text-left">
 			<button
