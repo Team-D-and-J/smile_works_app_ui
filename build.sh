@@ -18,4 +18,4 @@ echo "Building smile_works_app_ui:$TAG"
 
 docker build -t smile_works_app_ui:"$TAG" .
 
-echo "$TAG" > ../BUILD_UI_TAG
+echo "$TAG" > ~/BUILD_BACKEND_TAG
