@@ -6,16 +6,6 @@ import { RenderField } from '../RenderField';
 interface LatestTreatmentPageProps {
     patientId: string;
 }
-interface Treatment {
-    _id: string;
-    treatmentMasterId: string;
-    doctorId: string;
-    status: string;
-    _metadata: {
-        lastUpdatedAt: string;
-    };
-}
-
 interface TreatmentMaster {
     name: string;
     description: string;

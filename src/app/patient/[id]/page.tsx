@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import PatientButtons from "@/components/patient/PatientButtons";
 import PatientProfile from "@/components/patient/PatientProfile";
-import { useRouter } from "next/navigation";
 import BillingHistory from "@/components/billing/BillingHistory";
 import TreatmentHistory from "@/components/treatment/TreatmentHistory";
 import BackButton from "@/components/BackButton";

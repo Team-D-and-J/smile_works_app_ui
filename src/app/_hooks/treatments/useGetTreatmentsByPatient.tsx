@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 
 interface TreatmentData {
-    _id: any;
-    _metadata: any;
+    _id: string;
     treatmentId: string;
     organizationId: string;
     patientId: string;
@@ -17,11 +16,15 @@ interface TreatmentData {
     }[];
 }
 
+interface FetchError {
+    message: string;
+    error?: unknown; 
+}
+
 function useGetTreatmentsByPatient(patientId: string | null) {
     const [data, setData] = useState<TreatmentData[] | null>([]);
-	const [error, setError] = useState<{ message: string; error?: any } | null>(null);
+	const [error, setError] = useState<FetchError | null>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-    const token = localStorage.getItem("token");
 
     useEffect(() => {
 
@@ -31,7 +34,7 @@ function useGetTreatmentsByPatient(patientId: string | null) {
                     try {
                         const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/treatments/patient/${patientId}`, {
                             method: "GET",
-                            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+                            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem("token")}` }
                         })
                         if (!response.ok) {
                             throw new Error("Failed to fetch treatments data");
