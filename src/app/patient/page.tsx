@@ -83,7 +83,7 @@ const Page = () => {
           <h1 className="text-2xl font-bold">Patient Search</h1>
           <div>
             <Link
-              href="/patientEducation"
+              href="/patienteducation"
               className="p-2 mr-4 border border-gray-300 rounded-md"
             >
               Patient Education
