@@ -1,7 +1,5 @@
 "use client";
-import React, { StrictMode, useEffect, useState } from "react";
-import { createRoot } from "react-dom/client";
-
+import React, { useEffect, useState } from "react";
 import type { ColDef, ColGroupDef } from "ag-grid-community";
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";

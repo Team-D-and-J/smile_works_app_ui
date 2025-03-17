@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import InventoryMakeOrder from "@/components/inventory/InventoryMakeOrder";
 
-const page = () => {
+const Page = () => {
 	const [inventory, setInventory] = useState([]);
 	useEffect(() => {
 		const fetchInventory = async () => {
@@ -34,4 +34,4 @@ const page = () => {
 	);
 };
 
-export default page;
+export default Page;
