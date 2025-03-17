@@ -3,12 +3,6 @@ import React, { useEffect, useState } from "react";
 import useGetTreatmentsByPatient from "@/app/_hooks/treatments/useGetTreatmentsByPatient";
 import Link from "next/link";
 
-interface Treatment {
-    _id: string;
-    treatmentMasterId: string;
-    doctorId: string;
-    status: string;
-}
 
 interface TreatmentMaster {
     id: string;
@@ -25,7 +19,6 @@ interface TreatmentHistoryProps {
 }
 
 const TreatmentHistory: React.FC<TreatmentHistoryProps> = ({ patientId }) => {
-    const token = localStorage.getItem("token");
     const { data: treatmentsList, error: treatmentListError, isLoading: treatmentListLoading } = useGetTreatmentsByPatient(patientId);
 
     const [treatmentMasterDataMap, setTreatmentMasterDataMap] = useState<Record<string, TreatmentMaster | null>>({});
@@ -48,7 +41,7 @@ const TreatmentHistory: React.FC<TreatmentHistoryProps> = ({ patientId }) => {
                         try {
                             const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/treatmentmaster/${id}`, {
                                 method: "GET",
-                                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+                                headers: { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("token")}` },
                             });
                             if (!response.ok) throw new Error(`Treatment Master Not Found: ${id}`);
                             const result = await response.json();

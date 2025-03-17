@@ -24,9 +24,14 @@ interface PatientData {
     };
 }
 
+interface FetchError {
+    message: string;
+    error?: unknown; 
+}
+
 function useGetPatientById(patientId: string | null) {
     const [data, setData] = useState<PatientData | null>(null);
-    const [error, setError] = useState<{ message: string; error?: any } | null>(null);
+    const [error, setError] = useState<FetchError | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const token = localStorage.getItem("token");
 
