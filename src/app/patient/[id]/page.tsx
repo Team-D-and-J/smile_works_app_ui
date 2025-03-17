@@ -4,14 +4,12 @@ import { useParams } from "next/navigation";
 import PatientButtons from "@/components/patient/PatientButtons";
 import PatientProfile from "@/components/patient/PatientProfile";
 import { useRouter } from "next/navigation";
-import { IoArrowBack } from "react-icons/io5";
 import BillingHistory from "@/components/billing/BillingHistory";
 import TreatmentHistory from "@/components/treatment/TreatmentHistory";
 import BackButton from "@/components/BackButton";
 
 const PatientPage = () => {
 	const { id } = useParams();
-	const router = useRouter();
 	const patientId = Array.isArray(id) ? id[0] : id || "";
 	const [activeTab, setActiveTab] = useState("profile");
 

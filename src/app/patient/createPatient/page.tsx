@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect} from "react";
 
 const CreatePatient: React.FC = () => {
 
@@ -105,15 +105,15 @@ const CreatePatient: React.FC = () => {
 	
 	  return (
 	  <>
-	  <div className="flex flex-col w-full">
-		<div className="flex mx-auto mb-16 mt-5 font-bold">
+	  <div className="flex flex-col items-center w-full">
+		<div className="flex mx-auto mb-12 mt-5 font-bold">
 			<h2>CREATE NEW PATIENT</h2>
 		</div>
 		
-		<div className="flex w-full justify-center items-center ">
+		<div className="flex w-full justify-center items-center">
 		
-			<form className="w-full pl-20 mx-auto" onSubmit={handleSubmit}>
-				<div className="grid grid-cols-2 gap-6 mt-22 mx-auto">
+			<form className="w-1/2 mx-auto" onSubmit={handleSubmit}>
+				<div className="grid grid-cols-2 gap-1 mt-22 mx-auto">
 				<div className="mb-5">
 				<label
 				htmlFor="name"
@@ -126,7 +126,7 @@ const CreatePatient: React.FC = () => {
 				id="name"
 				value={name}
 				onChange={(e) => setName(e.target.value)}
-				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5 "
+				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-2.5 "
 				required
 				/>
 			</div>
@@ -142,7 +142,7 @@ const CreatePatient: React.FC = () => {
 				id="street"
 				value={address.street} // Bind to a specific field
 				onChange={(e) => setAddress({ ...address, street: e.target.value })} // Update only 'street'
-				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-2.5"
 				required
 				/>
 			</div>
@@ -158,7 +158,7 @@ const CreatePatient: React.FC = () => {
 				id="city"
 				value={address.city} // Bind to a specific field
 				onChange={(e) => setAddress({ ...address, city: e.target.value })} // Update only 'street'
-				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-2.5"
 				required
 				/>
 			</div>
@@ -174,7 +174,7 @@ const CreatePatient: React.FC = () => {
 				id="state"
 				value={address.state} // Bind to a specific field
 				onChange={(e) => setAddress({ ...address, state: e.target.value })} // Update only 'street'
-				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-2.5"
 				required
 				/>
 			</div>
@@ -190,7 +190,7 @@ const CreatePatient: React.FC = () => {
 				id="zip"
 				value={address.zip} // Bind to a specific field
 				onChange={(e) => setAddress({ ...address, zip: e.target.value })} // Update only 'street'
-				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-2.5"
 				required
 				/>
 			</div>
@@ -206,7 +206,7 @@ const CreatePatient: React.FC = () => {
 				id="phoneNumber"
 				value={phoneNumber}
 				onChange={(e) => setPhoneNumber(e.target.value)}
-				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-2.5"
 				required
 				/>
 			</div>
@@ -222,7 +222,7 @@ const CreatePatient: React.FC = () => {
 				id="email"
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}
-				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-2.5"
 				required
 				/>
 			</div>
@@ -238,7 +238,7 @@ const CreatePatient: React.FC = () => {
 				id="dob"
 				value={dob}
 				onChange={(e) => setDob(e.target.value)}
-				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-2.5"
 				required
 				/>
 			</div>
@@ -254,7 +254,7 @@ const CreatePatient: React.FC = () => {
 				id="emergencyInfo"
 				value={emergencyInfo.name}
 				onChange={(e) => setEmergencyInfo({...emergencyInfo, name: e.target.value})}
-				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-2.5"
 				required
 				/>
 			</div>
@@ -270,7 +270,7 @@ const CreatePatient: React.FC = () => {
 				id="emergencyInfo"
 				value={emergencyInfo.phoneNumber}
 				onChange={(e) => setEmergencyInfo({...emergencyInfo, phoneNumber: e.target.value})}
-				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-2.5"
 				required
 				/>
 			</div>
@@ -286,7 +286,7 @@ const CreatePatient: React.FC = () => {
 				id="allergies"
 				value={allergies}
 				onChange={(e) => setAllergies(e.target.value)}
-				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-2.5"
 				required
 				/>
 			</div>
@@ -302,7 +302,7 @@ const CreatePatient: React.FC = () => {
 				id="medicalHistory"
 				value={medicalHistory}
 				onChange={(e) => setMedicalHistory(e.target.value)}
-				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-2.5"
 				required
 				/>
 			</div>
@@ -320,7 +320,7 @@ const CreatePatient: React.FC = () => {
 					onChange={(e) =>
 						setInsuranceInfo({ ...insuranceInfo, insuranceProvider: e.target.value })
 					}
-					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-2.5"
 					required
 				/>
 			</div>
@@ -338,7 +338,7 @@ const CreatePatient: React.FC = () => {
 					onChange={(e) =>
 						setInsuranceInfo({ ...insuranceInfo, phoneNumber: e.target.value })
 					}
-					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/3 p-2.5"
+					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-2/3 p-2.5"
 					required
 				/>
 			</div>
@@ -402,9 +402,12 @@ const CreatePatient: React.FC = () => {
 				</label>
 		</div>
 
+			
+			</div>
+			<div className="flex justify-center mt-5">
 			<button
 				type="submit"
-				className="ml-auto text-black bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-1/5 py-2.5 text-center"
+				className=" text-black bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-1/6 py-2.5 text-center"
 			>
 				Submit
 			</button>
