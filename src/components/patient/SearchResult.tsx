@@ -14,10 +14,15 @@ const SearchResult: React.FC<SearchResultProps> = ({ patient }) => {
   return (
     <div
       onClick={handleClick}
-      className="p-3 w-52  border border-gray-300 rounded-md"
-      id="patient._id"
+      className="p-3 border border-gray-300 rounded-md grid grid-cols-4 gap-4 place-items-start cursor-pointer hover:outline hover:outline-2 hover:outline-gray-500 "
+      key="patient._id"
     >
-      {patient.name}
+      <p>{patient.name}</p>
+      <p>{patient.phoneNumber}</p>
+      <p>
+        {patient.address.street}, {patient.address.city}
+      </p>
+      <p>{patient.dob}</p>
     </div>
   );
 };

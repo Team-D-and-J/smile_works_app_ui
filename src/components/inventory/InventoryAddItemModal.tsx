@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 
 const modalStyle = {
 	position: "absolute",
@@ -171,9 +170,12 @@ export default function ProductTable() {
 
 	return (
 		<>
-			<Button onClick={handleOpen} variant="contained" color="primary">
+			<button
+				onClick={handleOpen}
+				className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+			>
 				Add Product
-			</Button>
+			</button>
 
 			<Modal open={open} onClose={handleClose}>
 				<Box sx={modalStyle}>

@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import TopHeader from "../components/TopHeader";
 import LeftNavigation from "../components/LeftNavigation";
+import Spinner from "../components/Spinner";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -70,7 +71,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {loading ? (
-          <p>Loading Spinner</p>
+          <Spinner />
         ) : isLoginPage ? (
           children
         ) : (

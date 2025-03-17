@@ -1,8 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import InventoryAddItemModal from "@/components/inventory/InventoryAddItemModal";
-import { FaEllipsisH } from "react-icons/fa";
 import EllipsesMenu from "@/components/inventory/EllipsesMenu";
+import Link from "next/link";
+import BackButton from "@/components/BackButton";
 
 interface Inventory {
 	_id: string;
@@ -59,7 +60,7 @@ const InventoryTable = () => {
 		const fetchInventory = async () => {
 			try {
 				const response = await fetch(
-					`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/inventory`,
+					`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/inventory?limit=100`,
 					{
 						method: "GET",
 						headers: {
@@ -119,14 +120,20 @@ const InventoryTable = () => {
 				.includes(filters.stock.toLowerCase()) &&
 			String(item.stockThreshold ?? "")
 				.toLowerCase()
-				.includes(filters.stockThreshold.toLowerCase())
+				.includes(filters.stockThreshold.toLowerCase()) &&
+			String(item.brand ?? "")
+				.toLowerCase()
+				.includes(filters.brand.toLowerCase()) &&
+			String(item.category ?? "")
+				.toLowerCase()
+				.includes(filters.category.toLowerCase())
 	);
 
 	// Then, sort the filtered inventory.
 	const sortedInventory = [...filteredInventory].sort((a, b) => {
 		if (sortConfig.key) {
-			let aValue = a[sortConfig.key];
-			let bValue = b[sortConfig.key];
+			const aValue = a[sortConfig.key];
+			const bValue = b[sortConfig.key];
 
 			// If the values are numbers, sort numerically; otherwise, sort as strings.
 			if (typeof aValue === "number" && typeof bValue === "number") {
@@ -150,9 +157,15 @@ const InventoryTable = () => {
 
 	return (
 		<div className="container mx-auto p-4">
-			<h2 className="text-2xl font-bold mb-4">Product Management</h2>
+			<BackButton />
+			<h2 className="text-3xl font-bold text-center mb-4">
+				Product Management
+			</h2>
 			<div className="mb-4 flex justify-center">
 				<InventoryAddItemModal />
+				<button className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+					<Link href="/inventory/ordering">Place Order</Link>
+				</button>
 			</div>
 			<table className="min-w-full border-collapse border border-gray-200">
 				<thead>

@@ -105,7 +105,7 @@ const Page: React.FC = () => {
 							</div>
 						</Link>
 
-						<Link href="/patient" className="flex flex-col rounded-lg border border-black px-2 py-2 w-24 h-20 text-center bg-[#001F3F] hover:bg-[#0A3981] hover:border-gray-500 transition-all transform hover:scale-105">
+						<Link href="/patient/createPatient" className="flex flex-col rounded-lg border border-black px-2 py-2 w-24 h-20 text-center bg-[#001F3F] hover:bg-[#0A3981] hover:border-gray-500 transition-all transform hover:scale-105">
 						<dt className="order-last text-sm font-medium text-blue-200">Create Patient</dt>
 
 						<div className="flex items-center mx-auto gap-2 p-1 ">
