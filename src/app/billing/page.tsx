@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import PaymentModal from "../../components/billing/BillingMakePaymentModal";
 
 const PaymentPage = () => {

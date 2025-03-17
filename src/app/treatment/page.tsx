@@ -1,6 +1,6 @@
 "use client";
 import React, {useState, useEffect} from 'react';
-
+import Link from "next/link"
 
 const TreatmentsMaster: React.FC = () => {
     const [jwt, setJwt] = useState<string | null>(null);
@@ -46,12 +46,27 @@ const TreatmentsMaster: React.FC = () => {
 
   return (
     <div>
-
-        <h2>TREATMENTS PROVIDED BY CLINIC</h2>
-        <ul>{treatments.map((treatment) => (
-            <li key={treatment._id}>
-                <strong>{treatment.name}</strong>
-            </li>
+        <div className='flex justify-center mb-7 mt-10'>
+        <h2 className='font-bold'>TREATMENTS PROVIDED BY CLINIC</h2>
+        </div>
+        <ul className='w-5/6 mx-auto space-y-2'>{treatments.map((treatment) => (
+           <div
+         
+           className="p-3 border border-gray-300 rounded-md grid grid-cols-5 gap-2 place-items-start cursor-pointer hover:outline hover:outline-2 hover:outline-gray-500 "
+           key={treatment._id}
+         >
+           <p >{treatment.name}</p>
+           <p>{treatment.description}</p>
+           <p>
+             {treatment.type}
+           </p>
+           <p>{treatment.cost}</p>
+           <Link href="/costestimator">
+          <button className="bg-blue-500 text-white px-2 py-2 rounded hover:bg-blue-600">
+            Cost Estimation
+          </button>
+        </Link>
+         </div>
         ))
             }</ul>
         

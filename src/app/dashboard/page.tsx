@@ -3,12 +3,10 @@ import React, { useState, useEffect } from "react";
 import { FiCalendar } from "react-icons/fi";
 import { FiPlusCircle } from "react-icons/fi";
 import { FiSlash } from "react-icons/fi";
-import { FiBell } from "react-icons/fi";
 import { FiX } from "react-icons/fi";
 import Link from "next/link";
 import { IconType } from "react-icons";
 import { FiSearch } from "react-icons/fi";
-import { FiMessageSquare } from "react-icons/fi";
 import PieChart from "./PieChart";
 
 
