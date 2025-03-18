@@ -45,6 +45,7 @@ const InventoryView = () => {
 	};
 
 	// Column Definitions: Defines & controls grid columns.
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [columnDefs] = useState<(ColDef<any, any> | ColGroupDef<any>)[]>([
 		{ field: "name", flex: 2 },
 		{ field: "quantityOnHand", flex: 1 },

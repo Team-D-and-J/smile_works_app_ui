@@ -4,6 +4,7 @@ import Link from "next/link"
 
 const TreatmentsMaster: React.FC = () => {
     const [jwt, setJwt] = useState<string | null>(null);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [treatments, setTreatments] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);

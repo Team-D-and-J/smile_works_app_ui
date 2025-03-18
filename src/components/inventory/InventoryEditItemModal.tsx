@@ -34,7 +34,7 @@ export default function BasicModal({ item }) {
 	};
 
 	// Add handler: add an item from the state.
-	const handleEdit = async (_id: string) => {
+	const handleEdit = async () => {
 		const response = await fetch(
 			`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/inventory/${formData._id}`,
 			{
