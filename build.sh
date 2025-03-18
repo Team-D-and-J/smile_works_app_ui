@@ -4,10 +4,10 @@
 git fetch
 
 # Check if there are changes to pull
-if git status -uno | grep -q "Your branch is up to date"; then
-    echo "No changes to pull. Exiting build process."
-    exit 0
-fi
+# if git status -uno | grep -q "Your branch is up to date"; then
+#     echo "No changes to pull. Exiting build process."
+#     exit 0
+# fi
 
 # Pull changes if they exist
 git pull
