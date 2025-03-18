@@ -60,9 +60,14 @@ const ClinicAddModal: React.FC<ClinicAddModalProps> = ({
 			}
 			onClose();
 			location.reload();
-		} catch (err) {
-			console.error("Error adding clinic:", err);
-			setError(err.message || "Error adding clinic. Please try again.");
+		} catch (err: unknown) {
+			if (err instanceof Error) {
+				console.error("Error adding clinic:", err);
+				setError(err.message || "Error adding clinic. Please try again.");
+			} else {
+				console.error("Error adding clinic:", err);
+				setError("An unknown error occurred. Please try again.");
+			}
 		}
 	};
 

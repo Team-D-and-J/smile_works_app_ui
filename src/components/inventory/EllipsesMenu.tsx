@@ -3,7 +3,8 @@ import { FaEllipsisH } from "react-icons/fa";
 import InventoryEditItemModal from "@/components/inventory/InventoryEditItemModal";
 import InventoryDeleteItemModal from "@/components/inventory/InventoryDeleteItemModal";
 
-export default function Menu({ item }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function Menu({ item }: { item: any }) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggleMenu = () => {
@@ -27,7 +28,7 @@ export default function Menu({ item }) {
 						<InventoryEditItemModal item={item} />
 					</div>
 					<div className="w-full px-4 py-2 text-left hover:bg-gray-100">
-						<InventoryDeleteItemModal item={item} />
+						<InventoryDeleteItemModal item={item} onDeleteSuccess={() => {}} />
 					</div>
 				</div>
 			)}

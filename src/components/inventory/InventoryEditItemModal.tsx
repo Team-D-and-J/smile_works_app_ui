@@ -17,7 +17,8 @@ const style = {
 	p: 4,
 };
 
-export default function BasicModal({ item }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function BasicModal({ item }: { item: any }) {
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
@@ -28,13 +29,14 @@ export default function BasicModal({ item }) {
 		setFormData({ ...formData, [field]: value });
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		handleEdit(formData);
 	};
 
 	// Add handler: add an item from the state.
-	const handleEdit = async () => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const handleEdit = async (formData: any) => {
 		const response = await fetch(
 			`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/inventory/${formData._id}`,
 			{
@@ -219,20 +221,7 @@ export default function BasicModal({ item }) {
 					<div className="flex justify-around mt-4 gap-4">
 						<button
 							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-							onClick={() =>
-								handleEdit(
-									formData._id,
-									formData.clincId,
-									formData.productId,
-									formData.name,
-									formData.unitOfMeasure,
-									formData.unitPrice,
-									formData.stock,
-									formData.stockThreshold,
-									formData.brand,
-									formData.category
-								)
-							}
+							onClick={() => handleEdit(formData)}
 						>
 							Save Item
 						</button>

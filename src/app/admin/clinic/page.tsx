@@ -190,7 +190,7 @@ const ClinicScreen = () => {
 			);
 		} catch (err) {
 			console.error("Error deleting clinic:", err);
-			setError(err.message);
+			setError(err instanceof Error ? err.message : "An unknown error occurred");
 		}
 	};
 
