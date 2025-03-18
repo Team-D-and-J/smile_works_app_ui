@@ -50,13 +50,16 @@ const Page = () => {
     e.preventDefault();
     try {
       const name = `${firstName} ${lastName}`.trim();
+      const params = new URLSearchParams();
+      if (name) params.append("name", name);
+      if (dob) params.append("dob", dob);
+      if (_id) params.append("_id", _id);
+      console.log("params: ", params);
+      console.log("params.toString(): ", params.toString());
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/patient`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, dob, _id }),
-        }
+        `${
+          process.env.NEXT_PUBLIC_API_BASE_URL
+        }/api/patient/${params.toString()}`
       );
       if (response.ok) {
         setErrorMessage("");
@@ -172,7 +175,6 @@ const Page = () => {
         </div>
         <div className="flex justify-between items-center mt-4 min-w-full">
           <span>
-            {" "}
             {results.length
               ? `Showing ${startIndex + 1}–${endIndex} of ${totalResults}:`
               : ""}
