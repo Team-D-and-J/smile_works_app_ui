@@ -53,16 +53,6 @@ const LeftNavigation = () => {
               )}
             </div>
           </Link>
-          <Link href="/costestimator">
-            <div className="flex items-center gap-2 p-2 cursor-pointer">
-              <MdAttachMoney className="text-4xl text-[#001F3F]" />
-              {expanded && (
-                <span className="whitespace-nowrap text-xl text-[#001F3F]">
-                  Cost Estimator
-                </span>
-              )}
-            </div>
-          </Link>
           <Link href="/treatment">
             <div className="flex items-center gap-2 p-2 cursor-pointer">
               <FaClipboardList className="text-4xl text-[#001F3F]" />
