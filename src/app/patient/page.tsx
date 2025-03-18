@@ -54,8 +54,6 @@ const Page = () => {
       if (name) params.append("name", name);
       if (dob) params.append("dob", dob);
       if (_id) params.append("_id", _id);
-      console.log("params: ", params);
-      console.log("params.toString(): ", params.toString());
       const response = await fetch(
         `${
           process.env.NEXT_PUBLIC_API_BASE_URL
