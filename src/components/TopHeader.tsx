@@ -1,11 +1,16 @@
+"use client"
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const TopNavigation = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const router = useRouter();
-	const token = localStorage.getItem("token")
+	const [token , setToken] = useState<string | null>(null);
+
+	useEffect(() => {
+		return setToken(localStorage.getItem("token"));
+	}, []);
 
 	const handleLogout = async () => {
 		try {

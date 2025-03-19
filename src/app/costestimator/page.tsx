@@ -35,9 +35,11 @@ const Page = () => {
     selectedSpecification: "",
   });
   const [cost, setCost] = useState(0);
+  const [token , setToken] = useState<string | null>(null);
 
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+	useEffect(() => {
+		return setToken(localStorage.getItem("token"));
+	}, []);
 
   useEffect(() => {
     const fetchData = async () => {
