@@ -53,7 +53,7 @@ const LeftNavigation = () => {
               )}
             </div>
           </Link>
-          <Link href="/treatment">
+          <Link href="/treatmentMaster">
             <div className="flex items-center gap-2 p-2 cursor-pointer">
               <FaClipboardList className="text-4xl text-[#001F3F]" />
               {expanded && (
