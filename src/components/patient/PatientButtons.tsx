@@ -32,8 +32,8 @@ const InventoryButtons: React.FC<InventoryButtonsProps> = ({ patientId }) => {
                         <Link href="/editpatient" className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-900">
                             Edit Patient Info
                         </Link>
-                        <Link href="/patient/createPatient" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-800">
-                            Create New Patient
+                        <Link href="/patient/notificationManagment" className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-blue-800">
+                            Notification Managment
                         </Link>
                         <Link href="/treatment" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-800">
                             Start Treatment

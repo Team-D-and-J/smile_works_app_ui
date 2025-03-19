@@ -89,7 +89,7 @@ const Page = () => {
               Patient Education
             </Link>
             <Link
-              href="/createPatient"
+              href="/patient/createPatient"
               className="p-2 border border-gray-300 rounded-md"
             >
               Create New Patient
