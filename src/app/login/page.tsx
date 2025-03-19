@@ -27,7 +27,7 @@ const Page = () => {
 				const data = await response.json();
 				localStorage.setItem("token", data.token);
 				localStorage.setItem("username", username); // Store the username
-				router.push("/dashboard");
+				router.push("/");
 			} else {
 				setError("Invalid credentials");
 			}
