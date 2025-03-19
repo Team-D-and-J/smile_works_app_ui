@@ -2,10 +2,10 @@
 import useGetPatientById from "@/app/_hooks/patients/useGetPatientById";
 import Link from "next/link";
 import React from "react";
-interface InventoryButtonsProps {
+interface PatientButtonsProps {
     patientId: string;
 }
-const InventoryButtons: React.FC<InventoryButtonsProps> = ({ patientId }) => {
+const PatientButtons: React.FC<PatientButtonsProps> = ({ patientId }) => {
     const {data: patientData, error: patientDataError, isLoading: isPatientDataLoading} = useGetPatientById(patientId);
     console.log("PatientData from server", patientData)
     return (
@@ -28,7 +28,7 @@ const InventoryButtons: React.FC<InventoryButtonsProps> = ({ patientId }) => {
                         <Link href="/costestimator" className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-900">
                             Cost Estimation
                         </Link>
-                        <Link href="/editpatient" className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-900">
+                        <Link href="/editpatient"  className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-800">
                             Edit Patient Info
                         </Link>
                         <Link href="/createpatient" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-800">
@@ -44,4 +44,4 @@ const InventoryButtons: React.FC<InventoryButtonsProps> = ({ patientId }) => {
     )
 };
 
-export default InventoryButtons;
+export default PatientButtons;
