@@ -23,7 +23,7 @@ const LeftNavigation = () => {
         }`}
       >
         <div className="flex flex-col gap-8 mt-20">
-          <Link href="/dashboard">
+          <Link href="/">
             <div className="flex items-center gap-2 p-2 cursor-pointer">
               <TbHeartRateMonitor className="text-4xl text-[#001F3F]" />
               {expanded && (
