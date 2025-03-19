@@ -23,7 +23,7 @@ const LeftNavigation = () => {
         }`}
       >
         <div className="flex flex-col gap-8 mt-20">
-          <Link href="/dashboard">
+          <Link href="/">
             <div className="flex items-center gap-2 p-2 cursor-pointer">
               <TbHeartRateMonitor className="text-4xl text-[#001F3F]" />
               {expanded && (
@@ -53,17 +53,7 @@ const LeftNavigation = () => {
               )}
             </div>
           </Link>
-          <Link href="/costestimator">
-            <div className="flex items-center gap-2 p-2 cursor-pointer">
-              <MdAttachMoney className="text-4xl text-[#001F3F]" />
-              {expanded && (
-                <span className="whitespace-nowrap text-xl text-[#001F3F]">
-                  Cost Estimator
-                </span>
-              )}
-            </div>
-          </Link>
-          <Link href="/treatment">
+          <Link href="/treatmentMaster">
             <div className="flex items-center gap-2 p-2 cursor-pointer">
               <FaClipboardList className="text-4xl text-[#001F3F]" />
               {expanded && (

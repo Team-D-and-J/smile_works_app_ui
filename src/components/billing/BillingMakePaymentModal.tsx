@@ -1,12 +1,13 @@
 "use client";
 import React, { useState } from "react";
 
-const PaymentModal = ({ payment, onClose }) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const PaymentModal = ({ payment, onClose }: { payment: any, onClose: () => void }) => {
 	const [cardNumber, setCardNumber] = useState("");
 	const [expiry, setExpiry] = useState("");
 	const [cvv, setCvv] = useState("");
 
-	const handlePayment = (e) => {
+	const handlePayment = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		alert(`Simulated payment of $${payment.amount} processed successfully!`);
 		onClose();

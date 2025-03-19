@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect} from "react";
+import InventoryButtons from "../../../components/patient/PatientButtons";
 
 const CreatePatient: React.FC = () => {
 
@@ -106,10 +107,12 @@ const CreatePatient: React.FC = () => {
 	  return (
 	  <>
 	  <div className="flex flex-col items-center w-full">
-		<div className="flex mx-auto mb-12 mt-5 font-bold">
+		<div className="flex mx-auto mb-8 mt-16 font-bold">
 			<h2>CREATE NEW PATIENT</h2>
 		</div>
-		
+		<div className="absolute top-20 right-0 flex justify-end">
+			<InventoryButtons/>
+		</div>
 		<div className="flex w-full justify-center items-center">
 		
 			<form className="w-1/2 mx-auto" onSubmit={handleSubmit}>

@@ -75,7 +75,7 @@ const styles = {
   },
   dateGroup: {
     display: "flex",
-    flexDirection: "column" as "column",
+    flexDirection: "column" as const,
     gap: "5px",
   },
   date: {
@@ -113,7 +113,7 @@ const styles = {
   },
   headerActions: {
     width: "15%",
-    textAlign: "right" as "right",
+    textAlign: "right" as const,
   },
   appointmentCard: {
     display: "flex",

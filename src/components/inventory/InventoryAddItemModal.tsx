@@ -3,6 +3,17 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
+interface FormDataItem {
+	name?: string;
+	unitPrice?: number;
+	stock?: number;
+	stockThreshold?: number;
+}
+
+interface FormData {
+	[key: string]: FormDataItem;
+}
+
 const modalStyle = {
 	position: "absolute",
 	top: "50%",
@@ -17,7 +28,7 @@ const modalStyle = {
 export default function ProductTable() {
 	const [products, setProducts] = useState([]);
 	const [open, setOpen] = useState(false);
-	const [formData, setFormData] = useState({});
+	const [formData, setFormData] = useState<FormData>({});
 
 	// New state for filters per column
 	const [filters, setFilters] = useState({
@@ -61,7 +72,7 @@ export default function ProductTable() {
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 
-	const handleChange = (event, id, field) => {
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>, id: string, field: string) => {
 		setFormData({
 			...formData,
 			[id]: {
@@ -71,7 +82,8 @@ export default function ProductTable() {
 		});
 	};
 
-	const handleAdd = async (item) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const handleAdd = async (item: any) => {
 		try {
 			const response = await fetch(
 				`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/inventory`,
@@ -107,7 +119,8 @@ export default function ProductTable() {
 	};
 
 	// Handle sorting: toggles ascending/descending order for a column
-	const handleSort = (columnKey) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const handleSort = (columnKey: any) => {
 		let direction = "asc";
 		if (sortConfig.key === columnKey && sortConfig.direction === "asc") {
 			direction = "desc";
@@ -115,8 +128,9 @@ export default function ProductTable() {
 		setSortConfig({ key: columnKey, direction });
 	};
 
-	// First filter the products based on input filters
-	const filteredProducts = products.filter((product) => {
+	// First filter the products based on input filters	
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const filteredProducts = products.filter((product: any) => {
 		return (
 			(filters._id === "" ||
 				product._id
@@ -153,7 +167,8 @@ export default function ProductTable() {
 	});
 
 	// Then sort the filtered products based on sortConfig
-	const sortedProducts = [...filteredProducts].sort((a, b) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const sortedProducts = [...filteredProducts].sort((a: any, 	b: any) => {
 		if (!sortConfig.key) return 0;
 		let aValue = a[sortConfig.key];
 		let bValue = b[sortConfig.key];
@@ -348,7 +363,8 @@ export default function ProductTable() {
 							</tr>
 						</thead>
 						<tbody>
-							{sortedProducts.map((item) => {
+							{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+							{sortedProducts.map((item: any) => {
 								// Determine the effective values for unitPrice, stock, and stockThreshold
 								const unitPriceVal = Number(
 									formData[item._id]?.unitPrice || item.unitPrice || 0

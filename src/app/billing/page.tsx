@@ -1,13 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import PaymentModal from "../../components/billing/BillingMakePaymentModal";
+import { Patient } from "../patient/page";
 
 const PaymentPage = () => {
 	const [patients, setPatients] = useState([]);
 	const [payments, setPayments] = useState([]);
-	const [selectedPatient, setSelectedPatient] = useState(null);
+	const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
 	const [patientSearch, setPatientSearch] = useState("");
-	const [error, setError] = useState(null);
+	const [error, setError] = useState<string | null>(null);
 	const [modalPayment, setModalPayment] = useState(null);
 
 	// Fetch patients on mount
@@ -71,12 +72,14 @@ const PaymentPage = () => {
 	}, [selectedPatient]);
 
 	// Filter patients by name search term
-	const filteredPatients = patients.filter((patient) =>
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const filteredPatients = patients.filter((patient: any) =>
 		patient.name.toLowerCase().includes(patientSearch.toLowerCase())
 	);
 
 	// Handler for simulating a payment modal
-	const handleSimulatePayment = (payment) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const handleSimulatePayment = (payment: any) => {
 		setModalPayment(payment);
 	};
 
@@ -96,7 +99,7 @@ const PaymentPage = () => {
 				/>
 				{patientSearch && (
 					<ul className="border border-t-0 rounded-b max-h-60 overflow-y-auto">
-						{filteredPatients.map((patient) => (
+						{filteredPatients.map((patient: Patient) => (
 							<li
 								key={patient._id}
 								className="p-2 hover:bg-gray-200 cursor-pointer"
@@ -136,7 +139,9 @@ const PaymentPage = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{payments.map((payment) => (
+						{
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
+						payments.map((payment: any) => (
 							<tr key={payment.date} className="hover:bg-gray-50">
 								<td className="px-4 py-2 border">{payment.date}</td>
 								<td className="px-4 py-2 border">

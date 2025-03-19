@@ -16,10 +16,11 @@ const PatientButtons: React.FC<PatientButtonsProps> = ({ patientId }) => {
                 <p className="text-red-500">Error loading patient data.</p>
             ) : (
                 <>
+                {patientId && (
                     <h2 className="text-lg font-bold pr-4">
                         Patient: {patientData?.name || "Unknown"} | ID: {patientId}
                     </h2>
-
+                )}
                     {/* Links Section */}
                     <div className="justify-end space-x-2">
                         <Link href="/patienteducation" className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-900">
@@ -31,8 +32,8 @@ const PatientButtons: React.FC<PatientButtonsProps> = ({ patientId }) => {
                         <Link href="/editpatient"  className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-800">
                             Edit Patient Info
                         </Link>
-                        <Link href="/createpatient" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-800">
-                            Create New Patient
+                        <Link href="/patient/notificationManagment" className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-blue-800">
+                            Notification Managment
                         </Link>
                         <Link href="/treatment" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-800">
                             Start Treatment

@@ -7,6 +7,7 @@ interface Clinic {
 	clinicName: string;
 	organizationId: string;
 	contactNumber: string;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	treatmentMasterIds: any[];
 }
 
@@ -21,15 +22,15 @@ const ClinicEditModal: React.FC<ClinicEditModalProps> = ({
 	onClose,
 	onUpdate,
 }) => {
+	// Local state for editable fields
+	const [clinicName, setClinicName] = useState(clinic?.clinicName ?? '');
+	const [clinicId, setClinicId] = useState(clinic?.clinicId ?? '');
+	const [organizationId, setOrganizationId] = useState(clinic?.organizationId ?? '');
+	const [contactNumber, setContactNumber] = useState(clinic?.contactNumber ?? '');
+	const [error, setError] = useState<string | null>(null);
+
 	// If no clinic is provided, don't render anything.
 	if (!clinic) return null;
-
-	// Local state for editable fields
-	const [clinicName, setClinicName] = useState(clinic.clinicName);
-	const [clinicId, setClinicId] = useState(clinic.clinicId);
-	const [organizationId, setOrganizationId] = useState(clinic.organizationId);
-	const [contactNumber, setContactNumber] = useState(clinic.contactNumber);
-	const [error, setError] = useState<string | null>(null);
 
 	const handleSave = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -66,9 +67,14 @@ const ClinicEditModal: React.FC<ClinicEditModalProps> = ({
 			}
 			onClose();
 			location.reload();
-		} catch (err: any) {
-			console.error("Error updating clinic:", err);
-			setError(err.message || "Error updating clinic. Please try again.");
+		} catch (err: unknown) {
+			if (err instanceof Error) {
+				console.error("Error updating clinic:", err);
+				setError(err.message || "Error updating clinic. Please try again.");
+			} else {
+				console.error("Error updating clinic:", err);
+				setError("An unknown error occurred. Please try again.");
+			}
 		}
 	};
 
