@@ -16,7 +16,8 @@ const style = {
 	p: 4,
 };
 
-export default function DeleteModal({ item, onDeleteSuccess }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function DeleteModal({ item, onDeleteSuccess }: { item: any, onDeleteSuccess: () => void }) {
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
