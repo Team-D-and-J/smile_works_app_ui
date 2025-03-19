@@ -55,9 +55,7 @@ const Page = () => {
       if (dob) params.append("dob", dob);
       if (_id) params.append("_id", _id);
       const response = await fetch(
-        `${
-          process.env.NEXT_PUBLIC_API_BASE_URL
-        }/api/patient/${params.toString()}`
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}search?${params.toString()}`
       );
       if (response.ok) {
         setErrorMessage("");
