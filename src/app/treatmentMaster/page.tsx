@@ -6,8 +6,6 @@ import { VscChevronDown } from "react-icons/vsc";
 
 const sortOptions = [
   { name: 'By Type', href: '#', current: true },
-  { name: 'Most Popular', href: '#', current: false },
-  { name: 'Newest', href: '#', current: false },
   { name: 'Price: Low to High', href: '#', current: false },
   { name: 'Price: High to Low', href: '#', current: false },
 ]
@@ -18,6 +16,10 @@ const TreatmentsMaster: React.FC = () => {
     const [treatments, setTreatments] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [sortedTreatments, setSortedTreatments] = useState<any[]>([]); // Store sorted treatments
+    const [sortOption, setSortOption] = useState<string>("By Type");
+
+
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -52,6 +54,22 @@ const TreatmentsMaster: React.FC = () => {
         fetchTreatments();
     },[jwt]);
 
+    useEffect(() => {
+      const sortedData = [...treatments].sort((a, b) => {
+        if (sortOption === "By Type") {
+          return a.type.localeCompare(b.type); // Sort alphabetically by type
+        }
+        if (sortOption === "Price: Low to High") {
+          return a.cost - b.cost; // Sort by increasing cost
+        }
+        if (sortOption === "Price: High to Low") {
+          return b.cost - a.cost; // Sort by decreasing cost
+        }
+        return 0; // Default: No sorting change
+      });
+      setSortedTreatments(sortedData); // Update sorted treatments state
+    }, [sortOption, treatments])
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
 
@@ -79,7 +97,7 @@ const TreatmentsMaster: React.FC = () => {
                 >
                   <div className="py-1">
                     {sortOptions.map((option) => (
-                      <MenuItem key={option.name} as="a" href={option.href} className="block px-4 py-2 text-sm data-[active]:bg-gray-100 data-[active]:text-gray-900 text-gray-700">
+                      <MenuItem key={option.name} as="a" onClick={() => setSortOption(option.name)} className="block px-4 py-2 text-sm data-[active]:bg-gray-100 data-[active]:text-gray-900 text-gray-700">
                         {option.name}
                       </MenuItem>
                     ))}
@@ -87,7 +105,7 @@ const TreatmentsMaster: React.FC = () => {
                 </MenuItems>
           </Menu>
 
-        <div className="w-5/6 mx-auto mt-16">
+        <div className="w-11/12  mx-auto mt-16">
 
         
 
@@ -101,11 +119,10 @@ const TreatmentsMaster: React.FC = () => {
         </div>
         {/**Dropdown for filtering Treatments Master */}
         <ul className='space-y-2'>
-          {treatments.map((treatment) => (
+          {sortedTreatments.map((treatment) => (
             <div       
             className="p-3 border border-gray-300 rounded-md grid grid-cols-5 gap-2 place-items-start cursor-pointer hover:outline hover:outline-2 hover:outline-gray-500"
-            key={treatment._id}
-              >
+            key={treatment._id}>
             <p >{treatment.name}</p>
             <p>{treatment.description}</p>
             <p>{treatment.type}</p>
