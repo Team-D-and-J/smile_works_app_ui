@@ -16,6 +16,7 @@ const TreatmentsMaster: React.FC = () => {
     const [treatments, setTreatments] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [sortedTreatments, setSortedTreatments] = useState<any[]>([]); // Store sorted treatments
     const [sortOption, setSortOption] = useState<string>("By Type");
 
