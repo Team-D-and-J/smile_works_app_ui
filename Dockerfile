@@ -4,7 +4,7 @@ FROM node:18-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
-RUN apk add --no-cache libc6-compat
+RUN apk add libc6-compat
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
