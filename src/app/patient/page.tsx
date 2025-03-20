@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchResult from "@/components/patient/SearchResult";
 import Link from "next/link";
 
@@ -32,12 +32,18 @@ const Page = () => {
   const [_id, set_id] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [errorMessage, setErrorMessage] = useState("");
+  const [jwt, setJwt] = useState<string | null>(null);
 
   const totalResults = results.length;
   const totalPages = Math.ceil(totalResults / RESULTS_PER_PAGE);
   const startIndex = (currentPage - 1) * RESULTS_PER_PAGE;
   const endIndex = Math.min(startIndex + RESULTS_PER_PAGE, totalResults);
   const currentResults = results.slice(startIndex, endIndex);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) setJwt(token);
+  }, []);
 
   function handleClearFilters() {
     setFirstName("");
@@ -55,7 +61,16 @@ const Page = () => {
       if (dob) params.append("dob", dob);
       if (_id) params.append("_id", _id);
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/search?${params.toString()}`
+        `${
+          process.env.NEXT_PUBLIC_API_BASE_URL
+        }/api/patient?${params.toString()}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
       );
       if (response.ok) {
         setErrorMessage("");
