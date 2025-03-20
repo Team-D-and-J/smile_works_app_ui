@@ -4,12 +4,12 @@ FROM node:18-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
-RUN apk add --no-cache libc6-compat
+RUN apk add libc6-compat
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
-RUN npm ci --legacy-peer-deps
+RUN npm i
 
 
 # Rebuild the source code only when needed
