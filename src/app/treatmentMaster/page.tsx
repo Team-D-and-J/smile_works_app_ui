@@ -76,8 +76,8 @@ const TreatmentsMaster: React.FC = () => {
 
   return (
     <div>
-        <div className='flex justify-center mb-7 mt-10'>
-        <h2 className='font-bold'>TREATMENTS PROVIDED BY CLINIC</h2>
+        <div className='flex mb-7 mt-10 items-start'>
+        <h2 className="text-2xl font-bold ml-10">Treatments provided by clinic</h2>
         </div>
 
         {/**Dropdown for filtering Treatments Master */}

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect} from "react";
-import InventoryButtons from "../../../components/patient/PatientButtons";
+import PatientButtonsMenu from "../../../components/patient/PatientButtonsMenu";
 
 const CreatePatient: React.FC = () => {
 
@@ -30,14 +30,6 @@ const CreatePatient: React.FC = () => {
 			allowPhoneCall: false,
     });
 	const [jwt, setJwt] = useState<string | null>(null);
-
-	
-
-	// const handleSubmit = (event: React.FormEvent) => {
-	// 	event.preventDefault();
-	// 	console.log({ name, allergies});
-	//   };
-
 
 	useEffect(() => {
 		const token = localStorage.getItem("token");
@@ -76,12 +68,11 @@ const CreatePatient: React.FC = () => {
 			});
 
 			console.log("Response Status:", response.status);
-			//console.log("Response Data:", await response.json());
 	
 			if (!response.ok) {
 				throw new Error("Failed to create patient");
 			}
-			//if (response.ok) {
+
 				setName('');
 				setEmail('');
 				setPhoneNumber('');
@@ -95,7 +86,7 @@ const CreatePatient: React.FC = () => {
 				const result = await response.json();
 				console.log("Patient created:", result);
 				alert("Patient successfully created!");
-			//}
+
 		} catch (error) {
 			console.error("Error creating patient:", error);
 			alert("Error creating patient. Please try again.");
@@ -106,12 +97,12 @@ const CreatePatient: React.FC = () => {
 	
 	  return (
 	  <>
-	  <div className="flex flex-col items-center w-full">
-		<div className="flex mx-auto mb-8 mt-16 font-bold">
-			<h2>CREATE NEW PATIENT</h2>
+	  <div className="flex flex-col items-start w-full p-8">
+		<div className="flex mb-8 mt-10 font-bold">
+			<h2 className="text-2xl font-bold ml-6">Create Patient</h2>
 		</div>
-		<div className="absolute top-20 right-0 flex justify-end">
-			<InventoryButtons/>
+		<div className="absolute right-0 pr-8 flex justify-end">
+			<PatientButtonsMenu/>
 		</div>
 		<div className="flex w-full justify-center items-center">
 		
