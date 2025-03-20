@@ -1,11 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
-import PatientButtons from "@/components/patient/PatientButtons";
+import PatientNameIDProps from "@/components/patient/patientNameAndIdTag";
 import PatientProfile from "@/components/patient/PatientProfile";
 import BillingHistory from "@/components/billing/BillingHistory";
 import TreatmentHistory from "@/components/treatment/TreatmentHistory";
 import BackButton from "@/components/BackButton";
+import PatientButtonsMenu from "../../../components/patient/PatientButtonsMenu";
 
 const PatientPage = () => {
 	const { id } = useParams();
@@ -13,10 +14,13 @@ const PatientPage = () => {
 	const [activeTab, setActiveTab] = useState("profile");
 
 	return (
-		<div className="flex flex-col w-full">
+		<div className="flex flex-col w-full p-8">
 			<BackButton />
-			{/* Patient Buttons */}
-			<PatientButtons patientId={patientId} />
+			<div className="absolute right-0 pr-8 flex justify-end">
+				<PatientButtonsMenu/>
+			</div>
+			{/* Patient NameIDProps */}
+			<PatientNameIDProps patientId={patientId} />
 
 			{/* Tabs */}
 			<div className="w-full">
