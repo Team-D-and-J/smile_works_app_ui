@@ -111,11 +111,8 @@ const TreatmentHistory: React.FC<TreatmentHistoryProps> = ({ patientId }) => {
 
     return (
         <div className="w-full shadow-md rounded-lg">
-            {treatmentListLoading && <p className="text-gray-500 text-center">Loading treatments...</p>}
-            {error && <p className="text-red-500 text-center">{error}</p>}
-            {treatmentListError && <p className="text-red-500 text-center">Error loading treatments.</p>}
-
-            <div className="overflow-x-auto mt-3">
+            { treatmentListLoading ? <p className="text-gray-500 text-center">Loading treatments...</p> : (
+                <div className="overflow-x-auto mt-3">
                 { (!treatmentsList || treatmentsList.length > 0) ? (
                     <table className="min-w-full border border-gray-300">
                         <thead className="bg-gray-100">
@@ -152,9 +149,11 @@ const TreatmentHistory: React.FC<TreatmentHistoryProps> = ({ patientId }) => {
                         </tbody>
                     </table>
                 ) : (
-                    <p className="text-gray-600 text-center">No treatments available.</p>
+                    <p className="text-gray-600 text-center py-4">No treatments available.</p>
                 )}
             </div>
+            ) }
+            
         </div>
     );
 };

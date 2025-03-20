@@ -57,9 +57,6 @@ const BillingHistory: React.FC<BillingHistoryPageProps> = ({ patientId }) => {
     return (
         <div className="w-full shadow-md rounded-lg">
             {isLoading ? <p className="text-gray-500 text-center">Loading Billing data..</p>
-                : error ? (
-                    <div className="text-center text-red-600">Error: {error.message}</div>
-                )
                     : <div className="overflow-x-auto mt-3">
                         {(billingData.length > 0 ? (
                             <table className="min-w-full border border-gray-300">
@@ -87,7 +84,7 @@ const BillingHistory: React.FC<BillingHistoryPageProps> = ({ patientId }) => {
                                             <td className="px-4 py-2 border text-center">{bill.type}</td>
                                             <td className="px-4 py-2 border text-center">${bill.amount}</td>
                                             <td className="px-4 py-2 border text-center">{bill.status}</td>
-                                            <td className="px-4 py-2 border">
+                                            <td className="px-4 py-2 border text-center">
                                                 <button
                                                     onClick={() => handleSimulatePayment(bill)}
                                                     disabled={bill.status === "Completed"}
