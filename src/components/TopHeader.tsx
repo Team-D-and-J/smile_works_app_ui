@@ -29,7 +29,7 @@ const TopNavigation = () => {
 	}
 
 	return (
-		<div className="flex w-full h-[100px] bg-[#D9EAFD] justify-between items-center px-6 shadow-md">
+		<div className="flex w-full h-[100px] bg-[#d0ebff] justify-between items-center px-6 shadow-md">
 			{/* Left: Logo */}
 			<div className="flex items-center">
 				<Image src="/logo.png" alt="Smile Works logo" width={150} height={75} className="m-4 rounded-md" />
