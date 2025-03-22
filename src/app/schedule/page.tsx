@@ -1,24 +1,50 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 
 interface Appointment {
-  time: string;
-  patient: string;
-  status: string;
+  date: string;
+  patientName: string;
+  treatmentMaster: string;
+  doctorName: string;
 }
 
 const AppointmentSchedule: React.FC = () => {
-  const [schedule] = useState<Appointment[]>([
-    { time: "9 am", patient: "Mike Wilson", status: "Bleaching Treatment" },
-    { time: "10 am", patient: "Monica Cole", status: "Teeth Removal" },
-    { time: "11 am", patient: "Mike Wilson", status: "Consultation" },
-    { time: "12 pm", patient: "Mike Wilson", status: "Cleaning" },
-    { time: "1 pm", patient: "Mike Wilson", status: "Fluoride Treatment" },
-    { time: "2 pm", patient: "Mike Wilson", status: "Bleaching Treatment" },
-    { time: "3 pm", patient: "Mike Wilson", status: "Cleaning" },
-    { time: "4 pm", patient: "Mike Wilson", status: "Consultation" },
-    { time: "5 pm", patient: "Mike Wilson", status: "Bleaching Treatment" },
-  ]);
+  const [schedule, setSchedule] = useState<Appointment[]>([]);
+  // loading state commented out to clear the error
+  // const [loading, setLoading] = useState<boolean>(true);
+
+  // Fetch appointments from the backend API
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/schedule`;
+      console.log("Fetching from:", apiUrl);
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/schedule`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `JWT ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        const data = await response.json();
+
+        if (response.ok) {
+          setSchedule(data);
+        } else {
+          console.error("Error fetching appointments:", data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching appointments:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAppointments();
+  }, []);
 
   return (
     <div style={styles.container}>
@@ -31,9 +57,9 @@ const AppointmentSchedule: React.FC = () => {
       </div>
 
       <div style={styles.scheduleHeader}>
-        <div style={styles.headerTime}>Time</div>
+        <div style={styles.headerTime}>Date and Time</div>
         <div style={styles.headerPatient}>Patient</div>
-        <div style={styles.headerStatus}>Status</div>
+        <div style={styles.headerStatus}>Doctor</div>
         <div style={styles.headerActions}>
           <button style={styles.editBtn}>Edit</button>
         </div>
@@ -42,13 +68,13 @@ const AppointmentSchedule: React.FC = () => {
       <div id="schedule">
         {schedule.map((appt, index) => (
           <div key={index} style={styles.appointmentCard}>
-            <div style={styles.appointmentTime}>{appt.time}</div>
+            <div style={styles.appointmentTime}>{appt.date}</div>
             <div style={styles.appointmentPatient}>
-              <span style={styles.patientName}>{appt.patient}</span>
+              <span style={styles.patientName}>{appt.patientName}</span>
               <br />
-              <span style={styles.subtext}>{appt.status}</span>
+              <span style={styles.subtext}>{appt.treatmentMaster}</span>
             </div>
-            <div style={styles.appointmentStatus}></div>
+            <div style={styles.appointmentStatus}>{appt.doctorName}</div>
             <div style={styles.appointmentActions}></div>
           </div>
         ))}
