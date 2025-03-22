@@ -68,7 +68,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
       >
         {loading ? (
           <Spinner />
@@ -77,8 +77,9 @@ export default function RootLayout({
         ) : (
           <>
             <TopHeader />
-            <div className="flex bg-white">
+            <div className="flex h-full">
               <LeftNavigation />
+
               {children}
             </div>
           </>
