@@ -14,7 +14,7 @@ const LeftNavigation = () => {
 	const [expanded, setExpanded] = useState(false);
 
 	return (
-		<div className="flex flex-col h-[calc(100vh-100px)] bg-[#d0ebff] p-2 overflow-hidden">
+		<div className="flex flex-col w-[200px] h-[calc(100vh-100px)] bg-[#d0ebff] p-2 overflow-hidden">
 			{/* Wrapper to push the admin tab down */}
 			<div className="flex flex-col gap-8 flex-1 pt-12">
 				<Link href="/">
