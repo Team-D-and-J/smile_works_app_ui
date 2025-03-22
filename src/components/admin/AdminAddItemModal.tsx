@@ -7,11 +7,11 @@ import Modal from "@mui/material/Modal";
 
 const style = {
 	position: "absolute",
-	top: "50%",
+	top: "40%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	width: "50%",
-	height: "40%",
+	width: "400px",
+	height: "500px",
 	bgcolor: "background.paper",
 	border: "2px solid #000",
 	boxShadow: 24,

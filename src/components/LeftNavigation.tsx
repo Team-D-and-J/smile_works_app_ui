@@ -5,6 +5,8 @@ import { FaRegCalendarAlt, FaClipboardList } from "react-icons/fa";
 import { MdAttachMoney, MdOutlineInventory } from "react-icons/md";
 import { GrUserAdmin } from "react-icons/gr";
 import { AiOutlineFileProtect } from "react-icons/ai";
+import { BsCart4 } from "react-icons/bs";
+
 import LeftNavLinks from "./LeftNavLinks";
 
 const navigationLinks = [
