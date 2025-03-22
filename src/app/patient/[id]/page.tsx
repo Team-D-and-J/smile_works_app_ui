@@ -17,7 +17,7 @@ const PatientPage = () => {
 		<div className="flex flex-col w-full p-8">
 			<BackButton />
 			<div className="absolute right-0 pr-8 flex justify-end">
-				<PatientButtonsMenu/>
+				<PatientButtonsMenu patientId={patientId}/>
 			</div>
 			{/* Patient NameIDProps */}
 			<PatientNameIDProps patientId={patientId} />

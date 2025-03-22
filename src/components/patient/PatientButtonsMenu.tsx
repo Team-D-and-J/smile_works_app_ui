@@ -2,8 +2,11 @@
 import Link from "next/link";
 import React from "react";
 
-const PatientButtonsMenu = () => { 
-  
+interface PatientButtonsMenuProps {
+    patientId?: string;
+}
+const PatientButtonsMenu: React.FC<PatientButtonsMenuProps> = ({patientId}) => {
+    
     return (
         <div className="w-full flex justify-between  rounded-lg">
                 <>               
@@ -15,7 +18,7 @@ const PatientButtonsMenu = () => {
                         <Link href="/costestimator" className="bg-gray-700 text-sm text-white px-2 py-2 rounded-md hover:bg-gray-900">
                             Cost Estimation
                         </Link>
-                        <Link href="/patient/editPatient" className="bg-gray-700 text-sm text-white px-2 py-2 rounded-md hover:bg-gray-900">
+                        <Link href={`/patient/editPatient/${patientId}`} className="bg-gray-700 text-sm text-white px-2 py-2 rounded-md hover:bg-gray-900">
                             Edit Patient Info
                         </Link>
                         <Link href="/patient/notificationManagment" className="bg-gray-700 text-sm text-white px-2 py-2 rounded-md hover:bg-blue-800">

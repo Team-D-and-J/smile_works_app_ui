@@ -1,8 +1,10 @@
 "use client";
 import React, { useState, useEffect} from "react";
 import Link from "next/link";
+import BackButton from "@/components/BackButton";
+import { useParams } from "next/navigation";
 
-const CreatePatient: React.FC = () => {
+const EditPatient: React.FC = () => {
 
 	const [patient, setPatient] = useState({
 	name: '',
@@ -17,11 +19,34 @@ const CreatePatient: React.FC = () => {
 	notificationPreference: { allowSMS: false, allowEmail: false, allowPhoneCall: false }
 });
 	const [jwt, setJwt] = useState<string | null>(null);
+    const { id } = useParams();
+	const patientId = Array.isArray(id) ? id[0] : id || "";
 
 	useEffect(() => {
+		console.log("patientId:", patientId);
+		if (!patientId) return; 
 		const token = localStorage.getItem("token");
 		if (token) setJwt(token);
-	  }, []);
+
+        const fetchPatientData = async () => {
+            try{
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/patient/${patientId}`,{
+                    method: "GET",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "Authorization": `Bearer ${token}`,
+                    }
+                })
+				const data = await response.json();
+				setPatient(data);
+            }catch(error){
+                console.error("Error fetching patient data:" , error)
+            }
+        }
+        if (patientId) { // Only fetch if patientId is available
+			fetchPatientData();
+		}
+	  }, [patientId]);
 
 	  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const {name, value } = event.target;
@@ -51,40 +76,25 @@ const CreatePatient: React.FC = () => {
 		 }
 
 		try {
-			const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/patient`, {
-				method: "POST",
+			const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/patient/${patientId}`, {
+				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
 					"Authorization": `Bearer ${jwt}`
 				},		
 				body: JSON.stringify(patient),
 			});
-
 			console.log("Response Status:", response.status);
 	
 			if (!response.ok) {
 				throw new Error("Failed to create patient");
 			}
-
-				setPatient({
-				name:'',
-				email:'',
-				phoneNumber:'',
-				address:{ street: "", city: "", state: "", zip: "" },
-				dob:'',
-				emergencyInfo:{ name: "", phoneNumber: "" },
-				allergies:'',
-				medicalHistory:'',
-				insuranceInfo:{ insuranceProvider: "", phoneNumber: "" },
-				notificationPreference:{ allowSMS: false, allowEmail: false, allowPhoneCall: false}
-				});
 				const result = await response.json();
-				console.log("Patient created:", result);
-				alert("Patient successfully created!");
+				alert("Patient successfully updated!");
 
 		} catch (error) {
-			console.error("Error creating patient:", error);
-			alert("Error creating patient. Please try again.");
+			console.error("Error updating patient:", error);
+			alert("Error updating patient. Please try again.");
 		}
 	};
 
@@ -92,10 +102,11 @@ const CreatePatient: React.FC = () => {
 	  return (
 	  <>
 	  <div className="flex flex-col items-start w-full p-8">
-		<div className="flex mb-8 mt-10 font-bold">
-			<h2 className="text-2xl font-bold ml-6">Create Patient</h2>
+	  <BackButton />
+		<div className="flex mb-8 mt-2 ml-16 font-bold">
+			<h2 className="text-2xl font-bold ml-6">Edit Patient</h2>
 		</div>
-        
+       
             {/* Buttons menu Section */}
             <div className="absolute right-0 pr-8 gap-4 flex justify-end">
                 <Link href="/patienteducation" className="bg-gray-700 text-sm text-white px-2 py-2 rounded-md hover:bg-gray-900">
@@ -402,7 +413,7 @@ const CreatePatient: React.FC = () => {
 				type="submit"
 				className=" text-black bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-1/6 py-2.5 text-center"
 			>
-				Submit
+				Update
 			</button>
 			</div>
 			</form>
@@ -413,4 +424,4 @@ const CreatePatient: React.FC = () => {
 	};
 	
 
-export default CreatePatient;
+export default EditPatient;
