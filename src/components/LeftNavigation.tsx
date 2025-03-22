@@ -15,6 +15,7 @@ const navigationLinks = [
   { href: "/schedule", text: "Schedule", icon: FaRegCalendarAlt },
   { href: "/treatmentMaster", text: "Treatment", icon: FaClipboardList },
   { href: "/inventory", text: "Inventory", icon: MdOutlineInventory },
+  { href: "/inventory/ordering", text: "Orders", icon: BsCart4 },
   { href: "/insurance", text: "Insurance", icon: AiOutlineFileProtect },
   { href: "/billing", text: "Billing", icon: MdAttachMoney },
 ];
