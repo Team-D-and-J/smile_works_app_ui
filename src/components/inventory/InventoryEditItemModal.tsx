@@ -58,8 +58,8 @@ export default function BasicModal({ item }: { item: any }) {
 					category: formData.category,
 				}),
 			}
-			// location.reload()
 		);
+		location.reload();
 		if (!response.ok) {
 			throw new Error("Failed to Edit inventory");
 		}
