@@ -44,6 +44,15 @@ const TopNavigation = () => {
       <div className="h-full flex justify-center items-center overflow-hidden">
         <SmileWorksLogo />
       </div>
+      <div className="flex items-center mt-8 -ml-8">
+        <Image
+          src="/logo.svg"
+          alt="Smile Works logo"
+          width={160}
+          height={85}
+          className="m-4 rounded-md"
+        />
+      </div>
       <div
         className="relative flex items-center gap-4 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
