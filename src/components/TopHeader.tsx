@@ -41,10 +41,13 @@ const TopNavigation = () => {
   return (
     <div className="flex w-full h-[100px] bg-primary justify-between items-center px-6 shadow-md">
       {/* Left: Logo */}
-      <div className="h-full flex justify-center items-center overflow-hidden">
+      <div className="h-full flex flex-col justify-center items-center overflow-hidden">
         <SmileWorksLogo />
       </div>
-      <div className="flex items-center mt-8 -ml-8">
+      <div className="text-2xl text-textLight font-bold ">SmileWorks</div>
+      {/* Alternate logo  */}
+      {/* 
+	  <div className="flex items-center mt-8 -ml-8">
         <Image
           src="/logo.svg"
           alt="Smile Works logo"
@@ -52,7 +55,7 @@ const TopNavigation = () => {
           height={85}
           className="m-4 rounded-md"
         />
-      </div>
+      </div> */}
       <div
         className="relative flex items-center gap-4 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
