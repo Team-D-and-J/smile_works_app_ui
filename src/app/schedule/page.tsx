@@ -11,7 +11,8 @@ interface Appointment {
 
 const AppointmentSchedule: React.FC = () => {
   const [schedule, setSchedule] = useState<Appointment[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  // loading state commented out to clear the error
+  // const [loading, setLoading] = useState<boolean>(true);
 
   // Fetch appointments from the backend API
   useEffect(() => {
@@ -19,18 +20,19 @@ const AppointmentSchedule: React.FC = () => {
       const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/schedule`;
       console.log("Fetching from:", apiUrl);
       try {
-       
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/schedule`,
-					{
-						method: "GET",
-						headers: {
-							Authorization: `JWT ${localStorage.getItem("token")}`,
-						},
-					});
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/schedule`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `JWT ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         const data = await response.json();
 
         if (response.ok) {
-          setSchedule(data); 
+          setSchedule(data);
         } else {
           console.error("Error fetching appointments:", data.message);
         }
