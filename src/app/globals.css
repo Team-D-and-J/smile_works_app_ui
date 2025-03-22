@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 .AgGrid {
   width: calc(100vw - 350px);
   height: calc(100vh - 100px);

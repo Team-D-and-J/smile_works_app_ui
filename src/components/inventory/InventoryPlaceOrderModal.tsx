@@ -28,7 +28,7 @@ export default function BasicModal() {
 				className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 				onClick={handleOpen}
 			>
-				Place Order
+				🛒 Place Order
 			</button>
 			<Modal
 				open={open}
