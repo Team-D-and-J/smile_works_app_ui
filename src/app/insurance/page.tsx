@@ -17,8 +17,6 @@ export default function InsuranceVerification() {
         "isPrimary": true
     })
 
-    const token = localStorage.getItem("token")
-
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const {name, value, type} = e.target
         setDetails(prev => ({
@@ -34,7 +32,7 @@ export default function InsuranceVerification() {
 
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/insurance/verify`, {
             method: "POST",
-            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem("token")}` },
             body: JSON.stringify(details),
         });
 

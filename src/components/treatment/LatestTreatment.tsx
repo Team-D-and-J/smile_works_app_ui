@@ -1,3 +1,4 @@
+"use client"
 import useGetTreatmentsByPatient from '@/app/_hooks/treatments/useGetTreatmentsByPatient';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -71,8 +72,10 @@ const LatestTreatment: React.FC<LatestTreatmentPageProps> = ({ patientId }) => {
                 const data: Doctor = await response.json();
 
                 // Ensure user is actually a doctor before setting state
-                if (!data.roles.isDoctor) {
-                    throw new Error("User is not a Doctor");
+                if (!data?.roles?.isDoctor) {
+                    console.warn("Doctor data is unavailable or user is not a doctor");
+                    setDoctorData(null);
+                    return;
                 }
                 setDoctorData(data);
             } catch (error) {
@@ -89,7 +92,7 @@ const LatestTreatment: React.FC<LatestTreatmentPageProps> = ({ patientId }) => {
     return (
         <div className="mt-8 bg-white p-5 rounded-lg shadow-md border border-gray-200">
             <div className="flex justify-between items-center gap-2 mb-4 text-gray-600">
-                <h3 className="text-lg font-semibold text-gray-900">Current Treatment</h3>
+                <h3 className="text-lg font-semibold text-gray-900">Current Treatment Details</h3>
                 {/* Link to Latest Treatment */}
                 {latestTreatment && (
                     <Link href={`/treatment/${latestTreatment._id}`}>
@@ -108,11 +111,8 @@ const LatestTreatment: React.FC<LatestTreatmentPageProps> = ({ patientId }) => {
                     {/* Treatment Name (Clickable) */}
                     {loadingTreatment ? (
                         <p className="text-gray-500">Loading treatment details...</p>
-                    ) : (
-                        <Link href={`/treatment/${latestTreatment._id}`} className="text-blue-600 hover:underline">
-                            {RenderField("Treatment Name", treatmentMasterData?.name)}
-                        </Link>
-                    )}
+                    ) : RenderField("Treatment Name", treatmentMasterData?.name)
+                    }
 
                     {RenderField("Description", treatmentMasterData?.description)}
                     {RenderField("Type", treatmentMasterData?.type)}
@@ -121,9 +121,10 @@ const LatestTreatment: React.FC<LatestTreatmentPageProps> = ({ patientId }) => {
                     {/* Doctor Info */}
                     {loadingDoctor ? (
                         <p className="text-gray-500">Loading doctor details...</p>
-                    ) : (
-                        RenderField("Doctor", doctorData?.name)
-                    )}
+                    ) : doctorData ? (
+                        RenderField("Doctor", doctorData.name)
+                        ) : RenderField("Doctor", "No doctor Assigned")
+}
                 </div>
             ) : (
                 <p className="text-gray-500">No treatments available.</p>

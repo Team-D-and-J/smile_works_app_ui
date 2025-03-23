@@ -1,3 +1,4 @@
+"use client"
 import useGetPatientById from '@/app/_hooks/patients/useGetPatientById';
 import React from 'react';
 import { formatDate } from '@/utils/formatDate';

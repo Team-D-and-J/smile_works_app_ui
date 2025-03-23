@@ -33,7 +33,6 @@ function useGetPatientById(patientId: string | null) {
     const [data, setData] = useState<PatientData | null>(null);
     const [error, setError] = useState<FetchError | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const token = localStorage.getItem("token");
 
     useEffect(() => {
         if (!patientId) return;
@@ -42,7 +41,7 @@ function useGetPatientById(patientId: string | null) {
                 try {
                     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/patient/${patientId}`, {
                         method: "GET",
-                        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+                        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem("token")}` }
                     })
                     if (!response.ok) {
                         throw new Error("Failed to fetch patients data");
@@ -60,7 +59,7 @@ function useGetPatientById(patientId: string | null) {
     
             
             fetchPatientData()
-        }, [patientId, token])
+        }, [patientId])
 
         return { data, error, isLoading }
 }
