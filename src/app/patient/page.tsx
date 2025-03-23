@@ -74,7 +74,7 @@ const Page = () => {
       );
       if (response.ok) {
         setErrorMessage("");
-        const data = await response.json();
+        const data = await response.json().then((res) => res.results);
         data.sort((a: Patient, b: Patient) => {
           return b._metadata.lastUpdatedAt - a._metadata.lastUpdatedAt;
         });
