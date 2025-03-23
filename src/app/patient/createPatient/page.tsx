@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect} from "react";
 import Link from "next/link";
+import BackButton from "@/components/BackButton";
 
 const CreatePatient: React.FC = () => {
 
@@ -92,16 +93,17 @@ const CreatePatient: React.FC = () => {
 	  return (
 	  <>
 	  <div className="flex flex-col items-start w-full p-8">
-		<div className="flex mb-8 mt-10 font-bold">
+	  <BackButton />
+		<div className="flex mb-8 mt-2 ml-16 font-bold">
 			<h2 className="text-2xl font-bold ml-6">Create Patient</h2>
 		</div>
         
             {/* Buttons menu Section */}
             <div className="absolute right-0 pr-8 gap-4 flex justify-end">
-                <Link href="/patienteducation" className="bg-gray-700 text-sm text-white px-2 py-2 rounded-md hover:bg-gray-900">
+                <Link href="/patientEducation" className="border-2 border-btnLight text-xs text-textDark px-2 py-2 rounded-md hover:bg-btnLight">
                 Patient Education
                 </Link>
-                <Link href="/costestimator" className="bg-gray-700 text-sm text-white px-2 py-2 rounded-md hover:bg-gray-900">
+                <Link href="/costestimator" className="border-2 border-btnLight text-xs text-textDark px-2 py-2 rounded-md hover:bg-btnLight">
                     Cost Estimation
                  </Link>            
             </div>
@@ -400,7 +402,7 @@ const CreatePatient: React.FC = () => {
 			<div className="flex justify-center mt-5">
 			<button
 				type="submit"
-				className=" text-black bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-1/6 py-2.5 text-center"
+				className=" text-textLight bg-btnDark focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-1/6 py-2.5 text-center"
 			>
 				Submit
 			</button>

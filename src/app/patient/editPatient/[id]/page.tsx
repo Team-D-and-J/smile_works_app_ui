@@ -89,7 +89,6 @@ const EditPatient: React.FC = () => {
 			if (!response.ok) {
 				throw new Error("Failed to create patient");
 			}
-				const result = await response.json();
 				alert("Patient successfully updated!");
 
 		} catch (error) {
@@ -109,10 +108,10 @@ const EditPatient: React.FC = () => {
        
             {/* Buttons menu Section */}
             <div className="absolute right-0 pr-8 gap-4 flex justify-end">
-                <Link href="/patienteducation" className="bg-gray-700 text-sm text-white px-2 py-2 rounded-md hover:bg-gray-900">
+                <Link href="/patienteducation" className="border-2 border-btnLight text-xs text-textDark px-2 py-2 rounded-md hover:bg-btnLight">
                 Patient Education
                 </Link>
-                <Link href="/costestimator" className="bg-gray-700 text-sm text-white px-2 py-2 rounded-md hover:bg-gray-900">
+                <Link href="/costestimator" className="border-2 border-btnLight text-xs text-textDark px-2 py-2 rounded-md hover:bg-btnLight">
                     Cost Estimation
                  </Link>            
             </div>
@@ -411,7 +410,7 @@ const EditPatient: React.FC = () => {
 			<div className="flex justify-center mt-5">
 			<button
 				type="submit"
-				className=" text-black bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-1/6 py-2.5 text-center"
+				className=" text-black bg-btnDark focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-textLight w-1/6 py-2.5 text-center"
 			>
 				Update
 			</button>
