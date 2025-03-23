@@ -19,6 +19,7 @@
     "apexcharts": "^4.5.0",
     "dayjs": "^1.11.13",
     "dental_app_ui": "file:",
+    "moment": "^2.30.1",
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-apexcharts": "^1.7.0",

@@ -34,6 +34,10 @@ function convertQueryToParams(query: GetOptions): string {
 function getHeader() {
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("token");
+    if (token) headers.append("Authorization", `Bearer ${token}`);
+  }
   return headers;
 }
 
@@ -50,6 +54,7 @@ export async function getAPI(api: string, query: GetOptions): Promise<any> {
   const endpoint = `${BACKEND}${api}?${convertQueryToParams(query)}`;
   const response = await fetch(endpoint, {
     method: "GET",
+    headers: getHeader(),
   });
   return response.json();
 }
