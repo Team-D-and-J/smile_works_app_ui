@@ -10,13 +10,13 @@ export default {
     extend: {
       colors: {
         primary: "#457b9d",
-        secondaryLight: "#f8fcf7",
-        secondaryDark: "#f1faee",
+        secondaryLight: "#fafafa",
+        secondaryDark: "#ebedef",
         danger: "#e63946",
         textLight: "#edf3f7",
         textDark: "#080e12",
-        btnLight: "#afd0e5",
-        btnDark: "#2f5a75",
+        btnLight: "#baceda",
+        btnDark: "#3d5767",
       },
     },
   },
