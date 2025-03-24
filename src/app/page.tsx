@@ -7,7 +7,7 @@ import { FiX } from "react-icons/fi";
 import Link from "next/link";
 import { IconType } from "react-icons";
 import { FiSearch } from "react-icons/fi";
-import PieChart from "./PieChart";
+import Graph from "./graph"
 
 // Define the type for StatCard props
 interface StatCardProps {
@@ -26,7 +26,7 @@ const StatCard: React.FC<StatCardProps> = ({
 }) => {
   return (
     <div
-      className={`flex flex-col w-1/3 h-24 items-center ${textColor} p-4 shadow-[0px_4px_10px_rgba(0,0,0,0.8)]`}
+      className={`flex flex-col w-1/3 h-24 items-center ${textColor} p-4 shadow-[0px_2px_4px_rgba(0,0,0,0.8)]`}
     >
       <div className="flex flex-row gap-2 items-center">
         <Icon className="text-xl" /> {/* Icon is properly used */}
@@ -57,46 +57,70 @@ const Page: React.FC = () => {
     <>
       <div className=" flex flex-col w-full h-full">
         {/* First section */}
-        <div className="flex w-full my-2 ">
-          <div className="flex flex-col text-left w-2/3 h-auto px-8 py-5 justify-center  ">
-            <p className="mb-3 text-4xl text-[#001F3F]">
-              Welcome {username ? username : "Guest"}!
-            </p>
-            <p className="mb-3 text-xl text-left text-[#001F3F]">
-              {currentDate}
-            </p>
+          <div className="flex w-full my-2 ">
+            <div className="flex flex-col text-left w-2/3 h-auto px-8 py-5 justify-center  ">
+              <p className="mb-3 text-4xl text-[#001F3F]">
+                Welcome {username ? username : "Guest"}!
+              </p>
+              <p className="mb-3 text-xl text-left text-[#001F3F]">
+                {currentDate}
+              </p>
+            </div>
           </div>
+
+          {/* Second section */}
+            {/* First column 3 boxes and graph */}
+            <div className="flex flex-col-2">
+              <div className="w-2/3">
+                <div className="flex flex-row gap-2 mx-2 my-4 h-[180px] items-start h-16">
+                  <StatCard
+                    icon={FiCalendar}
+                    text="Total Appointments"
+                    textColor="text-[#001F3F]"
+                    number={9}
+                  />
+                  <StatCard
+                    icon={FiX}
+                    text="Cancelled Appointments"
+                    textColor="text-[#001F3F]"
+                    number={3}
+                  />
+                  <StatCard
+                    icon={FiSlash}
+                    text="Missed Appointments"
+                    textColor="text-[#001F3F]"
+                    number={2}
+                  />
+                </div>
+
+            {/*Pie Chart Section */}
+            <div className="flex-row justify-center  py-6">
+              <h3 className="w-full mx-auto text-center text-xl text-[#001F3F] font-bold">
+                Weekly Appointment Trends
+              </h3>
+              <Graph />
+            </div>
+            </div>
+            {/* 2nd column schedule*/}
+            <div className="flex w-1/3 m-auto items-center justify-center">
+              <a href="#"
+                className="block max-w-sm p-6 bg-[#E8F9FF] border border-gray-200 rounded-lg shadow-sm 
+                          hover:bg-gray-100 h-[600px]"
+                >
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-textDark">
+                  Schedules of the day
+                </h5>
+                <div className="bg-white h-[80px] m-2">Monday 23rd, 2025 8am</div>
+                <div className="bg-white h-[80px] m-2">Monday 23rd, 2025 8am</div>
+                <div className="bg-white h-[80px] m-2">Monday 23rd, 2025 8am</div>
+                <div className="bg-white h-[80px] m-2">Monday 23rd, 2025 8am</div>
+              </a>
+             
+            </div>
         </div>
 
-        {/* Second section */}
-        <div className="flex flex-row w-full gap-2 mx-2 my-4 h-[180px] items-start h-16">
-          <StatCard
-            icon={FiCalendar}
-            text="Total Appointments"
-            textColor="text-[#001F3F]"
-            number={9}
-          />
-          <StatCard
-            icon={FiX}
-            text="Cancelled Appointments"
-            textColor="text-[#001F3F]"
-            number={3}
-          />
-          <StatCard
-            icon={FiSlash}
-            text="Missed Appointments"
-            textColor="text-[#001F3F]"
-            number={2}
-          />
-        </div>
 
-        {/*Pie Chart Section - Inserted before the third section */}
-        <div className="flex-row justify-center  py-6">
-          <h3 className="w-full mx-auto text-center text-xl text-[#001F3F] font-bold">
-            Weekly Appointment Trends
-          </h3>
-          <PieChart />
-        </div>
+
         <hr className="border-t-2 border-gray-300 w-3/4 mx-auto my-6" />
         {/* Third section */}
         <div

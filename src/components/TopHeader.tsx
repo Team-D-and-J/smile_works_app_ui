@@ -71,10 +71,21 @@ const TopNavigation = () => {
         />
       </div> */}
 			<div
-				className="relative flex items-center gap-4 cursor-pointer"
+				className="relative flex items-center gap-4 pr-4 cursor-pointer hover:bg-btnDark"
 				onClick={() => setIsOpen(!isOpen)}
 			>
-				<div className="text-xl text-textLight">{username}</div>
+					<div className="p-1 flex justify-center items-center cursor-pointer">
+ 					<Image
+ 						src="/avatar.svg"
+ 						alt="user avatar"
+ 						className="rounded-full p-2"
+ 						width="60"
+ 						height="60"
+ 						width={80}
+ 						height={80}
+ 					/>
+ 				</div>
+				<div className="text-xl text-textLight ">{username}</div>
 				{isOpen && (
 					<div className="absolute top-16 right-0 bg-white shadow-lg rounded-md w-40 border">
 						<ul className="text-black text-sm">
