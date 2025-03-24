@@ -2,26 +2,29 @@
 import Link from "next/link";
 import React from "react";
 
-const PatientButtonsMenu = () => { 
-  
+interface PatientButtonsMenuProps {
+    patientId?: string;
+}
+const PatientButtonsMenu: React.FC<PatientButtonsMenuProps> = ({patientId}) => {
+    
     return (
         <div className="w-full flex justify-between  rounded-lg">
                 <>               
                     {/* Links Section */}
                     <div className="justify-end space-x-2">
-                        <Link href="/patienteducation" className="bg-gray-700 text-sm text-white px-2 py-2 rounded-md hover:bg-gray-900">
+                        <Link href="/patientEducation" className="border-2 border-btnLight text-xs text-[#080e12] px-2 py-2 rounded-md hover:bg-btnLight">
                             Patient Education
                         </Link>
-                        <Link href="/costestimator" className="bg-gray-700 text-sm text-white px-2 py-2 rounded-md hover:bg-gray-900">
+                        <Link href="/costestimator" className="border-2 border-btnLight text-xs text-textDark px-2 py-2 rounded-md hover:bg-btnLight">
                             Cost Estimation
                         </Link>
-                        <Link href="/patient/editPatient" className="bg-gray-700 text-sm text-white px-2 py-2 rounded-md hover:bg-gray-900">
+                        <Link href={`/patient/editPatient/${patientId}`} className="border-2 border-btnLight text-xs text-textDark px-2 py-2 rounded-md hover:bg-btnLight">
                             Edit Patient Info
                         </Link>
-                        <Link href="/patient/notificationManagment" className="bg-gray-700 text-sm text-white px-2 py-2 rounded-md hover:bg-blue-800">
+                        <Link href="/patient/notificationManagment" className="border-2 border-btnLight text-xs text-textDark px-2 py-2 rounded-md hover:bg-btnLight">
                             Notification Managment
                         </Link>
-                        <Link href="/treatment" className="bg-blue-600 text-sm text-white px-4 py-2 rounded-md hover:bg-blue-800">
+                        <Link href="/treatment" className="bg-btnDark text-xs text-white px-4 py-2 rounded-md">
                             Start Treatment
                         </Link>
                     </div>

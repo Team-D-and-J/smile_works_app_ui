@@ -74,7 +74,7 @@ const Page = () => {
       );
       if (response.ok) {
         setErrorMessage("");
-        const data = await response.json();
+        const data = await response.json().then((res) => res.results);
         data.sort((a: Patient, b: Patient) => {
           return b._metadata.lastUpdatedAt - a._metadata.lastUpdatedAt;
         });
@@ -96,13 +96,13 @@ const Page = () => {
           <div>
             <Link
               href="/patientEducation"
-              className="p-2 mr-4 border border-gray-300 rounded-md"
+              className="p-2 mr-4 border border-2 border-btnLight text-textDark text-xs hover:bg-btnLight rounded-md"
             >
               Patient Education
             </Link>
             <Link
               href="/patient/createPatient"
-              className="p-2 border border-gray-300 rounded-md"
+              className="p-2 border bg-btnDark text-textLight text-xs rounded-md"
             >
               Create New Patient
             </Link>
@@ -163,7 +163,7 @@ const Page = () => {
             </div>
             <button
               type="submit"
-              className="flex justify-center items-center p-2 h-12 w-24 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+              className="flex justify-center items-center p-2 h-12 w-24 bg-btnDark text-textLight text-sm rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
               title="search"
             >
               Search
