@@ -130,56 +130,40 @@ const Page: React.FC = () => {
           <h3 className="w-full mx-auto text-center text-xl text-[#001F3F] font-bold">
             Quick Access
           </h3>
-          <div className="mx-auto max-w-screen-xl px-4 py-1 lg:py-0 sm:px-6 lg:px-36">
+          <div className="w-full mx-auto ml-24 px-4 py-1 lg:py-0 sm:px-6 lg:px-36">
             <dl className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-4">
               <Link
-                href="/patient"
-                className="flex flex-col bg-[#001F3F] cursor-pointer rounded-lg border border-black px-2 py-2 w-24 h-20 text-center hover:bg-[#0A3981] hover:border-gray-500 transition-all transform hover:scale-105"
+                href="/patientEducation"
+                className="flex flex-col bg-btnDark cursor-pointer rounded-lg border border-black px-2 py-2 w-24 h-16 text-center hover:bg-[#0A3981] hover:border-gray-500 transition-all transform hover:scale-105"
               >
                 <dt className="order-last  text-sm font-medium text-blue-200">
-                  Create Appointment
+                  Patient Education
                 </dt>
                 <div className="flex items-center mx-auto gap-2 p-1 ">
-                  <FiPlusCircle size={25} />
                 </div>
               </Link>
 
               <Link
                 href="/patient"
-                className="flex flex-col rounded-lg border border-black px-2 py-2 w-24 h-20 text-center bg-[#001F3F] hover:bg-[#0A3981] hover:border-gray-500 transition-all transform hover:scale-105"
-              >
-                <dt className="order-last text-sm font-medium text-blue-200">
-                  Cancel Appointment
-                </dt>
-
-                <div className="flex items-center mx-auto gap-2 p-1 ">
-                  <FiX size={25} />
-                </div>
-              </Link>
-
-              <Link
-                href="/patient"
-                className="flex flex-col rounded-lg border border-black px-2 py-2 w-24 h-20 text-center bg-[#001F3F] hover:bg-[#0A3981] hover:border-gray-500 transition-all transform hover:scale-105"
+                className="flex flex-col rounded-lg border border-black px-2 py-2 w-24 h-16 text-center bg-btnDark hover:bg-[#0A3981] hover:border-gray-500 transition-all transform hover:scale-105"
               >
                 <dt className="order-last text-sm font-medium text-blue-200">
                   Search Patient
                 </dt>
 
                 <div className="flex items-center mx-auto gap-2 p-1 ">
-                  <FiSearch size={25} />
                 </div>
               </Link>
 
               <Link
                 href="/patient/createPatient"
-                className="flex flex-col rounded-lg border border-black px-2 py-2 w-24 h-20 text-center bg-[#001F3F] hover:bg-[#0A3981] hover:border-gray-500 transition-all transform hover:scale-105"
+                className="flex flex-col rounded-lg border border-black px-2 py-2 w-24 h-16 text-center bg-btnDark hover:bg-[#0A3981] hover:border-gray-500 transition-all transform hover:scale-105"
               >
                 <dt className="order-last text-sm font-medium text-blue-200">
                   Create Patient
                 </dt>
 
                 <div className="flex items-center mx-auto gap-2 p-1 ">
-                  <FiPlusCircle size={25} />
                 </div>
               </Link>
             </dl>

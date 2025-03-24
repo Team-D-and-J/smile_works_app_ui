@@ -24,11 +24,11 @@ const Graph: React.FC = () => {
       colors: ["transparent"],
     },
     xaxis: {
-      categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
+      categories: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
     },
     yaxis: {
       title: {
-        text: "$ (thousands)",
+        text: "# (patients)",
       },
     },
     fill: {
@@ -43,16 +43,16 @@ const Graph: React.FC = () => {
 
   const series = [
     {
-      name: "Net Profit",
-      data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+      name: "Completed Appointments",
+      data: [44, 55, 57, 56, 61],
     },
     {
-      name: "Revenue",
-      data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+      name: "Canceled Appointments",
+      data: [76, 85, 101, 98, 87,],
     },
     {
-      name: "Free Cash Flow",
-      data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+      name: "Missed Appointments",
+      data: [35, 41, 36, 26, 45],
     },
   ];
 
