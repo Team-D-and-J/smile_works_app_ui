@@ -13,7 +13,7 @@ const navigationLinks = [
   { href: "/", text: "Dashboard", icon: TbHeartRateMonitor },
   { href: "/patient", text: "Patient", icon: BsFillPersonLinesFill },
   { href: "/schedule", text: "Schedule", icon: FaRegCalendarAlt },
-  { href: "/treatmentMaster", text: "Treatment", icon: FaClipboardList },
+  { href: "/treatmentMaster", text: "Treatments", icon: FaClipboardList },
   { href: "/inventory", text: "Inventory", icon: MdOutlineInventory },
   { href: "/inventory/ordering", text: "Orders", icon: BsCart4 },
   { href: "/insurance", text: "Insurance", icon: AiOutlineFileProtect },

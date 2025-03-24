@@ -4,6 +4,7 @@ import Link from "next/link";
 import { MenuButton, MenuItems, Menu, MenuItem } from "@headlessui/react";
 import { VscChevronDown } from "react-icons/vsc";
 import BackButton from "@/components/BackButton";
+import { useRouter } from "next/navigation";
 
 const sortOptions = [
 	{ name: "By Type", href: "#", current: true },
@@ -20,6 +21,7 @@ const TreatmentsMaster: React.FC = () => {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [sortedTreatments, setSortedTreatments] = useState<any[]>([]); // Store sorted treatments
 	const [sortOption, setSortOption] = useState<string>("By Type");
+	const router = useRouter();
 
 	useEffect(() => {
 		const token = localStorage.getItem("token");
@@ -73,6 +75,10 @@ const TreatmentsMaster: React.FC = () => {
 		setSortedTreatments(sortedData); // Update sorted treatments state
 	}, [sortOption, treatments]);
 
+	function handleTreatmentClick(treatmentId: string ) {
+		router.replace(`/treatmentMaster/${treatmentId}`)
+	}
+
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>{error}</p>;
 
@@ -124,7 +130,7 @@ const TreatmentsMaster: React.FC = () => {
 				</MenuItems>
 			</Menu>
 
-			<div className="w-10/12  mx-auto mt-10">
+			<div className="w-10/12  mx-auto mt-2">
 				{/* Column Headers */}
 				<div className="p-3 border-b border-gray-300 grid grid-cols-5 gap-2 font-bold bg-gray-100">
 					<p>Treatment Name</p>
@@ -138,6 +144,7 @@ const TreatmentsMaster: React.FC = () => {
 						<div
 							className="p-3 border border-gray-300 rounded-md grid grid-cols-5 gap-2 place-items-start cursor-pointer hover:outline hover:outline-2 hover:outline-gray-500"
 							key={treatment._id}
+							onClick={() => handleTreatmentClick(treatment._id)}
 						>
 							<p>{treatment.name}</p>
 							<p>{treatment.description}</p>

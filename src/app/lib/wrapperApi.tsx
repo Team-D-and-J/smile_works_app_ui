@@ -1,4 +1,6 @@
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 const BACKEND = process.env.PORT || "http://localhost:4000/api";
 console.log(BACKEND);
 interface GetOptions {
@@ -35,6 +37,12 @@ function convertQueryToParams(query: GetOptions): string {
 function getHeader(){
 	const headers = new Headers();
 	headers.append("Content-Type", "application/json");
+	const token = localStorage.getItem("token");
+	if (token) {
+        headers.append("Authorization", `Bearer ${token}`);
+    } else {
+        console.warn("No authentication token found.");
+    }
 	return headers;
 }
 
@@ -50,7 +58,8 @@ export async function postAPI(api: string, data: any): Promise<any> {
 export async function getAPI(api: string, query: GetOptions): Promise<any> {
 	const endpoint = `${BACKEND}${api}?${convertQueryToParams(query)}`;
 	const response = await fetch(endpoint, {
-		method: "GET"
+		method: "GET",
+		headers: getHeader()
 	});
 	return response.json();
 }
