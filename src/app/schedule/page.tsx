@@ -1,183 +1,194 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { getAPI, deleteAPI } from "@/utils/fetchApi";
+import { useRouter } from "next/navigation";
+import { formatDate } from "@/utils/formatDate";
+import moment from "moment";
 
 interface Appointment {
+  _id: string;
   date: string;
   patientName: string;
   treatmentMaster: string;
   doctorName: string;
+  status: string;
+  time: string;
 }
 
-const AppointmentSchedule: React.FC = () => {
-  const [schedule, setSchedule] = useState<Appointment[]>([]);
-  // loading state commented out to clear the error
-  // const [loading, setLoading] = useState<boolean>(true);
-
-  // Fetch appointments from the backend API
-  useEffect(() => {
-    const fetchAppointments = async () => {
-      const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/schedule`;
-      console.log("Fetching from:", apiUrl);
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/schedule`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `JWT ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-        const data = await response.json();
-
-        if (response.ok) {
-          setSchedule(data);
-        } else {
-          console.error("Error fetching appointments:", data.message);
-        }
-      } catch (error) {
-        console.error("Error fetching appointments:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAppointments();
-  }, []);
-
-  return (
-    <div style={styles.container}>
-      <div style={styles.header}>
-        <div style={styles.dateGroup}>
-          <span style={styles.date}>Feb 25, 2025</span>
-          <button style={styles.weekBtn}>Week</button>
-        </div>
-        <span style={styles.newAppt}>New Appt.</span>
-      </div>
-
-      <div style={styles.scheduleHeader}>
-        <div style={styles.headerTime}>Date and Time</div>
-        <div style={styles.headerPatient}>Patient</div>
-        <div style={styles.headerStatus}>Doctor</div>
-        <div style={styles.headerActions}>
-          <button style={styles.editBtn}>Edit</button>
-        </div>
-      </div>
-
-      <div id="schedule">
-        {schedule.map((appt, index) => (
-          <div key={index} style={styles.appointmentCard}>
-            <div style={styles.appointmentTime}>{appt.date}</div>
-            <div style={styles.appointmentPatient}>
-              <span style={styles.patientName}>{appt.patientName}</span>
-              <br />
-              <span style={styles.subtext}>{appt.treatmentMaster}</span>
-            </div>
-            <div style={styles.appointmentStatus}>{appt.doctorName}</div>
-            <div style={styles.appointmentActions}></div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+// 💡 Status badge color helper
+const getStatusColor = (status: string) => {
+  switch (status) {
+    case "Confirmed":
+      return "bg-blue-500";
+    case "Arrived":
+      return "bg-green-500";
+    case "Cancelled":
+      return "bg-yellow-400 text-black";
+    case "No show":
+      return "bg-red-500";
+    default:
+      return "bg-gray-400";
+  }
 };
 
-//CSS
-const styles = {
-  container: {
-    width: "100%",
-    margin: "0 auto",
-    background: "white",
-    padding: "20px",
-    borderRadius: "8px",
-    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-  },
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: "15px",
-  },
-  dateGroup: {
-    display: "flex",
-    flexDirection: "column" as const,
-    gap: "5px",
-  },
-  date: {
-    fontWeight: "normal",
-  },
-  weekBtn: {
-    backgroundColor: "#555",
-    color: "white",
-    border: "none",
-    padding: "5px 10px",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
-  newAppt: {
-    fontSize: "14px",
-    color: "#555",
-    cursor: "pointer",
-  },
-  scheduleHeader: {
-    display: "flex",
-    justifyContent: "space-between",
-    backgroundColor: "#f0f0f0",
-    padding: "10px 15px",
-    borderRadius: "5px 5px 0 0",
-    fontWeight: "bold",
-  },
-  headerTime: {
-    width: "15%",
-  },
-  headerPatient: {
-    width: "40%",
-  },
-  headerStatus: {
-    width: "30%",
-  },
-  headerActions: {
-    width: "15%",
-    textAlign: "right" as const,
-  },
-  appointmentCard: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "15px",
-    marginBottom: "10px",
-    border: "1px solid #ddd",
-    borderRadius: "5px",
-    boxShadow: "0px 0px 5px rgba(0, 0, 0, 0.05)",
-  },
-  appointmentTime: {
-    width: "15%",
-  },
-  appointmentPatient: {
-    width: "40%",
-  },
-  appointmentStatus: {
-    width: "30%",
-  },
-  appointmentActions: {
-    width: "15%",
-  },
-  editBtn: {
-    backgroundColor: "#333",
-    color: "white",
-    border: "none",
-    padding: "5px 10px",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
-  patientName: {
-    fontWeight: "bold",
-  },
-  subtext: {
-    fontSize: "12px",
-    color: "gray",
-  },
+const AppointmentSchedule: React.FC = () => {
+  const router = useRouter();
+  const today = moment().format("YYYY-MM-DD");
+  const [schedule, setSchedule] = useState<Record<string, Appointment[]>>({});
+  const [view, setView] = useState<"day" | "week">("day");
+  const [selectedDate, setSelectedDate] = useState(today);
+
+  const fetchSchedule = async () => {
+    try {
+      const filter =
+        view === "day"
+          ? { view: "day", date: selectedDate }
+          : { view: "week", start: selectedDate };
+
+      const query = { filter };
+      const data = await getAPI("/schedule", query);
+      setSchedule(data);
+      console.log("Schedule fetched:", data);
+    } catch (error) {
+      console.error("Failed to fetch schedule", error);
+      setSchedule({}); // Reset if error
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteAPI(`/appointment/${id}`);
+      fetchSchedule();
+    } catch (error) {
+      console.error("Delete failed", error);
+    }
+  };
+
+  const handleNewAppointment = () => {
+    router.push("/schedule/appointment");
+  };
+
+  const goToPreviousWeek = () => {
+    const newDate = moment(selectedDate).subtract(7, "days").format("YYYY-MM-DD");
+    setSelectedDate(newDate);
+  };
+
+  const goToNextWeek = () => {
+    const newDate = moment(selectedDate).add(7, "days").format("YYYY-MM-DD");
+    setSelectedDate(newDate);
+  };
+
+  useEffect(() => {
+    fetchSchedule();
+  }, [view, selectedDate]);
+
+  const weekRange = `${moment(selectedDate).startOf("week").format("MMM D")} - ${moment(selectedDate).endOf("week").format("MMM D, YYYY")}`;
+
+  return (
+    <div className="w-full max-w-6xl mx-auto bg-white p-8 rounded-lg shadow-md">
+      <div className="flex justify-between items-center mb-4">
+        <div>
+          {view === "day" ? (
+            <input
+              type="date"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+              className="border p-1 rounded text-sm"
+            />
+          ) : (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={goToPreviousWeek}
+                className="px-2 py-1 text-sm bg-gray-200 rounded"
+              >
+                ◀
+              </button>
+              <span className="font-medium">{weekRange}</span>
+              <button
+                onClick={goToNextWeek}
+                className="px-2 py-1 text-sm bg-gray-200 rounded"
+              >
+                ▶
+              </button>
+            </div>
+          )}
+
+          <button
+            onClick={() => setView(view === "day" ? "week" : "day")}
+            className="mt-1 ml-2 bg-gray-700 text-white text-sm px-3 py-1 rounded"
+          >
+            {view === "day" ? "Week View" : "Day View"}
+          </button>
+        </div>
+
+        <button
+          onClick={handleNewAppointment}
+          className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition-colors"
+        >
+          New Appointment
+        </button>
+
+      </div>
+
+      <div className="flex justify-between bg-gray-100 p-3 font-semibold rounded-t">
+        <div className="w-1/6">Time</div>
+        <div className="w-2/6">Patient</div>
+        <div className="w-1/3 text-center">Doctor</div>
+        <div className="w-1/6 text-right">Actions</div>
+      </div>
+
+      {Object.keys(schedule).length === 0 && (
+        <p className="text-center text-gray-500 mt-4">
+          {view === "day"
+            ? "No appointments scheduled for this day."
+            : "No appointments scheduled this week."}
+        </p>
+      )}
+
+      {Object.entries(schedule).map(([dateKey, appointments]) =>
+        Array.isArray(appointments)
+          ? appointments
+              .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+              .map((appt, index) => (
+              <div
+                key={index}
+                className="flex justify-between items-center p-4 mb-2 border rounded shadow-sm"
+              >
+                <div className="w-1/6">{appt.time}</div>
+
+                <div className="w-2/6">
+                  <div className="font-semibold">{appt.patientName}</div>
+                  <div className="text-sm text-gray-500">{appt.treatmentMaster}</div>
+                </div>
+
+                <div className="w-1/3 text-center">
+                  <div>{appt.doctorName}</div>
+                  <div className="text-xs mt-1">
+                    <span
+                      className={`inline-block px-2 py-1 rounded-full text-white ${getStatusColor(
+                        appt.status
+                      )}`}
+                    >
+                      {appt.status}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="w-1/6 text-right">
+                  <button
+                    onClick={() => handleDelete(appt._id)}
+                    className="bg-red-600 text-white px-3 py-1 rounded text-sm"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))
+          : null
+      )}
+    </div>
+  );
 };
 
 export default AppointmentSchedule;

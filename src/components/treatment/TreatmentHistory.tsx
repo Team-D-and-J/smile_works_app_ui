@@ -2,18 +2,14 @@
 import React, { useEffect, useState } from "react";
 import useGetTreatmentsByPatient from "@/app/_hooks/treatments/useGetTreatmentsByPatient";
 import Link from "next/link";
-
-
 interface TreatmentMaster {
     id: string;
     name: string;
 }
-
 interface Doctor {
     id: string;
     name: string;
 }
-
 interface TreatmentHistoryProps {
     patientId: string;
 }
@@ -73,24 +69,29 @@ const TreatmentHistory: React.FC<TreatmentHistoryProps> = ({ patientId }) => {
                         try {
                             const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/${id}`, {
                                 method: "GET",
-                                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+                                headers: { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("token")}` },
                             });
-                            if (!response.ok) throw new Error(`Doctor Not Found: ${id}`);
-                            const result = await response.json();
-
-                            if (result.roles?.isDoctor) {
-                                return { id, result };
-                            } else {
-                                console.warn(`User ${id} is not a doctor. Skipping.`);
+                            if (!response.ok) {
+                                console.warn(`Doctor Not Found: ${id}`);
                                 return { id, result: null };
                             }
+        
+                            const result = await response.json();
+        
+                            // Check if the user has roles and is a doctor
+                            if (!result?.roles?.isDoctor) {
+                                console.warn(`User ${id} is not a doctor`);
+                                return { id, result: null };
+                            }
+        
+                            return { id, result };
                         } catch (error) {
-                            console.error(error);
+                            console.error(`Error fetching doctor ${id}:`, error);
                             return { id, result: null };
                         }
                     })
                 );
-
+        
                 setDoctorDataMap((prev) => ({
                     ...prev,
                     ...Object.fromEntries(doctorResults.map(({ id, result }) => [id, result])),
@@ -102,6 +103,7 @@ const TreatmentHistory: React.FC<TreatmentHistoryProps> = ({ patientId }) => {
                 setLoadingDoctor(false);
             }
         };
+        
 
         fetchTreatmentMasters();
         fetchDoctors();
@@ -109,13 +111,8 @@ const TreatmentHistory: React.FC<TreatmentHistoryProps> = ({ patientId }) => {
 
     return (
         <div className="w-full shadow-md rounded-lg">
-            <h2 className="text-xl font-bold text-center text-gray-700 mb-4">Treatment History</h2>
-
-            {treatmentListLoading && <p className="text-gray-500 text-center">Loading treatments...</p>}
-            {error && <p className="text-red-500 text-center">{error}</p>}
-            {treatmentListError && <p className="text-red-500 text-center">Error loading treatments.</p>}
-
-            <div className="overflow-x-auto mt-3">
+            { treatmentListLoading ? <p className="text-gray-500 text-center">Loading treatments...</p> : (
+                <div className="overflow-x-auto mt-3">
                 { (!treatmentsList || treatmentsList.length > 0) ? (
                     <table className="min-w-full border border-gray-300">
                         <thead className="bg-gray-100">
@@ -152,9 +149,11 @@ const TreatmentHistory: React.FC<TreatmentHistoryProps> = ({ patientId }) => {
                         </tbody>
                     </table>
                 ) : (
-                    <p className="text-gray-600 text-center">No treatments available.</p>
+                    <p className="text-gray-600 text-center py-4">No treatments available.</p>
                 )}
             </div>
+            ) }
+            
         </div>
     );
 };
