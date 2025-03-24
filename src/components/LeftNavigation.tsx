@@ -1,4 +1,5 @@
 "use client";
+import { usePathname } from "next/navigation";
 import { TbHeartRateMonitor } from "react-icons/tb";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { FaRegCalendarAlt, FaClipboardList } from "react-icons/fa";
@@ -6,7 +7,6 @@ import { MdAttachMoney, MdOutlineInventory } from "react-icons/md";
 import { GrUserAdmin } from "react-icons/gr";
 import { AiOutlineFileProtect } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
-
 import LeftNavLinks from "./LeftNavLinks";
 
 const navigationLinks = [
@@ -21,6 +21,7 @@ const navigationLinks = [
 ];
 
 const LeftNavigation = () => {
+  const pathname = usePathname(); // Get the current path
   return (
     <div className="flex flex-col flex-none h-full bg-primary p-2 pt-10 overflow-hidden text-textLight w-38">
       {/* Wrapper to push the admin tab down */}
@@ -32,13 +33,14 @@ const LeftNavigation = () => {
             href={link.href}
             text={link.text}
             icon={link.icon}
+            isActive={pathname === link.href}
           />
         ))}
       </div>
 
       {/* Admin tab at the bottom */}
       <div className="mb-32">
-        <LeftNavLinks href="/admin" text="Admin" icon={GrUserAdmin} />
+        <LeftNavLinks href="/admin" text="Admin" icon={GrUserAdmin} isActive={pathname === "/admin"} />
       </div>
     </div>
   );
