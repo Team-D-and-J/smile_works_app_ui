@@ -10,7 +10,7 @@ interface LeftNavLinksProps {
 function LeftNavLinks({ href, text, icon: Icon, isActive }: LeftNavLinksProps) {
   return (
     <Link href={href}
-    className={`flex items-center gap-4 p-3 rounded-md ${
+    className={`flex items-center gap-4 p-2 rounded-md ${
       isActive ? "bg-btnDark text-white" : "hover:bg-btnDark"
     }`
   }>

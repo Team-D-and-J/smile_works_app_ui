@@ -18,6 +18,7 @@ const navigationLinks = [
   { href: "/inventory/ordering", text: "Orders", icon: BsCart4 },
   { href: "/insurance", text: "Insurance", icon: AiOutlineFileProtect },
   { href: "/billing", text: "Billing", icon: MdAttachMoney },
+  { href: "/users", text: "Users", icon: MdAttachMoney },
 ];
 
 const LeftNavigation = () => {
@@ -26,7 +27,7 @@ const LeftNavigation = () => {
     <div className="flex flex-col flex-none h-full bg-primary p-2 overflow-hidden text-textLight w-38">
       {/* Wrapper to push the admin tab down */}
 
-      <div className="flex flex-col gap-8 flex-1 pt-6">
+      <div className="flex flex-col gap-2 flex-1 pt-4">
         {navigationLinks.map((link) => (
           <LeftNavLinks
             key={link.href}
