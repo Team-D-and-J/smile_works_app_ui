@@ -9,6 +9,7 @@ interface GetOptions {
 	page?: number;
 	limit?: number;
 	filter?: any;
+	params?: Record<string, string>;
 }
 
 function convertQueryToParams(query: GetOptions): string {
@@ -31,7 +32,12 @@ function convertQueryToParams(query: GetOptions): string {
 	if (query.filter) {
 		urlParams.set('filter', JSON.stringify(query.filter));
 	}
+	if (query.params) {
+		Object.entries(query.params).forEach(([key, value]) => {
+			urlParams.set(key, value);
+		});
 	return urlParams.toString();
+}
 }
 
 function getHeader(){
@@ -79,4 +85,9 @@ export async function deleteAPI(api: string): Promise<any> {
 		headers: getHeader()
 	});
 	return response;
+}
+
+export async function getAppointmentsCountByWeek(date: string): Promise<any> {
+	console.log("Fetching appointments count for:", date);
+	return getAPI("/appointment/utils/appointments-count-by-week", { params: { date } });
 }

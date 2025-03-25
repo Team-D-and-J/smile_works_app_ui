@@ -1,7 +1,40 @@
-import React from "react";
 import Chart from "react-apexcharts";
+import React, { useEffect, useState } from "react";
+import { getAppointmentsCountByWeek } from "@/app/lib/wrapperApi";
 
 const Graph: React.FC = () => {
+
+  const [confirmedAppointments, setConfirmedAppointments] = useState<number[]>([0, 0, 0, 0, 0]);
+  const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  console.log("Fetching appointment data...");
+  const fetchAppointments = async () => {
+    try {
+      const today = new Date().toISOString().split("T")[0]; // Get today's date
+
+      // 🔴 You were using `fetch` directly (no auth) — Switch to `getAppointmentsCountByWeek`
+      const data = await getAppointmentsCountByWeek(today);
+      
+      console.log("Fetched Data:", data); // Debug API response
+
+      const daysOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+      const countByDay = daysOrder.map(day => {
+        const entry = data.find((item: { day: string; count: number }) => item.day === day);
+        return entry ? entry.count : 0;
+      });
+
+      setConfirmedAppointments(countByDay);
+    } catch (error) {
+      console.error("Error fetching appointments:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchAppointments();
+}, []);
+
   const options: ApexCharts.ApexOptions = {
     chart: {
       type: "bar",
@@ -43,8 +76,8 @@ const Graph: React.FC = () => {
 
   const series = [
     {
-      name: "Completed Appointments",
-      data: [44, 55, 57, 56, 61],
+      name: "Confirmed Appointments",
+      data: confirmedAppointments,
     },
     {
       name: "Canceled Appointments",
