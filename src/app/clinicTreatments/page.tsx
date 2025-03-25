@@ -149,7 +149,7 @@ const clinicTreatments: React.FC = () => {
                         <div
                         key={treatment._id}
                         className="p-3 border border-gray-300 rounded-md grid grid-cols-5 gap-2 place-items-start cursor-pointer hover:outline hover:outline-2 hover:outline-gray-500"
-                        onClick={() => handleTreatmentClick(treatment._id)}
+               
                         >
                         <p>{treatment.treatmentMasterId}</p> {/* Display treatmentMasterId */}
                         <p>{treatment.steps}</p> {/* Display treatment steps */}
