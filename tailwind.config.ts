@@ -18,6 +18,9 @@ export default {
         btnLight: "#baceda",
         btnDark: "#3d5767",
       },
+      fontFamily: {
+        custom: ["CustomFont", "sans-serif"],
+      },
     },
   },
   plugins: [],
