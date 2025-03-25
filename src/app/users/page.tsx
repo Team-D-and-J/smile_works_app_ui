@@ -84,7 +84,7 @@ const Users: React.FC = () => {
 		<div className="flex flex-col w-full p-8 min-h-screen bg-gray-100">
 			<BackButton />
 			<div className="flex mb-8 mt-2 items-start">
-				<h2 className="text-2xl font-bold ml-16">User Records</h2>
+				<h2 className="text-2xl font-bold ml-16">Clinic Staff</h2>
 			</div>
 
 			<div className="absolute right-0 pr-8 gap-4 flex justify-end">
