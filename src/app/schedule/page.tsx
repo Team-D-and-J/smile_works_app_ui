@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { getAPI, deleteAPI } from "@/utils/fetchApi";
 import { useRouter } from "next/navigation";
-import { formatDate } from "@/utils/formatDate";
 import moment from "moment";
 
 interface Appointment {
@@ -16,7 +15,6 @@ interface Appointment {
   time: string;
 }
 
-// 💡 Status badge color helper
 const getStatusColor = (status: string) => {
   switch (status) {
     case "Confirmed":
@@ -52,7 +50,7 @@ const AppointmentSchedule: React.FC = () => {
       console.log("Schedule fetched:", data);
     } catch (error) {
       console.error("Failed to fetch schedule", error);
-      setSchedule({}); // Reset if error
+      setSchedule({});
     }
   };
 
@@ -83,7 +81,9 @@ const AppointmentSchedule: React.FC = () => {
     fetchSchedule();
   }, [view, selectedDate]);
 
-  const weekRange = `${moment(selectedDate).startOf("week").format("MMM D")} - ${moment(selectedDate).endOf("week").format("MMM D, YYYY")}`;
+  const weekRange = `${moment(selectedDate)
+    .startOf("week")
+    .format("MMM D")} - ${moment(selectedDate).endOf("week").format("MMM D, YYYY")}`;
 
   return (
     <div className="w-full max-w-6xl mx-auto bg-white p-8 rounded-lg shadow-md">
@@ -98,17 +98,11 @@ const AppointmentSchedule: React.FC = () => {
             />
           ) : (
             <div className="flex items-center gap-2">
-              <button
-                onClick={goToPreviousWeek}
-                className="px-2 py-1 text-sm bg-gray-200 rounded"
-              >
+              <button onClick={goToPreviousWeek} className="px-2 py-1 text-sm bg-gray-200 rounded">
                 ◀
               </button>
               <span className="font-medium">{weekRange}</span>
-              <button
-                onClick={goToNextWeek}
-                className="px-2 py-1 text-sm bg-gray-200 rounded"
-              >
+              <button onClick={goToNextWeek} className="px-2 py-1 text-sm bg-gray-200 rounded">
                 ▶
               </button>
             </div>
@@ -128,7 +122,6 @@ const AppointmentSchedule: React.FC = () => {
         >
           New Appointment
         </button>
-
       </div>
 
       <div className="flex justify-between bg-gray-100 p-3 font-semibold rounded-t">
@@ -151,40 +144,44 @@ const AppointmentSchedule: React.FC = () => {
           ? appointments
               .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
               .map((appt, index) => (
-              <div
-                key={index}
-                className="flex justify-between items-center p-4 mb-2 border rounded shadow-sm"
-              >
-                <div className="w-1/6">{appt.time}</div>
+                <div
+                  key={index}
+                  className="flex justify-between items-center p-4 mb-2 border rounded shadow-sm"
+                >
+                  <div className="w-1/6">
+                    {view === "week"
+                      ? `${moment(appt.date).format("ddd")} - ${appt.time}`
+                      : appt.time}
+                  </div>
 
-                <div className="w-2/6">
-                  <div className="font-semibold">{appt.patientName}</div>
-                  <div className="text-sm text-gray-500">{appt.treatmentMaster}</div>
-                </div>
+                  <div className="w-2/6">
+                    <div className="font-semibold">{appt.patientName}</div>
+                    <div className="text-sm text-gray-500">{appt.treatmentMaster}</div>
+                  </div>
 
-                <div className="w-1/3 text-center">
-                  <div>{appt.doctorName}</div>
-                  <div className="text-xs mt-1">
-                    <span
-                      className={`inline-block px-2 py-1 rounded-full text-white ${getStatusColor(
-                        appt.status
-                      )}`}
+                  <div className="w-1/3 text-center">
+                    <div>{appt.doctorName}</div>
+                    <div className="text-xs mt-1">
+                      <span
+                        className={`inline-block px-2 py-1 rounded-full text-white ${getStatusColor(
+                          appt.status
+                        )}`}
+                      >
+                        {appt.status}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="w-1/6 text-right">
+                    <button
+                      onClick={() => handleDelete(appt._id)}
+                      className="bg-red-600 text-white px-3 py-1 rounded text-sm"
                     >
-                      {appt.status}
-                    </span>
+                      Delete
+                    </button>
                   </div>
                 </div>
-
-                <div className="w-1/6 text-right">
-                  <button
-                    onClick={() => handleDelete(appt._id)}
-                    className="bg-red-600 text-white px-3 py-1 rounded text-sm"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))
+              ))
           : null
       )}
     </div>

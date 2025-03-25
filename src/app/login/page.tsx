@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import SmileWorksLogo from "@/components/SmileWorksLogo";
 
 const Page = () => {
 	const [username, setUsername] = useState<string>("");
@@ -39,8 +40,9 @@ const Page = () => {
 
 	return (
 		<div className="flex min-h-screen justify-center items-center bg-gray-100">
-			<div className="flex flex-col w-full max-w-sm p-6 bg-white rounded-lg shadow-lg">
-				<h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+			<div className="flex flex-col w-full max-w-md h-[700px] p-6 bg-white rounded-lg shadow-lg">
+				<h2 className="text-2xl font-bold text-center mb-6">Smile Works Admin Login</h2>
+				<SmileWorksLogo />
 				<form onSubmit={handleLogin} className="flex flex-col gap-4">
 					<label htmlFor="username" className="text-sm font-medium">
 						Username
@@ -68,13 +70,13 @@ const Page = () => {
 					/>
 					<button
 						type="submit"
-						className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+						className="p-3 bg-btnDark text-textLight border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 					>
 						Login
 					</button>
 				</form>
 				{error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-				<a href="#" className="text-blue-500 text-sm mt-4 text-center">
+				<a href="#" className="text-btnDark text-sm mt-4 text-center">
 					Forgot Password?
 				</a>
 			</div>

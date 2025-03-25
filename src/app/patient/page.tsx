@@ -88,30 +88,35 @@ const Page = () => {
       }
     }
   }
+
+  {
+    console.log("currentResults: ", currentResults);
+  }
   return (
-    <div className="w-full p-8">
-      <div className="max-w-7xl flex flex-col items-center ">
+    <div className="w-full p-4 bg-secondaryDark">
+      <div className="max-w-7xl flex flex-col items-center p-4 bg-secondaryLight rounded-md">
         <div className="flex justify-between items-center mb-6 w-full max-w-7xl">
           <h1 className="text-2xl font-bold">Patient Search</h1>
           <div>
             <Link
               href="/patientEducation"
-              className="p-2 mr-4 border border-2 border-btnLight text-textDark text-xs hover:bg-btnLight rounded-md"
+              className="p-2 mr-4 text-textDark  hover:border-btnDark bg-btnLight rounded-md"
             >
               Patient Education
             </Link>
             <Link
               href="/patient/createPatient"
-              className="p-2 border bg-btnDark text-textLight text-xs rounded-md"
+              className="p-2 border bg-btnLight text-textDark rounded-md"
             >
               Create New Patient
             </Link>
           </div>
         </div>
+        {/* {form container} */}
         <div className="flex flex-col justify-center max-w-full">
           <form
             onSubmit={handleSubmit}
-            className="flex items-end gap-2 justify-between mt-4 w-full max-w-5xl"
+            className="flex items-end gap-2 justify-between mt-4 w-full max-w-7xl"
           >
             <div className="flex flex-col">
               <label htmlFor="firstName" className="text-sm font-medium">
@@ -122,7 +127,7 @@ const Page = () => {
                 onChange={(e) => setFirstName(e.target.value)}
                 type="text"
                 id="firstName"
-                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-btnDark"
               />
             </div>
             <div className="flex flex-col">
@@ -134,7 +139,7 @@ const Page = () => {
                 onChange={(e) => setLastName(e.target.value)}
                 type="text"
                 id="lastName"
-                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-btnDark"
               />
             </div>
             <div className="flex flex-col">
@@ -146,7 +151,7 @@ const Page = () => {
                 onChange={(e) => set_id(e.target.value)}
                 type="text"
                 id="_id"
-                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-btnDark"
               />
             </div>
             <div className="flex flex-col">
@@ -158,12 +163,13 @@ const Page = () => {
                 onChange={(e) => setDob(e.target.value)}
                 type="date"
                 id="dob"
-                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-btnDark"
               />
             </div>
             <button
               type="submit"
-              className="flex justify-center items-center p-2 h-12 w-24 bg-btnDark text-textLight text-sm rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+              className="flex justify-center items-center p-2 h-12 w-24 bg-btnDark text-textLight rounded-md
+             hover:bg-btnDark/85 active:bg-btnDark active:scale-95 transition"
               title="search"
             >
               Search
@@ -179,34 +185,40 @@ const Page = () => {
             </p>
           </div>
         </div>
-        <div className="w-full flex flex-col">
-          {currentResults.map((patient) => (
-            <SearchResult patient={patient} key={patient._id} />
-          ))}
-        </div>
-        <div className="flex justify-between items-center mt-4 min-w-full">
-          <span>
-            {results.length
-              ? `Showing ${startIndex + 1}–${endIndex} of ${totalResults}:`
-              : ""}
-          </span>
-          <div className="flex gap-2">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                className={`px-3 py-1 rounded-md border ${
-                  currentPage === page
-                    ? "bg-blue-500 text-white"
-                    : "border-gray-300"
-                }`}
-              >
-                {page}
-              </button>
-            ))}
-          </div>
-        </div>
       </div>
+      {currentResults.length > 0 && (
+        <>
+          <div className="w-full flex flex-col bg-secondaryLight rounded-md p-4 mt-4 ">
+            {currentResults.map((patient) => (
+              <SearchResult patient={patient} key={patient._id} />
+            ))}
+            <div className="flex justify-between items-center mt-4 min-w-full">
+              <span>
+                {results.length
+                  ? `Showing ${startIndex + 1}–${endIndex} of ${totalResults}:`
+                  : ""}
+              </span>
+              <div className="flex gap-2">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (page) => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`px-3 py-1 rounded-md border ${
+                        currentPage === page
+                          ? "bg-btnDark text-textLight"
+                          : "border-gray-300"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  )
+                )}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
