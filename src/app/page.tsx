@@ -39,7 +39,7 @@ const StatCard: React.FC<StatCardProps> = ({
 };
 const Page: React.FC = () => {
   const [currentDate, setCurrentDate] = useState("");
-  const [username, setUsername] = useState<string | null>(null);
+  const [name, setname] = useState<string | null>(null);
   const [todaysAppointments, setTodaysAppointments] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   
@@ -79,8 +79,8 @@ const Page: React.FC = () => {
       
 
   useEffect(() => {
-    const storedUsername = localStorage.getItem("username");
-    setUsername(storedUsername);
+    const storedname = localStorage.getItem("name");
+    setname(storedname);
   }, []);
 
   return (
@@ -90,7 +90,7 @@ const Page: React.FC = () => {
           <div className="flex w-full my-2 ">
             <div className="flex flex-col text-left w-2/3 h-auto px-8 py-5 justify-center  ">
               <p className="mb-3 text-4xl text-[#001F3F]">
-                Welcome {username ? username : "Guest"}!
+                Welcome {name ? name : "Guest"}!
               </p>
               <p className="mb-3 text-xl text-left text-[#001F3F]">
                 {currentDate}
