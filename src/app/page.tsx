@@ -8,6 +8,7 @@ import Link from "next/link";
 import { IconType } from "react-icons";
 import { FiSearch } from "react-icons/fi";
 import Graph from "./graph"
+import { getAppointmentsToday } from "./lib/wrapperApi";
 
 // Define the type for StatCard props
 interface StatCardProps {
@@ -39,14 +40,42 @@ const StatCard: React.FC<StatCardProps> = ({
 const Page: React.FC = () => {
   const [currentDate, setCurrentDate] = useState("");
   const [username, setUsername] = useState<string | null>(null);
-
+  const [todaysAppointments, setTodaysAppointments] = useState<number>(0);
+  const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
     const date = new Date();
     const weekday = date.toLocaleDateString(undefined, { weekday: "long" });
     const day = date.getDate(); // Returns the numeric day
     const year = date.getFullYear(); // Returns the full year
     setCurrentDate(`${weekday} ${day}, ${year}`);
+  
+    const fetchAppointmentsByDay = async () => {
+      try {
+        const today = new Date().toISOString().split("T")[0]; // Get today's date
+        const data = await getAppointmentsToday(today); // Fetch appointments
+  
+        console.log("Fetched Appointments Data:", data);
+        
+        // Log the structure of each appointment
+        data.forEach((appointment, index) => {
+          console.log(`Appointment ${index + 1}:`, appointment); // Check what fields are inside appointment
+          // If patient data is inside a specific field, access it here
+          if (appointment.patient) {
+            console.log(`Patient for Appointment ${index + 1}:`, appointment.patient);
+          }
+        });
+  
+        setTodaysAppointments(data || []); // Ensure it doesn't break if `data` is undefined
+      } catch (error) {
+        console.error("Error fetching appointments:", error);
+      } finally {
+        setLoading(false);
+      }
+    };  
+    fetchAppointmentsByDay();
   }, []);
+      
 
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
