@@ -60,6 +60,7 @@ const Page: React.FC = () => {
         // Log the structure of each appointment
         data.forEach((appointment, index) => {
           console.log(`Appointment ${index + 1}:`, appointment); // Check what fields are inside appointment
+          
           // If patient data is inside a specific field, access it here
           if (appointment.patient) {
             console.log(`Patient for Appointment ${index + 1}:`, appointment.patient);
