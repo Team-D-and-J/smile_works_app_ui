@@ -23,7 +23,7 @@ const navigationLinks = [
 const LeftNavigation = () => {
   const pathname = usePathname(); // Get the current path
   return (
-    <div className="flex flex-col flex-none h-full bg-primary p-2 pt-10 overflow-hidden text-textLight w-38">
+    <div className="flex flex-col flex-none h-full bg-primary p-2 overflow-hidden text-textLight w-38">
       {/* Wrapper to push the admin tab down */}
 
       <div className="flex flex-col gap-8 flex-1 pt-6">

@@ -28,7 +28,7 @@ const PaymentPage = () => {
 					throw new Error("Failed to fetch patients");
 				}
 				const data = await response.json();
-				setPatients(data.results);
+				setPatients(data);
 			} catch (err) {
 				console.error(err);
 				setError("Failed to load patients.");
@@ -57,8 +57,8 @@ const PaymentPage = () => {
 					const result = await response.json();
 					console.log("Payments API result:", result);
 					// Assuming the API returns { success: true, data: [...] }
-					if (result) {
-						setPayments(result);
+					if (result.success && result.data) {
+						setPayments(result.data);
 					} else {
 						setPayments([]);
 					}
@@ -160,9 +160,9 @@ const PaymentPage = () => {
 									<td className="px-4 py-2 border">
 										<button
 											onClick={() => handleSimulatePayment(payment)}
-											disabled={payment.status === "Paid"}
+											disabled={payment.status === "Completed"}
 											className={`py-1 px-3 rounded ${
-												payment.status === "Paid"
+												payment.status === "Completed"
 													? "bg-gray-400 cursor-not-allowed"
 													: "bg-blue-500 hover:bg-blue-600 text-white font-semibold"
 											}`}
