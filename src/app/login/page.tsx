@@ -40,8 +40,8 @@ const Page = () => {
 
 	return (
 		<div className="flex min-h-screen justify-center items-center bg-gray-100">
-			<div className="flex flex-col w-full max-w-md h-[700px] p-6 bg-white rounded-lg shadow-lg">
-				<h2 className="text-2xl font-bold text-center mb-6">Smile Works Admin Login</h2>
+			<div className="flex flex-col w-full max-w-sm h-[600px] p-6 bg-white rounded-lg shadow-lg">
+				<h2 className="text-2xl font-bold text-center mb-2">Smile Works Admin Login</h2>
 				<SmileWorksLogo />
 				<form onSubmit={handleLogin} className="flex flex-col gap-4">
 					<label htmlFor="username" className="text-sm font-medium">

@@ -1,10 +1,8 @@
 const SmileWorksLogo = () => {
   return (
     <svg
-      className="w-full h-full fill-current w-auto h-auto text-textLight pt-2"
+      className="w-full h-full fill-current w-auto h-auto text-textLight pt-1 w-1/4 h-1/4 mx-auto"
       xmlns="http://www.w3.org/2000/svg"
-      width="146"
-      height="112"
       viewBox="0 0 1460 1120"
     >
       <g fill="light-grey">
