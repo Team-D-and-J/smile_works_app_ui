@@ -88,6 +88,9 @@ export async function deleteAPI(api: string): Promise<any> {
 }
 
 export async function getAppointmentsCountByWeek(date: string): Promise<any> {
-	console.log("Fetching appointments count for:", date);
 	return getAPI("/appointment/utils/appointments-count-by-week", { params: { date } });
+}
+
+export async function getAppointmentsToday(date: string): Promise<any> {
+	return getAPI("/appointment/utils/appointments-count-today", { params: { date } });
 }

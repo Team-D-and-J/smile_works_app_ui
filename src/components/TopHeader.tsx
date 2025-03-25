@@ -8,11 +8,11 @@ const TopNavigation = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const router = useRouter();
 	const token = localStorage.getItem("token");
-	const [username, setUsername] = useState<string | null>(null);
+	const [name, setName] = useState<string | null>(null);
 
 	useEffect(() => {
-		const storedUsername = localStorage.getItem("username");
-		setUsername(storedUsername);
+		const storedUsername = localStorage.getItem("name");
+		setName(storedUsername);
 	}, []);
 
 	const handleLogout = async () => {
@@ -85,7 +85,7 @@ const TopNavigation = () => {
  						height={80}
  					/>
  				</div>
-				<div className="text-xl text-textLight ">{username}</div>
+				<div className="text-xl text-textLight ">{name}</div>
 				{isOpen && (
 					<div className="absolute top-16 right-0 bg-white shadow-lg rounded-md w-40 border">
 						<ul className="text-black text-sm">
