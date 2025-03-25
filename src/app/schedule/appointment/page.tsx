@@ -65,22 +65,28 @@ const AppointmentForm = () => {
 
 
   const handleSearch = async () => {
-    try {
-      const query = { filter: { name: searchName } };
-      const response = await getAPI("/patient", query);
+  try {
+    const query = { filter: { name: searchName } };
+    const response = await getAPI("/patient", query);
 
-      if (response?.results?.length > 0) {
-        setSearchResults(response.results);
-        setError("");
-      } else {
-        setSearchResults([]);
-        setError("No patients found.");
-      }
-    } catch (err) {
-      console.error("Patient search failed", err);
-      setError("Error searching patient.");
+    const nameLower = searchName.toLowerCase();
+
+    const filteredResults = (response?.results || []).filter((p: { name: string; }) =>
+      p.name.toLowerCase().includes(nameLower)
+    );
+
+    if (filteredResults.length > 0) {
+      setSearchResults(filteredResults);
+      setError("");
+    } else {
+      setSearchResults([]);
+      setError("No patients found.");
     }
-  };
+  } catch (err) {
+    console.error("Patient search failed", err);
+    setError("Error searching patient.");
+  }
+};
 
 
   useEffect(() => {
