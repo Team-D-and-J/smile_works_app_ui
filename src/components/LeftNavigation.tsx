@@ -24,10 +24,10 @@ const navigationLinks = [
 const LeftNavigation = () => {
   const pathname = usePathname(); // Get the current path
   return (
-    <div className="flex flex-col flex-none h-full bg-primary p-2 overflow-hidden text-textLight w-38">
+    <div className="flex flex-col flex-none h-full bg-primary py-2 pl-2 overflow-hidden text-textLight w-38">
       {/* Wrapper to push the admin tab down */}
 
-      <div className="flex flex-col gap-2 flex-1 pt-4">
+      <div className="flex flex-col gap-4 flex-1 pt-6">
         {navigationLinks.map((link) => (
           <LeftNavLinks
             key={link.href}
@@ -41,7 +41,12 @@ const LeftNavigation = () => {
 
       {/* Admin tab at the bottom */}
       <div className="mb-32">
-        <LeftNavLinks href="/admin" text="Admin" icon={GrUserAdmin} isActive={pathname === "/admin"} />
+        <LeftNavLinks
+          href="/admin"
+          text="Admin"
+          icon={GrUserAdmin}
+          isActive={pathname === "/admin"}
+        />
       </div>
     </div>
   );

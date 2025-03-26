@@ -2,9 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+html,
+body {
   height: 100%;
-  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .AgGrid {
@@ -74,3 +75,10 @@ html, body {
   }
 }
 /* spinner styles above*/
+
+@font-face {
+  font-family: "CustomFont";
+  src: url("../../public/fonts/custom-font.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
