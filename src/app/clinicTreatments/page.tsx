@@ -59,22 +59,6 @@ const clinicTreatments: React.FC = () => {
 		fetchTreatments();
 	}, [jwt]);
 
-	// useEffect(() => {
-	// 	const sortedData = [...treatments].sort((a, b) => {
-	// 		if (sortOption === "By Type") {
-	// 			return a.type.localeCompare(b.type); // Sort alphabetically by type
-	// 		}
-	// 		if (sortOption === "Price: Low to High") {
-	// 			return a.cost - b.cost; // Sort by increasing cost
-	// 		}
-	// 		if (sortOption === "Price: High to Low") {
-	// 			return b.cost - a.cost; // Sort by decreasing cost
-	// 		}
-	// 		return 0; // Default: No sorting change
-	// 	});
-	// 	setSortedTreatments(sortedData); // Update sorted treatments state
-	// }, [sortOption, treatments]);
-
 	function handleTreatmentClick(treatmentId: string ) {
 		router.replace(`/clinicTreatments/${treatmentId}`)
 	}
@@ -138,10 +122,10 @@ const clinicTreatments: React.FC = () => {
 			<div className="w-10/12  mx-auto mt-2">
 				{/* Column Headers */}
 				<div className="p-3 border-b border-gray-300 grid grid-cols-5 gap-2 font-bold bg-gray-100">
-					<p>Treatment Name</p>
-					<p>Description</p>
-					<p>Type</p>
-					<p>Cost</p>
+					<p>Treatment</p>
+					<p>Patient ID</p>
+					<p>Status</p>
+					<p>Last Update</p>
 				</div>
 				{/**Dropdown for filtering Treatments Master */}
                 <ul className="space-y-2">
@@ -149,12 +133,12 @@ const clinicTreatments: React.FC = () => {
                         <div
                         key={treatment._id}
                         className="p-3 border border-gray-300 rounded-md grid grid-cols-5 gap-2 place-items-start cursor-pointer hover:outline hover:outline-2 hover:outline-gray-500"
-               
+						onClick={() => handleTreatmentClick(treatment._id)}
                         >
                         <p>{treatment.treatmentMasterId}</p> {/* Display treatmentMasterId */}
-                        <p>{treatment.steps}</p> {/* Display treatment steps */}
+                        <p>{treatment.patientId}</p> {/* Display treatment steps */}
                         <p>{treatment.status}</p> {/* Display treatment status */}
-                        <p>{treatment._metadata.createdAt}</p> {/* Display createdAt */}
+                        <p>{treatment._metadata.lastUpdatedAt}</p> {/* Display createdAt */}
                         </div>
                     ))}
                     </ul>
