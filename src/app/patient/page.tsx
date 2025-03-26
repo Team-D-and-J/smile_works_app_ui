@@ -45,6 +45,35 @@ const Page = () => {
     if (token) setJwt(token);
   }, []);
 
+  useEffect(() => {
+    const fetchPatients = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/patient`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        );
+        if (response.ok) {
+          const data = await response.json().then((res) => res.results);
+          data.sort((a: Patient, b: Patient) => {
+            return b._metadata.lastUpdatedAt - a._metadata.lastUpdatedAt;
+          });
+          setResults(data);
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error(error.message);
+        }
+      }
+    };
+    fetchPatients();
+  }, [jwt]);
+
   function handleClearFilters() {
     setFirstName("");
     setLastName("");
@@ -87,10 +116,6 @@ const Page = () => {
         console.error(error.message);
       }
     }
-  }
-
-  {
-    console.log("currentResults: ", currentResults);
   }
   return (
     <div className="w-full p-4 bg-secondaryDark">
@@ -188,7 +213,7 @@ const Page = () => {
       </div>
       {currentResults.length > 0 && (
         <>
-          <div className="w-full flex flex-col bg-secondaryLight rounded-md p-4 mt-4 ">
+          <div className="max-w-7xl flex flex-col bg-secondaryLight rounded-md p-4 mt-4 ">
             {currentResults.map((patient) => (
               <SearchResult patient={patient} key={patient._id} />
             ))}
