@@ -72,7 +72,9 @@ const TopNavigation = () => {
       <div className="h-full flex flex-col justify-center items-center overflow-hidden">
         <SmileWorksLogo />
       </div>
-      <div className="text-5xl text-textLight font-custom ">Smile Works</div>
+      <div className="text-5xl text-textLight font-custom drop-shadow-xl">
+        Smile Works
+      </div>
       <div
         className="relative flex items-center gap-2 p-1 cursor-pointer rounded-md hover:bg-white hover:bg-opacity-15"
         onClick={() => setIsOpen(!isOpen)}

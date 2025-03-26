@@ -1,15 +1,29 @@
-function UpcomingAppointment() {
+import moment from "moment";
+
+function UpcomingAppointment({ appointment }: UpcomingApptProps) {
   return (
     <div className="flex">
-      <div>appointment time</div>
+      <div>{moment(appointment.time).format("h:mm A")}</div>
       <div className="flex flex-col">
-        <div>patient name</div>
-        <div>doctor name</div>
-        <div>treatment type</div>
+        <div>{appointment.patientName}</div>
+        <div>{appointment.doctorId}</div>
+        <div>{appointment.treatmentMaster}</div>
       </div>
-      <h2>Upcoming Appointment</h2>
     </div>
   );
 }
 
 export default UpcomingAppointment;
+
+interface UpcomingApptProps {
+  appointment: {
+    doctorId: string;
+    patientId: string;
+    time: string;
+    patient: string;
+    doctor: string;
+    treatmentMaster: string;
+    patientName: string;
+    doctorName: string;
+  };
+}
