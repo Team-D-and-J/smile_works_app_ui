@@ -2,9 +2,12 @@
 import React, { useState, useEffect} from "react";
 import Link from "next/link";
 import BackButton from "@/components/BackButton";
-import { useParams } from "next/navigation";
+import { useParams,useRouter  } from "next/navigation";
+
+
 
 const EditPatient: React.FC = () => {
+	const router = useRouter();
 
 	const [patient, setPatient] = useState({
 	name: '',
@@ -38,7 +41,20 @@ const EditPatient: React.FC = () => {
                     }
                 })
 				const data = await response.json();
-				setPatient(data);
+
+				const patientData = {
+					...data,
+					notificationPreference: {
+						...data.notificationPreference,
+						allowSMS: data.notificationPreference?.allowSMS || false,
+						allowEmail: data.notificationPreference?.allowEmail || false,
+						allowPhoneCall: data.notificationPreference?.allowPhoneCall || false
+					}
+				};
+
+				//setPatient(data);
+				setPatient(patientData);
+
             }catch(error){
                 console.error("Error fetching patient data:" , error)
             }
@@ -57,7 +73,8 @@ const EditPatient: React.FC = () => {
 		}));
 	  };
 
-	  const handleObjectsChange = (section: keyof typeof patient, field: string, value: string | boolean) => {
+
+	const handleObjectsChange = (section: keyof typeof patient, field: string, value: string | boolean) => {
 		setPatient(prev => ({
 			...prev,
 			[section]: {
@@ -65,7 +82,7 @@ const EditPatient: React.FC = () => {
 				[field]: value
 			}
 		}));
-	  };
+	};
 
 	 const handleSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
@@ -90,6 +107,9 @@ const EditPatient: React.FC = () => {
 				throw new Error("Failed to create patient");
 			}
 				alert("Patient successfully updated!");
+				router.back(); 
+				
+
 
 		} catch (error) {
 			console.error("Error updating patient:", error);
@@ -361,6 +381,7 @@ const EditPatient: React.FC = () => {
 				id="allowSMS"
 				type="checkbox"
 				className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2"
+				checked={patient.notificationPreference?.allowSMS || false}
 				onChange={(e) =>handleObjectsChange("notificationPreference", "allowSMS", e.target.checked)
 				  }
 				/>
@@ -376,6 +397,7 @@ const EditPatient: React.FC = () => {
 				id="allowEmail"
 				type="checkbox"
 				className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2"
+				checked={patient.notificationPreference?.allowEmail || false}
 				onChange={(e) =>
 					handleObjectsChange("notificationPreference", "allowEmail", e.target.checked)
 				  }
@@ -393,6 +415,7 @@ const EditPatient: React.FC = () => {
 				id="allowPhoneCall"
 				type="checkbox"
 				className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2"
+				checked={patient.notificationPreference?.allowPhoneCall || false}
 				onChange={(e) =>
 					handleObjectsChange("notificationPreference", "allowPhoneCall", e.target.checked)
 				  }

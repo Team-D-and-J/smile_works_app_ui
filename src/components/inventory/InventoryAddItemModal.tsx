@@ -72,7 +72,11 @@ export default function ProductTable() {
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>, id: string, field: string) => {
+	const handleChange = (
+		event: React.ChangeEvent<HTMLInputElement>,
+		id: string,
+		field: string
+	) => {
 		setFormData({
 			...formData,
 			[id]: {
@@ -128,7 +132,7 @@ export default function ProductTable() {
 		setSortConfig({ key: columnKey, direction });
 	};
 
-	// First filter the products based on input filters	
+	// First filter the products based on input filters
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const filteredProducts = products.filter((product: any) => {
 		return (
@@ -168,7 +172,7 @@ export default function ProductTable() {
 
 	// Then sort the filtered products based on sortConfig
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const sortedProducts = [...filteredProducts].sort((a: any, 	b: any) => {
+	const sortedProducts = [...filteredProducts].sort((a: any, b: any) => {
 		if (!sortConfig.key) return 0;
 		let aValue = a[sortConfig.key];
 		let bValue = b[sortConfig.key];
@@ -187,7 +191,7 @@ export default function ProductTable() {
 		<>
 			<button
 				onClick={handleOpen}
-				className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+				className="ml-4 bg-[#0A3981] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 			>
 				Add Product
 			</button>
