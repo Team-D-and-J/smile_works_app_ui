@@ -7,201 +7,206 @@ import { FiX } from "react-icons/fi";
 import Link from "next/link";
 import { IconType } from "react-icons";
 import { FiSearch } from "react-icons/fi";
-import Graph from "./graph"
+import Graph from "./graph";
 import { getAppointmentsToday } from "./lib/wrapperApi";
 
 // Define the type for StatCard props
 interface StatCardProps {
-  icon: IconType;
-  text: string;
-  number: number;
-  textColor: string;
+	icon: IconType;
+	text: string;
+	number: number;
+	textColor: string;
 }
 
 // Reusable StatCard component
 const StatCard: React.FC<StatCardProps> = ({
-  icon: Icon,
-  text,
-  number,
-  textColor,
+	icon: Icon,
+	text,
+	number,
+	textColor,
 }) => {
-  return (
-    <div
-      className={`flex flex-col w-1/3 h-24 items-center ${textColor} p-4 shadow-[0px_2px_4px_rgba(0,0,0,0.8)]`}
-    >
-      <div className="flex flex-row gap-2 items-center">
-        <Icon className="text-xl" /> {/* Icon is properly used */}
-        <span className={`${textColor}`}>{text}</span>
-      </div>
-      <p className={`text-4xl ${textColor}`}>{number}</p>
-    </div>
-  );
+	return (
+		<div
+			className={`flex flex-col w-1/3 h-24 items-center ${textColor} p-4 shadow-[0px_2px_4px_rgba(0,0,0,0.8)]`}
+		>
+			<div className="flex flex-row gap-2 items-center">
+				<Icon className="text-xl" /> {/* Icon is properly used */}
+				<span className={`${textColor}`}>{text}</span>
+			</div>
+			<p className={`text-4xl ${textColor}`}>{number}</p>
+		</div>
+	);
 };
 const Page: React.FC = () => {
-  const [currentDate, setCurrentDate] = useState("");
-  const [name, setname] = useState<string | null>(null);
-  const [todaysAppointments, setTodaysAppointments] = useState<number>(0);
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    const date = new Date();
-    const weekday = date.toLocaleDateString(undefined, { weekday: "long" });
-    const day = date.getDate(); // Returns the numeric day
-    const year = date.getFullYear(); // Returns the full year
-    setCurrentDate(`${weekday} ${day}, ${year}`);
-  
-    const fetchAppointmentsByDay = async () => {
-      try {
-        const today = new Date().toISOString().split("T")[0]; // Get today's date
-        const data = await getAppointmentsToday(today); // Fetch appointments
-  
-        console.log("Fetched Appointments Data:", data);
-        
-        // Log the structure of each appointment
-        data.forEach((appointment, index) => {
-          console.log(`Appointment ${index + 1}:`, appointment); // Check what fields are inside appointment
-          
-          // If patient data is inside a specific field, access it here
-          if (appointment.patient) {
-            console.log(`Patient for Appointment ${index + 1}:`, appointment.patient);
-          }
-        });
-  
-        setTodaysAppointments(data || []); // Ensure it doesn't break if `data` is undefined
-      } catch (error) {
-        console.error("Error fetching appointments:", error);
-      } finally {
-        setLoading(false);
-      }
-    };  
-    fetchAppointmentsByDay();
-  }, []);
-      
+	const [currentDate, setCurrentDate] = useState("");
+	const [name, setname] = useState<string | null>(null);
+	const [todaysAppointments, setTodaysAppointments] = useState<number>(0);
+	const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const storedname = localStorage.getItem("name");
-    setname(storedname);
-  }, []);
+	useEffect(() => {
+		const date = new Date();
+		const weekday = date.toLocaleDateString(undefined, { weekday: "long" });
+		const day = date.getDate(); // Returns the numeric day
+		const year = date.getFullYear(); // Returns the full year
+		setCurrentDate(`${weekday} ${day}, ${year}`);
 
-  return (
-    <>
-      <div className=" flex flex-col w-full h-full">
-        {/* First section */}
-          <div className="flex w-full my-2 ">
-            <div className="flex flex-col text-left w-2/3 h-auto px-8 py-5 justify-center  ">
-              <p className="mb-3 text-4xl text-[#001F3F]">
-                Welcome {name ? name : "Guest"}!
-              </p>
-              <p className="mb-3 text-xl text-left text-[#001F3F]">
-                {currentDate}
-              </p>
-            </div>
-          </div>
+		const fetchAppointmentsByDay = async () => {
+			try {
+				const today = new Date().toISOString().split("T")[0]; // Get today's date
+				const data = await getAppointmentsToday(today); // Fetch appointments
 
-          {/* Second section */}
-            {/* First column 3 boxes and graph */}
-            <div className="flex flex-col-2">
-              <div className="w-2/3">
-                <div className="flex flex-row gap-2 mx-2 my-4 h-[180px] items-start h-16">
-                  <StatCard
-                    icon={FiCalendar}
-                    text="Total Appointments"
-                    textColor="text-[#001F3F]"
-                    number={9}
-                  />
-                  <StatCard
-                    icon={FiX}
-                    text="Cancelled Appointments"
-                    textColor="text-[#001F3F]"
-                    number={3}
-                  />
-                  <StatCard
-                    icon={FiSlash}
-                    text="Missed Appointments"
-                    textColor="text-[#001F3F]"
-                    number={2}
-                  />
-                </div>
+				console.log("Fetched Appointments Data:", data);
 
-            {/*Pie Chart Section */}
-            <div className="flex-row justify-center  py-6">
-              <h3 className="w-full mx-auto text-center text-xl text-[#001F3F] font-bold">
-                Weekly Appointment Trends
-              </h3>
-              <Graph />
-            </div>
-            </div>
-            {/* 2nd column schedule*/}
-            <div className="flex w-1/3 m-auto items-center justify-center">
-              <a href="#"
-                className="block max-w-sm p-6 bg-[#E8F9FF] border border-gray-200 rounded-lg shadow-sm 
+				// Log the structure of each appointment
+				data.forEach((appointment, index) => {
+					console.log(`Appointment ${index + 1}:`, appointment); // Check what fields are inside appointment
+
+					// If patient data is inside a specific field, access it here
+					if (appointment.patient) {
+						console.log(
+							`Patient for Appointment ${index + 1}:`,
+							appointment.patient
+						);
+					}
+				});
+
+				setTodaysAppointments(data || []); // Ensure it doesn't break if `data` is undefined
+			} catch (error) {
+				console.error("Error fetching appointments:", error);
+			} finally {
+				setLoading(false);
+			}
+		};
+		fetchAppointmentsByDay();
+	}, []);
+
+	useEffect(() => {
+		const storedname = localStorage.getItem("name");
+		setname(storedname);
+	}, []);
+
+	return (
+		<>
+			<div className=" flex flex-col w-full h-full">
+				{/* First section */}
+				<div className="flex w-full my-2 ">
+					<div className="flex flex-col text-left w-2/3 h-auto px-8 py-5 justify-center  ">
+						<p className="mb-3 text-4xl text-[#001F3F]">
+							Welcome {name ? name : "Guest"}!
+						</p>
+						<p className="mb-3 text-xl text-left text-[#001F3F]">
+							{currentDate}
+						</p>
+					</div>
+				</div>
+
+				{/* Second section */}
+				{/* First column 3 boxes and graph */}
+				<div className="flex flex-col-2">
+					<div className="w-2/3">
+						<div className="flex flex-row gap-2 mx-2 my-4 h-[180px] items-start h-16">
+							<StatCard
+								icon={FiCalendar}
+								text="Total Appointments"
+								textColor="text-[#001F3F]"
+								number={9}
+							/>
+							<StatCard
+								icon={FiX}
+								text="Cancelled Appointments"
+								textColor="text-[#001F3F]"
+								number={3}
+							/>
+							<StatCard
+								icon={FiSlash}
+								text="Missed Appointments"
+								textColor="text-[#001F3F]"
+								number={2}
+							/>
+						</div>
+
+						{/*Pie Chart Section */}
+						<div className="flex-row justify-center  py-6">
+							<h3 className="w-full mx-auto text-center text-xl text-[#001F3F] font-bold">
+								Weekly Appointment Trends
+							</h3>
+							<Graph />
+						</div>
+					</div>
+					{/* 2nd column schedule*/}
+					<div className="flex w-1/3 m-auto items-center justify-center">
+						<a
+							href="#"
+							className="block max-w-sm p-6 bg-[#E8F9FF] border border-gray-200 rounded-lg shadow-sm 
                           hover:bg-gray-100 h-[600px]"
-                >
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-textDark">
-                  Schedules of the day
-                </h5>
-                <div className="bg-white h-[80px] m-2">Monday 23rd, 2025 8am</div>
-                <div className="bg-white h-[80px] m-2">Monday 23rd, 2025 8am</div>
-                <div className="bg-white h-[80px] m-2">Monday 23rd, 2025 8am</div>
-                <div className="bg-white h-[80px] m-2">Monday 23rd, 2025 8am</div>
-              </a>
-             
-            </div>
-        </div>
+						>
+							<h5 className="mb-2 text-2xl font-bold tracking-tight text-textDark">
+								Schedules of the day
+							</h5>
+							<div className="bg-white h-[80px] m-2">
+								Monday 23rd, 2025 8am
+							</div>
+							<div className="bg-white h-[80px] m-2">
+								Monday 23rd, 2025 8am
+							</div>
+							<div className="bg-white h-[80px] m-2">
+								Monday 23rd, 2025 8am
+							</div>
+							<div className="bg-white h-[80px] m-2">
+								Monday 23rd, 2025 8am
+							</div>
+						</a>
+					</div>
+				</div>
 
+				<hr className="border-t-2 border-gray-300 w-3/4 mx-auto my-6" />
+				{/* Third section */}
+				<div
+					className="flex-row w-full mx-auto justify-center items-center py-4"
+					style={{ minHeight: "100px" }}
+				>
+					<h3 className="w-full mx-auto text-center text-xl text-[#001F3F] font-bold">
+						Quick Access
+					</h3>
+					<div className="w-full mx-auto ml-24 px-4 py-1 lg:py-0 sm:px-6 lg:px-36">
+						<dl className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-4">
+							<Link
+								href="/patientEducation"
+								className="flex flex-col bg-btnDark cursor-pointer rounded-lg border border-black px-2 py-2 w-24 h-16 text-center hover:bg-[#0A3981] hover:border-gray-500 transition-all transform hover:scale-105"
+							>
+								<dt className="order-last  text-sm font-medium text-blue-100">
+									Patient Education
+								</dt>
+								<div className="flex items-center mx-auto gap-2 p-1 "></div>
+							</Link>
 
+							<Link
+								href="/patient"
+								className="flex flex-col rounded-lg border border-black px-2 py-2 w-24 h-16 text-center bg-btnDark hover:bg-[#0A3981] hover:border-gray-500 transition-all transform hover:scale-105"
+							>
+								<dt className="order-last text-sm font-medium text-blue-100">
+									Search Patient
+								</dt>
 
-        <hr className="border-t-2 border-gray-300 w-3/4 mx-auto my-6" />
-        {/* Third section */}
-        <div
-          className="flex-row w-full mx-auto justify-center items-center py-4"
-          style={{ minHeight: "100px" }}
-        >
-          <h3 className="w-full mx-auto text-center text-xl text-[#001F3F] font-bold">
-            Quick Access
-          </h3>
-          <div className="w-full mx-auto ml-24 px-4 py-1 lg:py-0 sm:px-6 lg:px-36">
-            <dl className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-4">
-              <Link
-                href="/patientEducation"
-                className="flex flex-col bg-btnDark cursor-pointer rounded-lg border border-black px-2 py-2 w-24 h-16 text-center hover:bg-[#0A3981] hover:border-gray-500 transition-all transform hover:scale-105"
-              >
-                <dt className="order-last  text-sm font-medium text-blue-200">
-                  Patient Education
-                </dt>
-                <div className="flex items-center mx-auto gap-2 p-1 ">
-                </div>
-              </Link>
+								<div className="flex items-center mx-auto gap-2 p-1 "></div>
+							</Link>
 
-              <Link
-                href="/patient"
-                className="flex flex-col rounded-lg border border-black px-2 py-2 w-24 h-16 text-center bg-btnDark hover:bg-[#0A3981] hover:border-gray-500 transition-all transform hover:scale-105"
-              >
-                <dt className="order-last text-sm font-medium text-blue-200">
-                  Search Patient
-                </dt>
+							<Link
+								href="/patient/createPatient"
+								className="flex flex-col rounded-lg border border-black px-2 py-2 w-24 h-16 text-center bg-btnDark hover:bg-[#0A3981] hover:border-gray-500 transition-all transform hover:scale-105"
+							>
+								<dt className="order-last text-sm font-medium text-blue-100">
+									Create Patient
+								</dt>
 
-                <div className="flex items-center mx-auto gap-2 p-1 ">
-                </div>
-              </Link>
-
-              <Link
-                href="/patient/createPatient"
-                className="flex flex-col rounded-lg border border-black px-2 py-2 w-24 h-16 text-center bg-btnDark hover:bg-[#0A3981] hover:border-gray-500 transition-all transform hover:scale-105"
-              >
-                <dt className="order-last text-sm font-medium text-blue-200">
-                  Create Patient
-                </dt>
-
-                <div className="flex items-center mx-auto gap-2 p-1 ">
-                </div>
-              </Link>
-            </dl>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+								<div className="flex items-center mx-auto gap-2 p-1 "></div>
+							</Link>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</>
+	);
 };
 
 export default Page;
