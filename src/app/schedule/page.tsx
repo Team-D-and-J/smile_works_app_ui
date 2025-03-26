@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { getAPI, deleteAPI } from "@/utils/fetchApi";
+import { getAPI, putAPI } from "@/utils/fetchApi";
 import { useRouter } from "next/navigation";
 import moment from "moment";
 
@@ -47,19 +47,21 @@ const AppointmentSchedule: React.FC = () => {
       const query = { filter };
       const data = await getAPI("/schedule", query);
       setSchedule(data);
-      console.log("Schedule fetched:", data);
     } catch (error) {
       console.error("Failed to fetch schedule", error);
       setSchedule({});
     }
   };
 
-  const handleDelete = async (id: string) => {
+  const handleCancel = async (id: string) => {
+    const confirmed = window.confirm("Are you sure you want to cancel this appointment?");
+    if (!confirmed) return;
+
     try {
-      await deleteAPI(`/appointment/${id}`);
+      await putAPI(`/appointment/${id}`, { status: "Cancelled" });
       fetchSchedule();
     } catch (error) {
-      console.error("Delete failed", error);
+      console.error("Cancellation failed", error);
     }
   };
 
@@ -150,7 +152,7 @@ const AppointmentSchedule: React.FC = () => {
                 >
                   <div className="w-1/6">
                     {view === "week"
-                      ? `${moment(appt.date).format("ddd")} - ${appt.time}`
+                      ? `${moment(appt.date).format("dddd")} - ${appt.time}`
                       : appt.time}
                   </div>
 
@@ -174,10 +176,10 @@ const AppointmentSchedule: React.FC = () => {
 
                   <div className="w-1/6 text-right">
                     <button
-                      onClick={() => handleDelete(appt._id)}
-                      className="bg-red-600 text-white px-3 py-1 rounded text-sm"
+                      onClick={() => handleCancel(appt._id)}
+                      className="bg-yellow-500 text-black px-3 py-1 rounded text-sm hover:bg-yellow-400"
                     >
-                      Delete
+                      Cancel
                     </button>
                   </div>
                 </div>
