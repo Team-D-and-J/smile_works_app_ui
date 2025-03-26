@@ -163,7 +163,7 @@ const InventoryTable = () => {
 			</h2>
 			<div className="mb-4 flex justify-center">
 				<InventoryAddItemModal />
-				<button className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+				<button className="ml-4 bg-[#0A3981] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
 					<Link href="/inventory/ordering">Place Order</Link>
 				</button>
 			</div>

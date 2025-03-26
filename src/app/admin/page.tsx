@@ -6,14 +6,14 @@ const page = () => {
 		<div className="flex flex-col ">
 			<h1 className="text-3xl p-4">Admin Page</h1>
 			<Link href="/admin/inventorysetup">
-				<p className="p-4 m-4 text-xl bg-blue-500 rounded-xl text-white">
-					Inventory Setup
-				</p>
+				<div className="bg-[#0A3981] text-white text-center rounded-lg p-4 m-4">
+					<p className="text-xl">Inventory Setup</p>
+				</div>
 			</Link>
 			<Link href="/admin/clinic">
-				<p className="p-4 m-4 text-xl bg-blue-500 rounded-xl text-white">
-					Clinic Setup
-				</p>
+				<div className="bg-[#0A3981] text-white text-center rounded-lg p-4 m-4">
+					<p className="text-xl">Clinic Setup</p>
+				</div>
 			</Link>
 		</div>
 	);
