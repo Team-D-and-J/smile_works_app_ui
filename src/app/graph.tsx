@@ -13,7 +13,6 @@ useEffect(() => {
     try {
       const today = new Date().toISOString().split("T")[0]; // Get today's date
 
-      // 🔴 You were using `fetch` directly (no auth) — Switch to `getAppointmentsCountByWeek`
       const data = await getAppointmentsCountByWeek(today);
       
       console.log("Fetched Data:", data); // Debug API response

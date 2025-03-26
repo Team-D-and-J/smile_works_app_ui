@@ -13,11 +13,12 @@ const navigationLinks = [
   { href: "/", text: "Dashboard", icon: TbHeartRateMonitor },
   { href: "/patient", text: "Patient", icon: BsFillPersonLinesFill },
   { href: "/schedule", text: "Schedule", icon: FaRegCalendarAlt },
-  { href: "/treatmentMaster", text: "Treatments", icon: FaClipboardList },
+  { href: "/clinicTreatments", text: "Treatments", icon: FaClipboardList },
   { href: "/inventory", text: "Inventory", icon: MdOutlineInventory },
   { href: "/inventory/ordering", text: "Orders", icon: BsCart4 },
   { href: "/insurance", text: "Insurance", icon: AiOutlineFileProtect },
   { href: "/billing", text: "Billing", icon: MdAttachMoney },
+  { href: "/users", text: "Users", icon: MdAttachMoney },
 ];
 
 const LeftNavigation = () => {

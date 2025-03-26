@@ -6,6 +6,7 @@ import SmileWorksLogo from "@/components/SmileWorksLogo";
 
 const Page = () => {
 	const [username, setUsername] = useState<string>("");
+	const [name, setName] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const [error, setError] = useState<string | null>(null);
 	const router = useRouter();
@@ -21,13 +22,17 @@ const Page = () => {
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ username, password }),
+					body: JSON.stringify({ username, password, name }),
 				}
 			);
 			if (response.ok) {
 				const data = await response.json();
 				localStorage.setItem("token", data.token);
-				localStorage.setItem("username", username); // Store the username
+				localStorage.setItem("username", username);
+				localStorage.setItem("name", data.name); 
+				setName(name)
+				console.log(name)
+				console.log(data.name)
 				router.push("/");
 			} else {
 				setError("Invalid credentials");
@@ -36,12 +41,13 @@ const Page = () => {
 			if (error instanceof Error)
 				setError(error.message || "Invalid login credentials");
 		}
+		setName(name)
 	}
 
 	return (
 		<div className="flex min-h-screen justify-center items-center bg-gray-100">
-			<div className="flex flex-col w-full max-w-md h-[700px] p-6 bg-white rounded-lg shadow-lg">
-				<h2 className="text-2xl font-bold text-center mb-6">Smile Works Admin Login</h2>
+			<div className="flex flex-col w-full max-w-sm h-[600px] p-6 bg-white rounded-lg shadow-lg">
+				<h2 className="text-2xl font-bold text-center mb-2">Smile Works Admin Login</h2>
 				<SmileWorksLogo />
 				<form onSubmit={handleLogin} className="flex flex-col gap-4">
 					<label htmlFor="username" className="text-sm font-medium">
@@ -64,7 +70,7 @@ const Page = () => {
 						id="password"
 						required
 						value={password}
-						onChange={(e) => setPassword(e.target.value)}
+						onChange={(e) => setPassword(e.target.value) }
 						className="p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 						placeholder="Enter your password"
 					/>
