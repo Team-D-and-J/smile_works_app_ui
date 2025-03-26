@@ -439,7 +439,7 @@ function InventoryReorder({ inventory }) {
 					{!confirmed ? (
 						<button
 							onClick={handleConfirm}
-							className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
+							className="bg-btnDark hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
 						>
 							Confirm Selection
 						</button>
@@ -565,7 +565,7 @@ function InventoryReorder({ inventory }) {
 										<td className="px-4 py-2 border-b border-gray-200 text-center space-x-2">
 											<button
 												onClick={() => handleReceiveOrder(order)}
-												className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-1 px-3 rounded"
+												className="bg-btnDark hover:bg-blue-600 text-white font-semibold py-1 px-3 rounded"
 											>
 												Receive
 											</button>
