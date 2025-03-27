@@ -4,7 +4,6 @@ import Link from "next/link";
 import { MenuButton, MenuItems, Menu, MenuItem } from "@headlessui/react";
 import { VscChevronDown } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
-import moment from "moment";
 
 const sortOptions = [
   { name: "By Treatment", href: "#", current: true },
@@ -12,14 +11,14 @@ const sortOptions = [
   { name: "Oldest", href: "#", current: false },
 ];
 
-const clinicTreatments: React.FC = () => {
+const ClinicTreatments: React.FC = () => {
   const [jwt, setJwt] = useState<string | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [treatments, setTreatments] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [sortedTreatments, setSortedTreatments] = useState<any[]>([]); // Store sorted treatments
+  // const [sortedTreatments, setSortedTreatments] = useState<any[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [sortOption, setSortOption] = useState<string>("By Type");
   const router = useRouter();
 
@@ -59,9 +58,9 @@ const clinicTreatments: React.FC = () => {
     fetchTreatments();
   }, [jwt]);
 
-	function handleTreatmentClick(treatmentId: string ) {
-		router.replace(`/clinicTreatments/${treatmentId}`)
-	}
+  function handleTreatmentClick(treatmentId: string) {
+    router.replace(`/clinicTreatments/${treatmentId}`);
+  }
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -115,31 +114,33 @@ const clinicTreatments: React.FC = () => {
         </MenuItems>
       </Menu>
 
-			<div className="w-10/12  mx-auto mt-2">
-				{/* Column Headers */}
-				<div className="p-3 border-b border-gray-300 grid grid-cols-5 gap-2 font-bold bg-gray-100">
-					<p>Treatment</p>
-					<p>Patient ID</p>
-					<p>Status</p>
-					<p>Last Update</p>
-				</div>
-				{/**Dropdown for filtering Treatments Master */}
-                <ul className="space-y-2">
-                    {treatments.map((treatment) => (
-                        <div
-                        key={treatment._id}
-                        className="p-3 border border-gray-300 rounded-md grid grid-cols-5 gap-2 place-items-start cursor-pointer hover:outline hover:outline-2 hover:outline-gray-500"
-						onClick={() => handleTreatmentClick(treatment._id)}
-                        >
-                        <p>{treatment.treatmentMasterId}</p> {/* Display treatmentMasterId */}
-                        <p>{treatment.patientId}</p> {/* Display treatment steps */}
-                        <p>{treatment.status}</p> {/* Display treatment status */}
-                        <p>{treatment._metadata.lastUpdatedAt}</p> {/* Display createdAt */}
-                        </div>
-                    ))}
-                    </ul>
-			</div>
-		</div>
-	);
+      <div className="w-10/12  mx-auto mt-2">
+        {/* Column Headers */}
+        <div className="p-3 border-b border-gray-300 grid grid-cols-5 gap-2 font-bold bg-gray-100">
+          <p>Treatment</p>
+          <p>Patient ID</p>
+          <p>Status</p>
+          <p>Last Update</p>
+        </div>
+        {/**Dropdown for filtering Treatments Master */}
+        <ul className="space-y-2">
+          {treatments.map((treatment) => (
+            <div
+              key={treatment._id}
+              className="p-3 border border-gray-300 rounded-md grid grid-cols-5 gap-2 place-items-start cursor-pointer hover:outline hover:outline-2 hover:outline-gray-500"
+              onClick={() => handleTreatmentClick(treatment._id)}
+            >
+              <p>{treatment.treatmentMasterId}</p>{" "}
+              {/* Display treatmentMasterId */}
+              <p>{treatment.patientId}</p> {/* Display treatment steps */}
+              <p>{treatment.status}</p> {/* Display treatment status */}
+              <p>{treatment._metadata.lastUpdatedAt}</p>{" "}
+              {/* Display createdAt */}
+            </div>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
 };
-export default clinicTreatments;
+export default ClinicTreatments;
