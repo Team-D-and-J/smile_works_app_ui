@@ -68,7 +68,7 @@ const ClinicTreatments: React.FC = () => {
   return (
     <div className="flex flex-col w-full p-4 min-h-screen bg-secondaryDark ">
       <div className="flex items-start justify-between bg-secondaryLight p-4 rounded-md max-w-7xl">
-        <h2 className="text-2xl  font-bold">Clinic Treatments</h2>{" "}
+        <h2 className="text-2xl font-bold">Clinic Treatments</h2>{" "}
         <div className="flex space-x-4 gap-4">
           <Link href="/treatmentMaster">
             <button className="border-2 border-btnLight text-md text-textDark px-4 py-2 rounded-md hover:bg-btnLight">
@@ -114,7 +114,7 @@ const ClinicTreatments: React.FC = () => {
         </MenuItems>
       </Menu>
 
-      <div className="w-10/12  mx-auto mt-2">
+      <div className="w-11/12  mx-auto mt-2">
         {/* Column Headers */}
         <div className="p-3 border-b border-gray-300 grid grid-cols-5 gap-2 font-bold bg-gray-100">
           <p>Treatment</p>
@@ -123,11 +123,11 @@ const ClinicTreatments: React.FC = () => {
           <p>Last Update</p>
         </div>
         {/**Dropdown for filtering Treatments Master */}
-        <ul className="space-y-2">
+        <ul className="space-y-0">
           {treatments.map((treatment) => (
             <div
               key={treatment._id}
-              className="p-3 border border-gray-300 rounded-md grid grid-cols-5 gap-2 place-items-start cursor-pointer hover:outline hover:outline-2 hover:outline-gray-500"
+              className="p-3 border border-gray-300 rounded-md grid bg-secondaryLight grid-cols-5 gap-2 place-items-start cursor-pointer hover:bg-secondaryDark"
               onClick={() => handleTreatmentClick(treatment._id)}
             >
               <p>{treatment.treatmentMasterId}</p>{" "}
