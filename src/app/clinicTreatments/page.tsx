@@ -59,25 +59,9 @@ const clinicTreatments: React.FC = () => {
     fetchTreatments();
   }, [jwt]);
 
-  // useEffect(() => {
-  // 	const sortedData = [...treatments].sort((a, b) => {
-  // 		if (sortOption === "By Type") {
-  // 			return a.type.localeCompare(b.type); // Sort alphabetically by type
-  // 		}
-  // 		if (sortOption === "Price: Low to High") {
-  // 			return a.cost - b.cost; // Sort by increasing cost
-  // 		}
-  // 		if (sortOption === "Price: High to Low") {
-  // 			return b.cost - a.cost; // Sort by decreasing cost
-  // 		}
-  // 		return 0; // Default: No sorting change
-  // 	});
-  // 	setSortedTreatments(sortedData); // Update sorted treatments state
-  // }, [sortOption, treatments]);
-
-  function handleTreatmentClick(treatmentId: string) {
-    router.replace(`/clinicTreatments/${treatmentId}`);
-  }
+	function handleTreatmentClick(treatmentId: string ) {
+		router.replace(`/clinicTreatments/${treatmentId}`)
+	}
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -131,32 +115,50 @@ const clinicTreatments: React.FC = () => {
         </MenuItems>
       </Menu>
 
-      <div className="max-w-7xl bg-secondaryLight rounded-md p-4 ">
-        {/* Column Headers */}
-        <div className="p-3 border-b border-gray-300 grid grid-cols-4 gap-2 font-bold bg-secondaryDark rounded-md">
-          <p>Name</p>
-          <p>Description</p>
-          <p>Type</p>
-          <p>Cost</p>
-        </div>
-        {/**Dropdown for filtering Treatments Master */}
-        <ul className="space-y-2">
-          {treatments.map((treatment) => (
-            <div
-              key={treatment._id}
-              className="p-3 border rounded-md grid grid-cols-[minmax(30px,_50px)_minmax(200px,_1000px)_minmax(50px,_100px)_minmax(50px,_90px)] gap-2 place-items-start cursor-pointer  hover:bg-secondaryDark "
-            >
-              <p>{treatment.treatmentMasterId}</p>
-              <p>{treatment.steps}</p>
-              <p>{treatment.status}</p>
-              <p>
-                {moment(treatment._metadata.createdAt).format("MMM D, YYYY")}
-              </p>
-            </div>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
+				<MenuItems
+					transition
+					className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white ring-1 shadow-2xl ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+				>
+					<div className="py-1">
+						{sortOptions.map((option) => (
+							<MenuItem
+								key={option.name}
+								as="a"
+								onClick={() => setSortOption(option.name)}
+								className="block px-4 py-2 text-sm data-[active]:bg-gray-100 data-[active]:text-gray-900 text-gray-700"
+							>
+								{option.name}
+							</MenuItem>
+						))}
+					</div>
+				</MenuItems>
+			</Menu>
+
+			<div className="w-10/12  mx-auto mt-2">
+				{/* Column Headers */}
+				<div className="p-3 border-b border-gray-300 grid grid-cols-5 gap-2 font-bold bg-gray-100">
+					<p>Treatment</p>
+					<p>Patient ID</p>
+					<p>Status</p>
+					<p>Last Update</p>
+				</div>
+				{/**Dropdown for filtering Treatments Master */}
+                <ul className="space-y-2">
+                    {treatments.map((treatment) => (
+                        <div
+                        key={treatment._id}
+                        className="p-3 border border-gray-300 rounded-md grid grid-cols-5 gap-2 place-items-start cursor-pointer hover:outline hover:outline-2 hover:outline-gray-500"
+						onClick={() => handleTreatmentClick(treatment._id)}
+                        >
+                        <p>{treatment.treatmentMasterId}</p> {/* Display treatmentMasterId */}
+                        <p>{treatment.patientId}</p> {/* Display treatment steps */}
+                        <p>{treatment.status}</p> {/* Display treatment status */}
+                        <p>{treatment._metadata.lastUpdatedAt}</p> {/* Display createdAt */}
+                        </div>
+                    ))}
+                    </ul>
+			</div>
+		</div>
+	);
 };
 export default clinicTreatments;
