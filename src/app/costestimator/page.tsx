@@ -38,28 +38,34 @@ const Page = () => {
   const [token , setToken] = useState<string | null>(null);
 
 	useEffect(() => {
-		return setToken(localStorage.getItem("token"));
-	}, []);
+    setToken(localStorage.getItem("token"));
+  }, []);
+
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const treatments = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/treatmentmaster`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        ).then((res) => res.json());
-        setProcedures(treatments);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      }
-    };
-    fetchData();
-  }, [token]);
+  const fetchData = async () => {
+    if (!token) return; 
+
+    try {
+      const treatments = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/treatmentmaster`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      ).then((res) => res.json());
+
+      setProcedures(treatments); 
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
+  };
+
+  fetchData();
+}, [token]);
+
 
   useEffect(() => {
     if (selectedData.selectedProcedure) {
