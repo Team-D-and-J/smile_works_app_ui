@@ -54,7 +54,9 @@ const AppointmentSchedule: React.FC = () => {
   };
 
   const handleCancel = async (id: string) => {
-    const confirmed = window.confirm("Are you sure you want to cancel this appointment?");
+    const confirmed = window.confirm(
+      "Are you sure you want to cancel this appointment?"
+    );
     if (!confirmed) return;
 
     try {
@@ -70,7 +72,9 @@ const AppointmentSchedule: React.FC = () => {
   };
 
   const goToPreviousWeek = () => {
-    const newDate = moment(selectedDate).subtract(7, "days").format("YYYY-MM-DD");
+    const newDate = moment(selectedDate)
+      .subtract(7, "days")
+      .format("YYYY-MM-DD");
     setSelectedDate(newDate);
   };
 
@@ -85,7 +89,9 @@ const AppointmentSchedule: React.FC = () => {
 
   const weekRange = `${moment(selectedDate)
     .startOf("week")
-    .format("MMM D")} - ${moment(selectedDate).endOf("week").format("MMM D, YYYY")}`;
+    .format("MMM D")} - ${moment(selectedDate)
+    .endOf("week")
+    .format("MMM D, YYYY")}`;
 
   return (
     <div className="w-full max-w-6xl mx-auto bg-white p-8 rounded-lg shadow-md">
@@ -100,11 +106,17 @@ const AppointmentSchedule: React.FC = () => {
             />
           ) : (
             <div className="flex items-center gap-2">
-              <button onClick={goToPreviousWeek} className="px-2 py-1 text-sm bg-gray-200 rounded">
+              <button
+                onClick={goToPreviousWeek}
+                className="px-2 py-1 text-sm bg-gray-200 rounded"
+              >
                 ◀
               </button>
               <span className="font-medium">{weekRange}</span>
-              <button onClick={goToNextWeek} className="px-2 py-1 text-sm bg-gray-200 rounded">
+              <button
+                onClick={goToNextWeek}
+                className="px-2 py-1 text-sm bg-gray-200 rounded"
+              >
                 ▶
               </button>
             </div>
@@ -144,7 +156,10 @@ const AppointmentSchedule: React.FC = () => {
       {Object.entries(schedule).map(([dateKey, appointments]) =>
         Array.isArray(appointments)
           ? appointments
-              .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+              .sort(
+                (a, b) =>
+                  new Date(a.date).getTime() - new Date(b.date).getTime()
+              )
               .map((appt, index) => (
                 <div
                   key={index}
@@ -158,7 +173,9 @@ const AppointmentSchedule: React.FC = () => {
 
                   <div className="w-2/6">
                     <div className="font-semibold">{appt.patientName}</div>
-                    <div className="text-sm text-gray-500">{appt.treatmentMaster}</div>
+                    <div className="text-sm text-gray-500">
+                      {appt.treatmentMaster}
+                    </div>
                   </div>
 
                   <div className="w-1/3 text-center">

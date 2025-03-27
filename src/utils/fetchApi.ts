@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const BACKEND = process.env.PORT || "http://localhost:4000/api";
 console.log(BACKEND);
 interface GetOptions {

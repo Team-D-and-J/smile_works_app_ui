@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import QuickAccessLink from "@/components/dashboard/QuickAccessLink";
 import { BarChart } from "@mui/x-charts/BarChart";
 import StatCard from "@/components/dashboard/StatCards";
-import { getAppointmentsToday } from "./lib/wrapperApi";
 import { getAppointmentsCountByWeek } from "./lib/wrapperApi";
 import UpcomingAppointment from "@/components/dashboard/UpcomingAppointment";
 

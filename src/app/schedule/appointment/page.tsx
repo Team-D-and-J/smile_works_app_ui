@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -28,76 +29,79 @@ const AppointmentForm = () => {
   const [searchName, setSearchName] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [error, setError] = useState("");
-  const [availableTimes, setAvailableTimes] = useState<string[]>(generateTimeSlots());
+  const [availableTimes, setAvailableTimes] = useState<string[]>(
+    generateTimeSlots()
+  );
   const [doctors, setDoctors] = useState<any[]>([]);
 
   const allTimes = generateTimeSlots();
 
   const checkAvailability = async () => {
-  try {
-    const query = { filter: { date } }; 
-    const response = await getAPI("/appointment/utils/available-times", query);
-    const times = response.available || allTimes;
+    try {
+      const query = { filter: { date } };
+      const response = await getAPI(
+        "/appointment/utils/available-times",
+        query
+      );
+      const times = response.available || allTimes;
 
-    setAvailableTimes(times);
-    if (!times.includes(time)) setTime("");
-  } catch (err) {
-    setAvailableTimes(allTimes);
-  }
-};
+      setAvailableTimes(times);
+      if (!times.includes(time)) setTime("");
+    } catch (err) {
+      console.error("Failed to check availability", err);
+      setAvailableTimes(allTimes);
+    }
+  };
 
   const fetchDoctors = async () => {
-  try {
-    const response = await getAPI("/users", {
-      filter: { "roles.isDoctor": true }
-    });
+    try {
+      const response = await getAPI("/users", {
+        filter: { "roles.isDoctor": true },
+      });
 
-    const doctorList = Array.isArray(response)
-      ? response
-      : response.results || [];
+      const doctorList = Array.isArray(response)
+        ? response
+        : response.results || [];
 
-    console.log("Fetched doctors:", doctorList); 
-    setDoctors(doctorList);
-  } catch (err) {
-    console.error("Failed to fetch doctors", err);
-  }
-};
-
+      console.log("Fetched doctors:", doctorList);
+      setDoctors(doctorList);
+    } catch (err) {
+      console.error("Failed to fetch doctors", err);
+    }
+  };
 
   const handleSearch = async () => {
-  try {
-    const query = { filter: { name: searchName } };
-    const response = await getAPI("/patient", query);
+    try {
+      const query = { filter: { name: searchName } };
+      const response = await getAPI("/patient", query);
 
-    const nameLower = searchName.toLowerCase();
+      const nameLower = searchName.toLowerCase();
 
-    const filteredResults = (response?.results || []).filter((p: { name: string; }) =>
-      p.name.toLowerCase().includes(nameLower)
-    );
+      const filteredResults = (response?.results || []).filter(
+        (p: { name: string }) => p.name.toLowerCase().includes(nameLower)
+      );
 
-    if (filteredResults.length > 0) {
-      setSearchResults(filteredResults);
-      setError("");
-    } else {
-      setSearchResults([]);
-      setError("No patients found.");
+      if (filteredResults.length > 0) {
+        setSearchResults(filteredResults);
+        setError("");
+      } else {
+        setSearchResults([]);
+        setError("No patients found.");
+      }
+    } catch (err) {
+      console.error("Patient search failed", err);
+      setError("Error searching patient.");
     }
-  } catch (err) {
-    console.error("Patient search failed", err);
-    setError("Error searching patient.");
-  }
-};
-
+  };
 
   useEffect(() => {
     fetchDoctors();
   }, []);
 
-
   useEffect(() => {
     checkAvailability();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date]);
-
 
   const handleSubmit = async () => {
     console.log("Submitting with doctors:", doctors);
@@ -112,7 +116,10 @@ const AppointmentForm = () => {
     }
 
     const randomDoctor = doctors[Math.floor(Math.random() * doctors.length)];
-    const dateTime = moment(`${date} ${time}`, "YYYY-MM-DD hh:mm A").toISOString();
+    const dateTime = moment(
+      `${date} ${time}`,
+      "YYYY-MM-DD hh:mm A"
+    ).toISOString();
 
     const payload = {
       doctorId: randomDoctor._id,
@@ -167,7 +174,9 @@ const AppointmentForm = () => {
       <div className="flex gap-8">
         {/* Date & Time */}
         <div className="w-1/3">
-          <label className="block text-sm font-medium text-gray-700">Date</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Date
+          </label>
           <input
             type="date"
             value={date}
@@ -175,7 +184,9 @@ const AppointmentForm = () => {
             className="mt-1 p-2 border rounded w-full"
           />
 
-          <label className="block mt-4 text-sm font-medium text-gray-700">Time</label>
+          <label className="block mt-4 text-sm font-medium text-gray-700">
+            Time
+          </label>
           <div className="grid grid-cols-2 gap-2 mt-2">
             {availableTimes.map((slot) => (
               <button
