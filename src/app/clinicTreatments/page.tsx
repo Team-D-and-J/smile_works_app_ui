@@ -143,4 +143,7 @@ const ClinicTreatments: React.FC = () => {
     </div>
   );
 };
+
 export default ClinicTreatments;
+
+

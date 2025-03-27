@@ -38,8 +38,9 @@ const Page = () => {
   const [token , setToken] = useState<string | null>(null);
 
 	useEffect(() => {
-		return setToken(localStorage.getItem("token"));
-	}, []);
+    setToken(localStorage.getItem("token"));
+  }, []);
+
 
   useEffect(() => {
     if(!token) return;
