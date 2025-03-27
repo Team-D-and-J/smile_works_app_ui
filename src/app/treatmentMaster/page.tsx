@@ -81,7 +81,9 @@ const TreatmentsMaster: React.FC = () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
-
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+};
   return (
     <div className="flex flex-col w-full p-8 min-h-screen bg-gray-100">
       <BackButton />
@@ -152,7 +154,7 @@ const TreatmentsMaster: React.FC = () => {
               <p>{treatment.name}</p>
               <p>{treatment.description}</p>
               <p>{treatment.type}</p>
-              <p>{treatment.cost}</p>
+              <p>{formatCurrency(treatment.cost)}</p>
             </div>
           ))}
         </ul>
