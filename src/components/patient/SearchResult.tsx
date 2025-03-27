@@ -14,7 +14,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ patient }) => {
   return (
     <div
       onClick={handleClick}
-      className="p-3 border rounded-md grid grid-cols-4 gap-4 place-items-start cursor-pointer hover:bg-secondaryDark "
+      className="p-3 mb-[2px] border rounded-md grid grid-cols-4 gap-4 place-items-start cursor-pointer hover:bg-secondaryDark "
       key="patient._id"
     >
       <p>{patient.name}</p>

@@ -22,7 +22,7 @@ interface Address {
   zip: string;
 }
 
-const RESULTS_PER_PAGE = 15;
+const RESULTS_PER_PAGE = 10;
 
 const Page = () => {
   const [results, setResults] = useState<Patient[]>([]);
