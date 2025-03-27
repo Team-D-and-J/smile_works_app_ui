@@ -38,17 +38,6 @@ const Page: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const date = new Date();
-    const formattedDate = date.toLocaleDateString(undefined, {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    });
-    setCurrentDate(formattedDate);
-  }, []);
-
-  useEffect(() => {
     const name = localStorage.getItem("name");
     const jwt = localStorage.getItem("token");
     setName(name);
@@ -61,7 +50,8 @@ const Page: React.FC = () => {
         const today = new Date().toISOString().split("T")[0];
         const data = await getAppointmentsCountByWeek(today);
         const graphDataFormat = data.map((day: Day) => day.count);
-        setWeekAppointmentCount(graphDataFormat || []);
+        const formattedData = graphDataFormat.slice(0, 5);
+        setWeekAppointmentCount(formattedData || []);
       } catch (error) {
         console.error("Error fetching appointments:", error);
       }
@@ -118,13 +108,13 @@ const Page: React.FC = () => {
                 Today&apos;s Appointments
               </h2>
               <div className="flex flex-row items-start ">
-                <StatCard text="Total" textColor="text-textDark" number={9} />
+                <StatCard text="Total" textColor="text-textDark" number={12} />
                 <StatCard
                   text="Cancelled"
                   textColor="text-textDark"
                   number={3}
                 />
-                <StatCard text="Missed" textColor="text-textDark" number={2} />
+                <StatCard text="Missed" textColor="text-textDark" number={1} />
               </div>
             </div>
             {/*Bar Graph Section */}
@@ -177,11 +167,11 @@ const Page: React.FC = () => {
               Quick Access
             </h3>
             <div className="flex flex-col gap-4 justify-start items-center">
+              <QuickAccessLink href="/costestimator" text="Cost Estimation" />
               <QuickAccessLink
-                href="/costestimator"
-                text="Cost Estimation"
+                href="/patient/createPatient"
+                text="Create Patient"
               />
-              <QuickAccessLink href="/patient/createPatient" text="Create Patient" />
               <QuickAccessLink href="/treatmentMaster" text="Treatments" />
             </div>
           </div>
