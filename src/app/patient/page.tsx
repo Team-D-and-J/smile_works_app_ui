@@ -124,12 +124,6 @@ const Page = () => {
           <h1 className="text-2xl font-bold">Patient Search</h1>
           <div>
             <Link
-              href="/patienteducation"
-              className="p-2 mr-4 text-btnDark hover:bg-btnLight bg-secondaryLight rounded-md border-2 border-btnLight"
-            >
-              Patient Education
-            </Link>
-            <Link
               href="/patient/createPatient"
               className="p-2 mr-4 text-btnDark hover:bg-btnLight bg-secondaryLight rounded-md border-2 border-btnLight"
             >

@@ -12,9 +12,6 @@ const PatientButtonsMenu: React.FC<PatientButtonsMenuProps> = ({patientId}) => {
                 <>               
                     {/* Links Section */}
                     <div className="justify-end space-x-2">
-                        <Link href="/patientEducation" className="border-2 border-btnLight text-xs text-[#080e12] px-2 py-2 rounded-md hover:bg-btnLight">
-                            Patient Education
-                        </Link>
                         <Link href="/costestimator" className="border-2 border-btnLight text-xs text-textDark px-2 py-2 rounded-md hover:bg-btnLight">
                             Cost Estimation
                         </Link>

@@ -42,6 +42,7 @@ const Page = () => {
 	}, []);
 
   useEffect(() => {
+    if(!token) return;
     const fetchData = async () => {
       try {
         const treatments = await fetch(
