@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
+import BackButton from "@/components/BackButton";
 
 const DentalAppointmentFollowup: React.FC = () => {
   // Default values
@@ -93,8 +94,13 @@ const DentalAppointmentFollowup: React.FC = () => {
   };
 
   return (
+    <>
     <div className="min-h-screen bg-gray-100 p-5 w-full flex justify-center items-center">
+    <div className="absolute left-40 top-24 gap-4 flex justify-end">
+        <BackButton />
+      </div>
       <div className="w-full max-w-md">
+
         <div className="mb-4 text-sm text-gray-700">Follow up message for:</div>
 
         <div className="mb-8">
@@ -227,6 +233,7 @@ const DentalAppointmentFollowup: React.FC = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 

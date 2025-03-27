@@ -160,7 +160,7 @@ const TreatmentHistory: React.FC<TreatmentHistoryProps> = ({ patientId }) => {
                     <tr key={treatment._id} className="hover:bg-gray-50">
                       <td className="px-4 py-2 border text-center">
                         <Link
-                          href={`/treatment/${treatment._id}`}
+                          href={`/clinicTreatments/${treatment._id}`}
                           className="text-blue-600 hover:underline"
                         >
                           {treatment._id}
