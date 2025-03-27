@@ -100,9 +100,6 @@ const CreatePatient: React.FC = () => {
         
             {/* Buttons menu Section */}
             <div className="absolute right-0 pr-8 gap-4 flex justify-end">
-                <Link href="/patientEducation" className="border-2 border-btnLight text-xs text-textDark px-2 py-2 rounded-md hover:bg-btnLight">
-                Patient Education
-                </Link>
                 <Link href="/costestimator" className="border-2 border-btnLight text-xs text-textDark px-2 py-2 rounded-md hover:bg-btnLight">
                     Cost Estimation
                  </Link>            
