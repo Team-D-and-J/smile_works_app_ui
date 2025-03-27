@@ -124,14 +124,14 @@ const Page = () => {
           <h1 className="text-2xl font-bold">Patient Search</h1>
           <div>
             <Link
-              href="/patientEducation"
-              className="p-2 mr-4 text-textDark  hover:border-btnDark bg-btnLight rounded-md"
+              href="/patienteducation"
+              className="p-2 mr-4 text-btnDark hover:bg-btnLight bg-secondaryLight rounded-md border-2 border-btnLight"
             >
               Patient Education
             </Link>
             <Link
               href="/patient/createPatient"
-              className="p-2 border bg-btnLight text-textDark rounded-md"
+              className="p-2 mr-4 text-btnDark hover:bg-btnLight bg-secondaryLight rounded-md border-2 border-btnLight"
             >
               Create New Patient
             </Link>
@@ -214,6 +214,12 @@ const Page = () => {
       {currentResults.length > 0 && (
         <>
           <div className="max-w-7xl flex flex-col bg-secondaryLight rounded-md p-4 mt-4 ">
+            <div className="p-3 bg-secondaryDark mb-2 grid grid-cols-4 gap-2 font-bold rounded-md ">
+              <p>Name</p>
+              <p>Phone Number</p>
+              <p>Address</p>
+              <p>Date of Birth</p>
+            </div>
             {currentResults.map((patient) => (
               <SearchResult patient={patient} key={patient._id} />
             ))}
