@@ -82,61 +82,57 @@ const TreatmentsMaster: React.FC = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
-};
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(amount);
+  };
   return (
-    <div className="flex flex-col w-full p-8 min-h-screen bg-gray-100">
-
-      <div className="flex items-start justify-between bg-secondaryLight p-4 rounded-md max-w-7xl mb-5 pb-16">
-      <BackButton />
+    <div className="flex flex-col w-full p-4 min-h-screen bg-gray-100">
+      <div className="flex items-start justify-between bg-secondaryLight p-4 rounded-md max-w-7xl mb-4">
+        <BackButton />
         <h2 className="text-2xl font-bold ml-16">
           Treatments provided by clinic
         </h2>
         <Link href="/costestimator">
-          <button className="border-2 border-btnLight text-xs text-textDark px-2 py-2 rounded-md hover:bg-btnLight">
+          <button className="border-2 border-btnLight text-md text-textDark px-2 py-2 rounded-md hover:bg-btnLight">
             Cost Estimation
           </button>
         </Link>
       </div>
 
- 
-      {/**Dropdown for filtering Treatments Master */}
-      <Menu
-        as="div"
-        className="absolute right-28 top-48 inline-block text-left"
-      >
-        <div>
-          <MenuButton className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-            Filter
-            <VscChevronDown
-              aria-hidden="true"
-              className="-mr-1 ml-1 size-5 shrink-0 text-gray-400 group-hover:text-gray-500"
-            />
-          </MenuButton>
-        </div>
-
-        <MenuItems
-          transition
-          className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white ring-1 shadow-2xl ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-        >
-          <div className="py-1">
-            {sortOptions.map((option) => (
-              <MenuItem
-                key={option.name}
-                as="a"
-                onClick={() => setSortOption(option.name)}
-                className="block px-4 py-2 text-sm data-[active]:bg-gray-100 data-[active]:text-gray-900 text-gray-700"
-              >
-                {option.name}
-              </MenuItem>
-            ))}
-          </div>
-        </MenuItems>
-      </Menu>
-
       <div className="max-w-7xl bg-secondaryLight rounded-md p-4">
+        <Menu as="div" className=" justify-self-end">
+          <div>
+            <MenuButton className="group inline-flex justify-center text-md font-medium text-gray-700 hover:text-gray-900 relative">
+              Filter
+              <VscChevronDown
+                aria-hidden="true"
+                className="-mr-1 ml-1 size-5 shrink-0 text-gray-400 group-hover:text-gray-500"
+              />
+            </MenuButton>
+          </div>
+
+          <MenuItems
+            transition
+            className="absolute right-12 z-10 mt-2 w-38  rounded-md bg-white ring-1 shadow-2xl ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+          >
+            <div className="py-1">
+              {sortOptions.map((option) => (
+                <MenuItem
+                  key={option.name}
+                  as="a"
+                  onClick={() => setSortOption(option.name)}
+                  className="block px-4 py-2 text-sm data-[active]:bg-gray-100 data-[active]:text-gray-900 text-gray-700"
+                >
+                  {option.name}
+                </MenuItem>
+              ))}
+            </div>
+          </MenuItems>
+        </Menu>
         {/* Column Headers */}
-        <div className="p-3 border-b border-gray-300 grid grid-cols-4 gap-2 font-bold bg-gray-100">
+        <div className="p-3  border-gray-300 grid grid-cols-[2fr_4fr_1fr_1fr] gap-2 font-bold bg-gray-200 rounded-md mb-2">
           <p>Treatment Name</p>
           <p>Description</p>
           <p>Type</p>
@@ -146,7 +142,7 @@ const TreatmentsMaster: React.FC = () => {
         <ul className="space-y-2">
           {sortedTreatments.map((treatment) => (
             <div
-              className="p-3 border border-gray-300 rounded-md grid grid-cols-4 gap-2 place-items-start bg-secondaryLight cursor-pointer  hover:bg-secondaryDark"
+              className="p-3 border border-gray-300 rounded-md grid grid-cols-[2fr_4fr_1fr_1fr] gap-2 place-items-start bg-secondaryLight cursor-pointer  hover:bg-secondaryDark"
               key={treatment._id}
               onClick={() => handleTreatmentClick(treatment._id)}
             >
