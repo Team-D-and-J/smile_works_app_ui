@@ -79,60 +79,56 @@ const Users: React.FC = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="flex flex-col w-full p-8 min-h-screen bg-gray-100">
-      <BackButton />
-      <div className="flex mb-8 mt-2 items-start">
-        <h2 className="text-2xl font-bold ml-16">Clinic Staff</h2>
+    <div className="flex flex-col w-full p-4 min-h-screen bg-secondaryDark">
+      <div className="flex mt-2 justify-between items-center bg-secondaryLight rounded-md p-4">
+        <h2 className="text-2xl font-bold ">Clinic Staff</h2>
+        <Menu as="div" className="">
+          <div>
+            <MenuButton className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+              Filter
+              <VscChevronDown
+                aria-hidden="true"
+                className="-mr-1 ml-1 size-5 shrink-0 text-gray-400 group-hover:text-gray-500"
+              />
+            </MenuButton>
+          </div>
+
+          <MenuItems
+            transition
+            className="absolute right-12 z-10 mt-2 w-30 origin-top-right rounded-md bg-white ring-1 shadow-2xl ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+          >
+            <div className="py-1">
+              {sortOptions.map((option) => (
+                <MenuItem
+                  key={option.name}
+                  as="a"
+                  onClick={() => setSortOption(option.name)}
+                  className="block px-4 py-2 text-sm data-[active]:bg-gray-100 data-[active]:text-gray-900 text-gray-700"
+                >
+                  {option.name}
+                </MenuItem>
+              ))}
+            </div>
+          </MenuItems>
+        </Menu>
       </div>
 
       {/* Dropdown for filtering Users */}
-      <Menu
-        as="div"
-        className="absolute right-28 top-48 inline-block text-left"
-      >
-        <div>
-          <MenuButton className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-            Filter
-            <VscChevronDown
-              aria-hidden="true"
-              className="-mr-1 ml-1 size-5 shrink-0 text-gray-400 group-hover:text-gray-500"
-            />
-          </MenuButton>
-        </div>
 
-        <MenuItems
-          transition
-          className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white ring-1 shadow-2xl ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-        >
-          <div className="py-1">
-            {sortOptions.map((option) => (
-              <MenuItem
-                key={option.name}
-                as="a"
-                onClick={() => setSortOption(option.name)}
-                className="block px-4 py-2 text-sm data-[active]:bg-gray-100 data-[active]:text-gray-900 text-gray-700"
-              >
-                {option.name}
-              </MenuItem>
-            ))}
-          </div>
-        </MenuItems>
-      </Menu>
-
-      <div className="w-10/12  mx-auto mt-2">
+      <div className="max-w-7xl rounded-md">
         {/* Column Headers */}
-        <div className="p-3 border-b border-gray-300 grid grid-cols-4 gap-2 font-bold bg-gray-100">
-          <p>Name</p>
-          <p>Email</p>
-          <p>Phone Number</p>
-          <p>Address</p>
-        </div>
 
         {/* Users List */}
-        <ul className="space-y-2">
+        <div className="bg-secondaryLight rounded-md p-4 mt-4">
+          <div className="p-3 border-b border-gray-300 grid grid-cols-4 gap-2 font-bold bg-secondaryDark rounded-md">
+            <p>Name</p>
+            <p>Email</p>
+            <p>Phone Number</p>
+            <p>Address</p>
+          </div>
           {sortedUsers.map((user) => (
             <div
-              className="p-3 border border-gray-300 rounded-md grid grid-cols-4 gap-2 place-items-start cursor-pointer hover:outline hover:outline-2 hover:outline-gray-500"
+              className="p-3 border border-gray-300 rounded-md grid grid-cols-4 gap-2 place-items-start cursor-pointer bg-secondaryLight hover:bg-secondaryDark mb-2"
               key={user._id}
             >
               <p>{user.name}</p>
@@ -145,7 +141,7 @@ const Users: React.FC = () => {
               </p>
             </div>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );
