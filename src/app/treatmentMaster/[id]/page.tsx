@@ -20,7 +20,6 @@ function TreatmentPage() {
 
   return (
     <>
-
       <div className="w-3/4 p-6">
       <BackButton />
             {/* Patient Profile */}
@@ -45,26 +44,26 @@ function TreatmentPage() {
                                 {RenderInfo("Supplies", treatmentMasterData.supplies ? Object.entries(treatmentMasterData.supplies)
                                 .map(([key, value]) => `${key}: ${value}`).join(", ") : "No supplies"
                               )}
-<div>
-  <h3>Data Points</h3>
-  {treatmentMasterData.dataPoints && treatmentMasterData.dataPoints.length > 0 ? (
-    treatmentMasterData.dataPoints.map((point, index) => (
-      <div key={index} className="mb-2 p-2 border-b">
-        <p>
-          <strong>{point.displayName}</strong> ({point.type})
-        </p>
-        {point.enum && point.enum.length > 0 && (
-          <p>Options: <span className="text-blue-500">{point.enum.join(", ")}</span></p>
-        )}
-        <p>Mandatory: <span className={point.isMandatory ? "text-green-500" : "text-red-500"}>
-          {point.isMandatory ? "Yes" : "No"}
-        </span></p>
-      </div>
-    ))
-  ) : (
-    <p className="text-gray-500">No data points available</p>
-  )}
-</div>
+                  <div>
+                    <h3>Data Points</h3>
+                    {treatmentMasterData.dataPoints && treatmentMasterData.dataPoints.length > 0 ? (
+                      treatmentMasterData.dataPoints.map((point, index) => (
+                        <div key={index} className="mb-2 p-2 border-b">
+                          <p>
+                            <strong>{point.displayName}</strong> ({point.type})
+                          </p>
+                          {point.enum && point.enum.length > 0 && (
+                            <p>Options: <span className="text-blue-500">{point.enum.join(", ")}</span></p>
+                          )}
+                          <p>Mandatory: <span className={point.isMandatory ? "text-green-500" : "text-red-500"}>
+                            {point.isMandatory ? "Yes" : "No"}
+                          </span></p>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-gray-500">No data points available</p>
+                    )}
+                  </div>
 
                             </div>
                         </div>

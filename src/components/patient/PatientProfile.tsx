@@ -71,6 +71,17 @@ const PatientProfile: React.FC<PatientProfilePageProps> = ({ patientId }) => {
                                         )}
                                     </span>
                                 </div>
+                                  {/* Phone Notifications Checkbox */}
+                                  <div className="grid grid-cols-2 py-2">
+                                    <span className="text-gray-600 font-medium">Phone Notifications:</span>
+                                    <span className="text-gray-900 font-semibold text-left">
+                                        {patientData.notificationPreference.allowPhoneCall ? (
+                                            <ImCheckboxChecked className="text-green-600 text-2xl" />
+                                        ) : (
+                                            <ImCheckboxUnchecked className="text-red-500 text-2xl" />
+                                        )}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>

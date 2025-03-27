@@ -87,14 +87,6 @@ const Users: React.FC = () => {
 				<h2 className="text-2xl font-bold ml-16">Clinic Staff</h2>
 			</div>
 
-			<div className="absolute right-0 pr-8 gap-4 flex justify-end">
-				<Link href="/costestimator">
-					<button className="border-2 border-btnLight text-xs text-textDark px-2 py-2 rounded-md hover:bg-btnLight">
-						Cost Estimation
-					</button>
-				</Link>
-			</div>
-
 			{/* Dropdown for filtering Users */}
 			<Menu as="div" className="absolute right-28 top-48 inline-block text-left">
 				<div>
@@ -128,7 +120,7 @@ const Users: React.FC = () => {
 
 			<div className="w-10/12  mx-auto mt-2">
 				{/* Column Headers */}
-				<div className="p-3 border-b border-gray-300 grid grid-cols-5 gap-2 font-bold bg-gray-100">
+				<div className="p-3 border-b border-gray-300 grid grid-cols-4 gap-2 font-bold bg-gray-100">
 					<p>Name</p>
 					<p>Email</p>
 					<p>Phone Number</p>
@@ -139,14 +131,14 @@ const Users: React.FC = () => {
 				<ul className="space-y-2">
 					{sortedUsers.map((user) => (
 						<div
-							className="p-3 border border-gray-300 rounded-md grid grid-cols-5 gap-2 place-items-start cursor-pointer hover:outline hover:outline-2 hover:outline-gray-500"
+							className="p-3 border border-gray-300 rounded-md grid grid-cols-4 gap-2 place-items-start cursor-pointer hover:outline hover:outline-2 hover:outline-gray-500"
 							key={user._id}
 				
 						>
 							<p>{user.name}</p>
-							<p>{user.email}</p>
-							<p>{user.phoneNumber}</p>
-							<p>{user.address ? `${user.address.street}, ${user.address.city}, ${user.address.state}, ${user.address.zip}` : 'N/A'}</p>
+							<p className="text-sm">{user.email}</p>
+							<p className="text-sm">{user.phoneNumber}</p>
+							<p className="text-sm">{user.address ? `${user.address.street}, ${user.address.city}, ${user.address.state}, ${user.address.zip}` : 'N/A'}</p>
 						</div>
 					))}
 				</ul>
