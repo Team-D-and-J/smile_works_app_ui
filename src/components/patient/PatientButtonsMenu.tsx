@@ -21,7 +21,7 @@ const PatientButtonsMenu: React.FC<PatientButtonsMenuProps> = ({patientId}) => {
                         <Link href="/patient/notificationManagment" className="border-2 border-btnLight text-xs text-textDark px-2 py-2 rounded-md hover:bg-btnLight">
                             Notification Managment
                         </Link>
-                        <Link href="/treatment" className="bg-btnDark text-xs text-white px-4 py-2 rounded-md">
+                        <Link href="/treatment" className="bg-btnDark text-xs text-white px-4 py-2 rounded-md pointer-events-none">
                             Start Treatment
                         </Link>
                     </div>

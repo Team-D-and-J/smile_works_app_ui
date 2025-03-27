@@ -178,10 +178,10 @@ const Page: React.FC = () => {
             </h3>
             <div className="flex flex-col gap-4 justify-start items-center">
               <QuickAccessLink
-                href="/patienteducation"
-                text="Patient Education"
+                href="/costestimator"
+                text="Cost Estimation"
               />
-              <QuickAccessLink href="/createPatient" text="Create Patient" />
+              <QuickAccessLink href="/patient/createPatient" text="Create Patient" />
               <QuickAccessLink href="/treatmentMaster" text="Treatments" />
             </div>
           </div>
