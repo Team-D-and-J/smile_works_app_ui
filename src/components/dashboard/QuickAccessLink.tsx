@@ -9,7 +9,7 @@ function QuickAccessLink({ href, text }: QuickAccessLinkProps) {
   return (
     <Link
       href={href}
-      className="border p-2 rounded-md w-32 h-32 flex justify-center items-center hover:bg-gray-100 text-center bg-btnLight"
+      className=" p-2 rounded-md w-32 h-24 flex justify-center items-center hover:border border-btnDark text-center bg-btnLight"
     >
       <p>{text}</p>
     </Link>
