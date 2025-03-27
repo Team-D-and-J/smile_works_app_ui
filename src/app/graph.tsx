@@ -14,7 +14,7 @@ useEffect(() => {
       const today = new Date().toISOString().split("T")[0]; // Get today's date
 
       const data = await getAppointmentsCountByWeek(today);
-      
+      console.log(data)
       console.log("Fetched Data:", data); // Debug API response
 
       const daysOrder = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];

@@ -27,6 +27,8 @@ const LatestTreatment: React.FC<LatestTreatmentPageProps> = ({ patientId }) => {
     const [doctorData, setDoctorData] = useState<Doctor | null>(null);
     const [loadingTreatment, setLoadingTreatment] = useState<boolean>(false);
     const [loadingDoctor, setLoadingDoctor] = useState<boolean>(false);
+	const [isModalOpen, setModalOpen] = useState(false);
+    const [pdfSrc, setPdfSrc] = useState<string | null>(null);
 
     // Get Latest Treatment
     const latestTreatment = treatments?.length
@@ -89,18 +91,39 @@ const LatestTreatment: React.FC<LatestTreatmentPageProps> = ({ patientId }) => {
         fetchDoctorData();
     }, [latestTreatment]);
 
+    const openModal = (pdfPath: string) => {
+        setPdfSrc(pdfPath); // Set the PDF source when opening the modal
+        setModalOpen(true); // Open the modal
+    };
+
+	const closeModal = () => {
+		setModalOpen(false);
+		setPdfSrc(null);
+	};
+
     return (
         <div className="mt-8 bg-white p-5 rounded-lg shadow-md border border-gray-200">
             <div className="flex justify-between items-center gap-2 mb-4 text-gray-600">
                 <h3 className="text-lg font-semibold text-gray-900">Current Treatment Details</h3>
                 {/* Link to Latest Treatment */}
                 {latestTreatment && (
-                    <Link href={`/treatment/${latestTreatment._id}`}>
+                    <Link href={`/clinicTreatments/${latestTreatment._id}`}>
                         <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-800">
                             Go to Current Treatment
                         </button>
                     </Link>
                 )}
+
+            </div>
+            <div className="flex justify-between items-center gap-2 mb-4 text-gray-600">
+                <h3 className="text-lg font-semibold text-gray-900">Current Treatment Details</h3>
+                {/* Link to Latest Treatment */}
+                <button
+    className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-800"
+    onClick={() => openModal("/pdfs/tooth_extractions.pdf")}
+>
+    Patient Education
+</button>
 
             </div>
 
@@ -129,6 +152,29 @@ const LatestTreatment: React.FC<LatestTreatmentPageProps> = ({ patientId }) => {
             ) : (
                 <p className="text-gray-500">No treatments available.</p>
             )}
+
+
+			{isModalOpen && (
+				<div
+					className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+					onClick={closeModal}
+				>
+					<div
+						className="bg-white p-6 w-3/4 max-w-3xl rounded-lg relative"
+						onClick={(e) => e.stopPropagation()}
+					>
+						<button
+							className="absolute top-3 right-5 text-2xl"
+							onClick={closeModal}
+						>
+							&times;
+						</button>
+						{pdfSrc && (
+							<iframe src={pdfSrc} className="w-full h-[500px]" />
+						)}
+					</div>
+				</div>
+			)}
         </div>
     );
 }
