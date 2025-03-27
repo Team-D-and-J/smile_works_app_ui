@@ -86,14 +86,12 @@ const TreatmentsMaster: React.FC = () => {
 };
   return (
     <div className="flex flex-col w-full p-8 min-h-screen bg-gray-100">
+
+      <div className="flex items-start justify-between bg-secondaryLight p-4 rounded-md max-w-7xl mb-5 pb-16">
       <BackButton />
-      <div className="flex mb-8 mt-2 items-start">
         <h2 className="text-2xl font-bold ml-16">
           Treatments provided by clinic
         </h2>
-      </div>
-
-      <div className="absolute right-0 pr-8 gap-4 flex justify-end">
         <Link href="/costestimator">
           <button className="border-2 border-btnLight text-xs text-textDark px-2 py-2 rounded-md hover:bg-btnLight">
             Cost Estimation
@@ -101,6 +99,7 @@ const TreatmentsMaster: React.FC = () => {
         </Link>
       </div>
 
+ 
       {/**Dropdown for filtering Treatments Master */}
       <Menu
         as="div"
@@ -135,9 +134,9 @@ const TreatmentsMaster: React.FC = () => {
         </MenuItems>
       </Menu>
 
-      <div className="w-10/12  mx-auto mt-2">
+      <div className="max-w-7xl bg-secondaryLight rounded-md p-4">
         {/* Column Headers */}
-        <div className="p-3 border-b border-gray-300 grid grid-cols-5 gap-2 font-bold bg-gray-100">
+        <div className="p-3 border-b border-gray-300 grid grid-cols-4 gap-2 font-bold bg-gray-100">
           <p>Treatment Name</p>
           <p>Description</p>
           <p>Type</p>
@@ -147,7 +146,7 @@ const TreatmentsMaster: React.FC = () => {
         <ul className="space-y-2">
           {sortedTreatments.map((treatment) => (
             <div
-              className="p-3 border border-gray-300 rounded-md grid grid-cols-5 gap-2 place-items-start cursor-pointer hover:outline hover:outline-2 hover:outline-gray-500"
+              className="p-3 border border-gray-300 rounded-md grid grid-cols-4 gap-2 place-items-start bg-secondaryLight cursor-pointer  hover:bg-secondaryDark"
               key={treatment._id}
               onClick={() => handleTreatmentClick(treatment._id)}
             >
