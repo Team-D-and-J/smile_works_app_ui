@@ -15,11 +15,6 @@ const page = () => {
 					<p className="text-xl">Clinic Setup</p>
 				</div>
 			</Link>
-			<Link href="/admin/users">
-				<div className="bg-[#0A3981] text-white text-center rounded-lg p-4 m-4">
-					<p className="text-xl">Users Setup</p>
-				</div>
-			</Link>
 		</div>
 	);
 };

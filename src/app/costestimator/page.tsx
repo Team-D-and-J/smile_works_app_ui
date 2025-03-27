@@ -1,5 +1,6 @@
 "use client";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import BackButton from "@/components/BackButton";
 
 interface Procedure {
   name: string;
@@ -108,10 +109,16 @@ const Page = () => {
   }
 
   return (
+    
     <div className="min-h-screen w-full flex flex-col items-center pt-16 bg-gray-100 px-4">
+         <div className="absolute left-40 mt-[-35] gap-4 flex justify-end">
+        <BackButton />
+      </div>
+
       <h1 className="text-3xl font-bold text-gray-800 text-center mb-6">
         Procedure Cost Estimator
       </h1>
+
       <form
         onSubmit={handleForm}
         className="bg-white p-6 md:p-8 rounded-xl shadow-lg w-full max-w-md"

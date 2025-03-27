@@ -116,7 +116,7 @@ const LatestTreatment: React.FC<LatestTreatmentPageProps> = ({ patientId }) => {
 
             </div>
             <div className="flex justify-between items-center gap-2 mb-4 text-gray-600">
-                <h3 className="text-lg font-semibold text-gray-900">Current Treatment Details</h3>
+                <h3 className="text-lg font-semibold text-gray-900"></h3>
                 {/* Link to Latest Treatment */}
                 <button
     className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-800"
