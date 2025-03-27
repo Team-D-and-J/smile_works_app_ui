@@ -30,10 +30,11 @@ function TreatmentPage() {
               ) : (
                   <>
                   <h1 className="text-2xl font-bold ml-16"> {treatmentForPatient.name}</h1>
-
+                  <h2 className="text-2xl ml-24 font-bold">Treatment</h2>{" "}
                       <div className="flex justify-center mt-20">
                           {/* Basic Info */}
-                          <div className="bg-white p-5 rounded-lg shadow-md border border-gray-200">
+                          
+                          <div className="bg-white ml-12 p-5 w-[1200] h-[800] rounded-lg shadow-md border border-gray-200">
                               <div className="space-y-4">
                                   {RenderInfo("TreatmentID", treatmentForPatient._id)}
                                   {RenderInfo("OrganizationID", treatmentForPatient.organizationId )}

@@ -115,25 +115,6 @@ const clinicTreatments: React.FC = () => {
         </MenuItems>
       </Menu>
 
-				<MenuItems
-					transition
-					className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white ring-1 shadow-2xl ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-				>
-					<div className="py-1">
-						{sortOptions.map((option) => (
-							<MenuItem
-								key={option.name}
-								as="a"
-								onClick={() => setSortOption(option.name)}
-								className="block px-4 py-2 text-sm data-[active]:bg-gray-100 data-[active]:text-gray-900 text-gray-700"
-							>
-								{option.name}
-							</MenuItem>
-						))}
-					</div>
-				</MenuItems>
-			</Menu>
-
 			<div className="w-10/12  mx-auto mt-2">
 				{/* Column Headers */}
 				<div className="p-3 border-b border-gray-300 grid grid-cols-5 gap-2 font-bold bg-gray-100">
