@@ -85,7 +85,6 @@ const AppointmentSchedule: React.FC = () => {
 
   useEffect(() => {
     fetchSchedule();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view, selectedDate]);
 
   const weekRange = `${moment(selectedDate)
@@ -154,7 +153,7 @@ const AppointmentSchedule: React.FC = () => {
         </p>
       )}
 
-      {Object.entries(schedule).map(([appointments]) =>
+      {Object.entries(schedule).map(([dateKey, appointments]) =>
         Array.isArray(appointments)
           ? appointments
               .sort(
