@@ -74,7 +74,7 @@ const Page: React.FC = () => {
         );
         if (response.ok) {
           const data = await response.json();
-          const sliced = data.slice(0, 4);
+          const sliced = data.slice(0, 5);
           setAppointmentsToday(sliced);
         }
       } catch (error) {
@@ -88,8 +88,8 @@ const Page: React.FC = () => {
     <>
       <div className="flex flex-col w-full h-full bg-secondaryDark p-4 gap-4">
         {/* First section */}
-        <div className="flex w-full bg-secondaryLight rounded-md gap-4 max-w-7xl">
-          <div className="flex flex-col text-left w-2/3 h-auto px-8 py-5 justify-center  ">
+        <div className="flex bg-secondaryLight rounded-md gap-4 max-w-[1070px]">
+          <div className="flex flex-col text-left  h-auto px-8 py-5 justify-center  ">
             <p className="mb-3 text-4xl text-[#001F3F]">
               Welcome {name ? name : "Guest"}!
             </p>

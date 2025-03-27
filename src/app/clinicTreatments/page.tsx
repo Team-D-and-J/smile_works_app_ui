@@ -4,6 +4,7 @@ import Link from "next/link";
 import { MenuButton, MenuItems, Menu, MenuItem } from "@headlessui/react";
 import { VscChevronDown } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
+import moment from "moment";
 
 const sortOptions = [
   { name: "By Treatment", href: "#", current: true },
@@ -67,8 +68,8 @@ const ClinicTreatments: React.FC = () => {
 
   return (
     <div className="flex flex-col w-full p-4 min-h-screen bg-secondaryDark ">
-      <div className="flex items-start justify-between bg-secondaryLight p-4 rounded-md max-w-7xl">
-        <h2 className="text-2xl font-bold">Clinic Treatments</h2>{" "}
+      <div className="flex items-start justify-between bg-secondaryLight p-4 rounded-md max-w-7xl mb-2">
+        <h2 className="text-2xl font-bold">Clinic Treatments</h2>
         <div className="flex space-x-4 gap-4">
           <Link href="/treatmentMaster">
             <button className="border-2 border-btnLight text-md text-textDark px-4 py-2 rounded-md hover:bg-btnLight">
@@ -83,67 +84,67 @@ const ClinicTreatments: React.FC = () => {
         </div>
       </div>
 
-      {/**Dropdown for filtering Treatments Master */}
-      <Menu as="div" className="place-self-end p-4 max-w-7xl">
-        <div>
-          <MenuButton className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-            Filter
-            <VscChevronDown
-              aria-hidden="true"
-              className="-mr-1 ml-1 size-5 shrink-0 text-gray-400 group-hover:text-gray-500"
-            />
-          </MenuButton>
-        </div>
-
-        <MenuItems
-          transition
-          className="absolute right-12 z-10 mt-2 w-30 origin-top-right rounded-md bg-white ring-1 shadow-2xl ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-        >
-          <div className="py-1">
-            {sortOptions.map((option) => (
-              <MenuItem
-                key={option.name}
-                as="a"
-                onClick={() => setSortOption(option.name)}
-                className="block px-4 py-2 text-sm data-[active]:bg-gray-100 data-[active]:text-gray-900 text-gray-700"
-              >
-                {option.name}
-              </MenuItem>
-            ))}
+      <div className=" mt-2 p-4 bg-secondaryLight rounded-md max-w-7xl">
+        <Menu as="div" className="place-self-end pb-2 max-w-7xl">
+          <div>
+            <MenuButton className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+              Filter
+              <VscChevronDown
+                aria-hidden="true"
+                className="-mr-1 ml-1 size-5 shrink-0 text-gray-400 group-hover:text-gray-500"
+              />
+            </MenuButton>
           </div>
-        </MenuItems>
-      </Menu>
 
-      <div className="w-11/12  mx-auto mt-2">
+          <MenuItems
+            transition
+            className="absolute right-12 z-10 mt-2 w-30 origin-top-right rounded-md bg-white ring-1 shadow-2xl ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+          >
+            <div className="py-1">
+              {sortOptions.map((option) => (
+                <MenuItem
+                  key={option.name}
+                  as="a"
+                  onClick={() => setSortOption(option.name)}
+                  className="block px-4 py-2 text-sm data-[active]:bg-gray-100 data-[active]:text-gray-900 text-gray-700"
+                >
+                  {option.name}
+                </MenuItem>
+              ))}
+            </div>
+          </MenuItems>
+        </Menu>
         {/* Column Headers */}
-        <div className="p-3 border-b border-gray-300 grid grid-cols-5 gap-2 font-bold bg-gray-100">
+        <div className="p-3 border-b border-gray-300 grid grid-cols-[1fr_3fr_1fr_2fr] gap-2 font-bold bg-gray-200 rounded-md mb-2">
           <p>Treatment</p>
           <p>Patient ID</p>
           <p>Status</p>
           <p>Last Update</p>
         </div>
         {/**Dropdown for filtering Treatments Master */}
-        <ul className="space-y-0">
+        <div className="flex flex-col gap-1">
           {treatments.map((treatment) => (
             <div
               key={treatment._id}
-              className="p-3 border border-gray-300 rounded-md grid bg-secondaryLight grid-cols-5 gap-2 place-items-start cursor-pointer hover:bg-secondaryDark"
+              className="p-3 border border-gray-300 rounded-md grid bg-secondaryLight grid-cols-[1fr_3fr_1fr_2fr] gap-2 place-items-start cursor-pointer hover:bg-secondaryDark"
               onClick={() => handleTreatmentClick(treatment._id)}
             >
-              <p>{treatment.treatmentMasterId}</p>{" "}
+              <p>{treatment.treatmentMasterId}</p>
               {/* Display treatmentMasterId */}
               <p>{treatment.patientId}</p> {/* Display treatment steps */}
               <p>{treatment.status}</p> {/* Display treatment status */}
-              <p>{treatment._metadata.lastUpdatedAt}</p>{" "}
+              <p>
+                {moment(treatment._metadata.lastUpdatedAt).format(
+                  "hh:mm A, MMMM DD YYYY"
+                )}
+              </p>{" "}
               {/* Display createdAt */}
             </div>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );
 };
 
 export default ClinicTreatments;
-
-
