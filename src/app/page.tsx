@@ -86,9 +86,9 @@ const Page: React.FC = () => {
 
   return (
     <>
-      <div className="flex flex-col w-full h-full bg-secondaryDark p-4 gap-4">
+      <div className="flex flex-col w-full min-h-full bg-secondaryDark p-4 gap-4">
         {/* First section */}
-        <div className="flex bg-secondaryLight rounded-md gap-4 max-w-[1070px]">
+        <div className="flex bg-secondaryLight rounded-md gap-4 max-w-[1050px]">
           <div className="flex flex-col text-left  h-auto px-8 py-5 justify-center  ">
             <p className="mb-3 text-4xl text-[#001F3F]">
               Welcome {name ? name : "Guest"}!
@@ -173,6 +173,10 @@ const Page: React.FC = () => {
                 text="Create Patient"
               />
               <QuickAccessLink href="/treatmentMaster" text="Treatments" />
+              <QuickAccessLink
+                href="/inventory/ordering"
+                text="Inventory Ordering"
+              />
             </div>
           </div>
         </div>

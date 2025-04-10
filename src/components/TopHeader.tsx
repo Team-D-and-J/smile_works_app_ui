@@ -73,7 +73,7 @@ const TopNavigation = () => {
         <SmileWorksLogo />
       </div>
       <div className="text-5xl text-textLight font-custom drop-shadow-xl">
-        Smile Works
+        SmileWorks
       </div>
       <div
         className="relative flex items-center gap-2 p-1 cursor-pointer rounded-md hover:bg-white hover:bg-opacity-15"

@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* this disables dev mode error overlay for the presentation*/
+nextjs-portal {
+  display: none;
+}
+
 html,
 body {
   height: 100%;

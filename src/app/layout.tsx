@@ -68,21 +68,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen `}
       >
         {loading ? (
           <Spinner />
         ) : isLoginPage ? (
           children
         ) : (
-          <>
+          <div className="flex flex-col min-h-screen ">
             <TopHeader />
-            <div className="flex h-full">
+            <div className="flex flex-1 min-h-screen">
               <LeftNavigation />
-
               {children}
             </div>
-          </>
+          </div>
         )}
       </body>
     </html>
